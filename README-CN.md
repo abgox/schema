@@ -1,4 +1,4 @@
-## Some json schema
+## 一些 json schema
 
 -   `PSCompletions`
     -   [completion.json](./PSCompletions/completion.json)
