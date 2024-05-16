@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "required": [
+        "language"
+    ],
+    "properties": {
+        "language": {
+            "description": "设置可用的语言\n如果有效值不包括你指定的语言, 请提交一个 issue",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "zh-CN",
+                    "en-US"
+                ]
+            },
+            "minItems": 1
+        },
+        "hooks": {
+            "description": "是否使用 hooks",
+            "type": "boolean"
+        }
+    },
+    "additionalProperties": false
+}
