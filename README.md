@@ -1,6 +1,6 @@
 ## Some json schema
 
--   `PSCompletions`
+-   PSCompletions
 
     -   [completion.json](https://abgox.github.io/schema/PSCompletions/completion.json)
         -   [zh-CN](https://abgox.github.io/schema/PSCompletions/zh-CN/completion.json)
@@ -12,7 +12,7 @@
         -   [zh-CN](https://abgox.github.io/schema/PSCompletions/zh-CN/config.json)
         -   [en-US](https://abgox.github.io/schema/PSCompletions/en-US/config.json)
 
--   `Scoop`
-    -   manifest.json: The json file of an app manifest.
-        -   [zh-CN](https://abgox.github.io/schema/scoop/zh-CN/manifest.json)
-        -   [en-US](https://abgox.github.io/schema/scoop/en-US/manifest.json)
+-   [Scoop](./Scoop/README.md)
+    -   manifest.json : The json file of an app manifest.
+        -   [zh-CN](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json)
+        -   [en-US](https://abgox.github.io/schema/Scoop/en-US/manifest.json)
