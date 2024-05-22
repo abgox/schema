@@ -322,6 +322,9 @@
                     }
                 }
             }
+        },
+        "$schema": {
+            "description": "定义 Schema 架构\nDefine Schema."
         }
     },
     "additionalProperties": false

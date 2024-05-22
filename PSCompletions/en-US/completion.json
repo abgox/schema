@@ -322,6 +322,9 @@
                     }
                 }
             }
+        },
+        "$schema":{
+            "description": "Define Schema."
         }
     },
     "additionalProperties": false
