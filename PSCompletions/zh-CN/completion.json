@@ -120,7 +120,7 @@
                     "minItems": 1
                 },
                 "symbol": {
-                    "description": "类型:字符串或数组\n符号,在 options 中, 默认已经添加了一个 OptionTab",
+                    "description": "类型:字符串或数组\n符号(默认添加了 OptionTab)",
                     "oneOf": [
                         {
                             "type": "string",
@@ -173,82 +173,12 @@
                     ]
                 },
                 "next": {
-                    "description": "下一个命令补全, 这用来定义输入命令后按下 Tab 键后可以获取到的补全\n如果添加了 next , 会给当前命令的 symbol 自动添加一个 WriteSpaceTab",
+                    "description": "下一个命令补全, 这用来定义输入命令后按下 Tab 键后可以获取到的补全\n如果添加了 next, 会给当前命令的 symbol 自动添加 WriteSpaceTab",
                     "type": "array",
                     "items": {
                         "$ref": "#/$defs/root_item"
                     },
                     "minItems": 1
-                }
-            },
-            "additionalProperties": false
-        },
-        "common_options_item": {
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "properties": {
-                "name": {
-                    "description": "命令名称",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "alias": {
-                    "description": "命令别名",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "minItems": 1
-                },
-                "symbol": {
-                    "description": "类型:字符串或数组\n符号,在 common_options 中, 默认已经添加了一个 OptionTab\n无法添加 SpaceTab, 因为 common_options 不支持定义 next",
-                    "oneOf": [
-                        {
-                            "type": "string",
-                            "enum": [
-                                "WriteSpaceTab"
-                            ]
-                        },
-                        {
-                            "type": "array",
-                            "examples": [
-                                [],
-                                [
-                                    "{{",
-                                    "if($true){'WriteSpaceTab'}",
-                                    "}}"
-                                ]
-                            ],
-                            "items": {
-                                "type": "string",
-                                "examples": [
-                                    "WriteSpaceTab"
-                                ]
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
-                "tip": {
-                    "description": "补全提示信息",
-                    "examples": [
-                        "",
-                        []
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
                 }
             },
             "additionalProperties": false
@@ -275,7 +205,7 @@
             "description": "一些通用的选项, 这些选项会在任何情况下都出现",
             "type": "array",
             "items": {
-                "$ref": "#/$defs/common_options_item"
+                "$ref": "#/$defs/options_item"
             },
             "minItems": 1
         },

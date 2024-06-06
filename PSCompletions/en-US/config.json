@@ -631,7 +631,7 @@
             "type": "boolean"
         },
         "alias":{
-            "description": "The default trigger alias for completion.",
+            "description": "The default trigger alias for completion. If not set, the directory name will be used.",
             "type":"string",
             "minLength":1
         },

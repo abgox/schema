@@ -631,7 +631,7 @@
             "type": "boolean"
         },
         "alias":{
-            "description": "补全的默认触发别名",
+            "description": "补全的默认触发别名，如果没有设置，则使用目录名",
             "type":"string",
             "minLength":1
         },

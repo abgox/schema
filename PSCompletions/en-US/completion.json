@@ -120,7 +120,7 @@
                     "minItems": 1
                 },
                 "symbol": {
-                    "description": "Type: string or array\nSymbol. In options, an OptionTab is already added by default",
+                    "description": "Type: string or array\nSymbol.(OptionTab is added by default)",
                     "oneOf": [
                         {
                             "type": "string",
@@ -173,82 +173,12 @@
                     ]
                 },
                 "next": {
-                    "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key.\nIf next is added, a WriteSpaceTab is automatically added to the symbol of the current.",
+                    "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key.\nIf next is added, WriteSpaceTab is automatically added to the symbol of the current.",
                     "type": "array",
                     "items": {
                         "$ref": "#/$defs/root_item"
                     },
                     "minItems": 1
-                }
-            },
-            "additionalProperties": false
-        },
-        "common_options_item": {
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "properties": {
-                "name": {
-                    "description": "command name",
-                    "type": "string",
-                    "minLength": 1
-                },
-                "alias": {
-                    "description": "command alias",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "minItems": 1
-                },
-                "symbol": {
-                    "description": "Type: string or array\nSymbol. In common_options, an OptionTab is already added by default.\nSpaceTab cannot be added because common_options does not support defining next",
-                    "oneOf": [
-                        {
-                            "type": "string",
-                            "enum": [
-                                "WriteSpaceTab"
-                            ]
-                        },
-                        {
-                            "type": "array",
-                            "examples": [
-                                [],
-                                [
-                                    "{{",
-                                    "if($true){'WriteSpaceTab'}",
-                                    "}}"
-                                ]
-                            ],
-                            "items": {
-                                "type": "string",
-                                "examples": [
-                                    "WriteSpaceTab"
-                                ]
-                            },
-                            "minItems": 1
-                        }
-                    ]
-                },
-                "tip": {
-                    "description": "Completion tip",
-                    "examples": [
-                        "",
-                        []
-                    ],
-                    "oneOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1
-                        },
-                        {
-                            "type": "string"
-                        }
-                    ]
                 }
             },
             "additionalProperties": false
@@ -275,7 +205,7 @@
             "description": "Some general options, these options will appear in any situation",
             "type": "array",
             "items": {
-                "$ref": "#/$defs/common_options_item"
+                "$ref": "#/$defs/options_item"
             },
             "minItems": 1
         },
