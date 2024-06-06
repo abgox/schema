@@ -630,6 +630,11 @@
             "description": "是否使用 hooks",
             "type": "boolean"
         },
+        "alias":{
+            "description": "补全的默认触发别名",
+            "type":"string",
+            "minLength":1
+        },
         "$schema":{
             "description": "定义 Schema 架构"
         }

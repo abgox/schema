@@ -627,8 +627,13 @@
             "minItems": 1
         },
         "hooks": {
-            "description": "是否使用 hooks\nWhether to use hooks",
+            "description": "是否使用 hooks\nWhether to use hooks.",
             "type": "boolean"
+        },
+        "alias":{
+            "description": "补全的默认触发别名\nThe default trigger alias for completion.",
+            "type":"string",
+            "minLength":1
         },
         "$schema": {
             "description": "定义 Schema 架构\nDefine Schema."

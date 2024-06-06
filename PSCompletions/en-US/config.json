@@ -627,8 +627,13 @@
             "minItems": 1
         },
         "hooks": {
-            "description": "Whether to use hooks",
+            "description": "Whether to use hooks.",
             "type": "boolean"
+        },
+        "alias":{
+            "description": "The default trigger alias for completion.",
+            "type":"string",
+            "minLength":1
         },
         "$schema":{
             "description": "Define Schema."

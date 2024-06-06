@@ -2,6 +2,9 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "description": "The JSON Schema of the the PSCompletions module completion data file.",
     "type": "object",
+    "required": [
+        "info"
+    ],
     "anyOf": [
         {
             "required": [
@@ -279,7 +282,51 @@
         "info": {
             "description": "Some completion information, which can be accessed using {{ $info.xxx }} in any place in this json file",
             "type": "object",
-            "minProperties": 1
+            "minProperties": 1,
+            "required": [
+                "completion_info"
+            ],
+            "properties": {
+                "completion_info": {
+                    "type": "object",
+                    "description": "Some information about completion.",
+                    "required": [
+                        "url",
+                        "description"
+                    ],
+                    "properties": {
+                        "url": {
+                            "type": "string",
+                            "description": "The homepage of the command.",
+                            "minLength": 1
+                        },
+                        "description": {
+                            "description": "The description of the command.",
+                            "examples": [
+                                "",
+                                [
+                                    ""
+                                ]
+                            ],
+                            "oneOf": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "minItems": 1
+                                }
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
         },
         "config": {
             "description": "Some special configuration items are defined here.",

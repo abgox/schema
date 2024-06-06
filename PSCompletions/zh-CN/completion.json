@@ -2,6 +2,9 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "description": "PSCompletions 模块补全数据文件的 JSON Schema",
     "type": "object",
+    "required": [
+        "info"
+    ],
     "anyOf": [
         {
             "required": [
@@ -279,7 +282,51 @@
         "info": {
             "description": "一些补全的信息\n这些信息可以在此 json 文件任何地方使用 {{ $info.xxx }} 进行访问",
             "type": "object",
-            "minProperties": 1
+            "minProperties": 1,
+            "required": [
+                "completion_info"
+            ],
+            "properties": {
+                "completion_info": {
+                    "type": "object",
+                    "description": "补全的一些相关信息",
+                    "required": [
+                        "url",
+                        "description"
+                    ],
+                    "properties": {
+                        "url": {
+                            "type": "string",
+                            "description": "命令的主页网址",
+                            "minLength": 1
+                        },
+                        "description": {
+                            "description": "命令的描述",
+                            "examples": [
+                                "",
+                                [
+                                    ""
+                                ]
+                            ],
+                            "oneOf": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "minItems": 1
+                                }
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
         },
         "config": {
             "description": "定义一些特别的配置项",
