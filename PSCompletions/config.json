@@ -630,10 +630,25 @@
             "description": "是否使用 hooks\nWhether to use hooks.",
             "type": "boolean"
         },
-        "alias":{
+        "alias": {
             "description": "补全的默认触发别名，如果没有设置，则使用目录名\nThe default trigger alias for completion. If not set, the directory name will be used.",
-            "type":"string",
-            "minLength":1
+            "examples": [
+                "",
+                []
+            ],
+            "oneOf": [
+                {
+                    "type": "string",
+                    "minLength": 1
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                }
+            ]
         },
         "$schema": {
             "description": "定义 Schema 架构\nDefine Schema."

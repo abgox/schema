@@ -630,12 +630,27 @@
             "description": "是否使用 hooks",
             "type": "boolean"
         },
-        "alias":{
+        "alias": {
             "description": "补全的默认触发别名，如果没有设置，则使用目录名",
-            "type":"string",
-            "minLength":1
+            "examples": [
+                "",
+                []
+            ],
+            "oneOf": [
+                {
+                    "type": "string",
+                    "minLength": 1
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                }
+            ]
         },
-        "$schema":{
+        "$schema": {
             "description": "定义 Schema 架构"
         }
     },
