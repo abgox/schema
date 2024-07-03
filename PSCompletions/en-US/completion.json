@@ -17,7 +17,7 @@
             ]
         }
     ],
-    "$defs": {
+    "definitions": {
         "root_item": {
             "type": "object",
             "required": [
@@ -85,7 +85,7 @@
                     "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key",
                     "type": "array",
                     "items": {
-                        "$ref": "#/$defs/root_item"
+                        "$ref": "#/definitions/root_item"
                     },
                     "minItems": 1
                 },
@@ -93,7 +93,7 @@
                     "description": "Available option completion",
                     "type": "array",
                     "items": {
-                        "$ref": "#/$defs/options_item"
+                        "$ref": "#/definitions/options_item"
                     },
                     "minItems": 1
                 }
@@ -176,7 +176,7 @@
                     "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key.\nIf next is added, WriteSpaceTab is automatically added to the symbol of the current.",
                     "type": "array",
                     "items": {
-                        "$ref": "#/$defs/root_item"
+                        "$ref": "#/definitions/root_item"
                     },
                     "minItems": 1
                 }
@@ -189,7 +189,7 @@
             "description": "The root node of the command",
             "type": "array",
             "items": {
-                "$ref": "#/$defs/root_item"
+                "$ref": "#/definitions/root_item"
             },
             "minItems": 1
         },
@@ -197,7 +197,7 @@
             "description": "Options for the root command",
             "type": "array",
             "items": {
-                "$ref": "#/$defs/options_item"
+                "$ref": "#/definitions/options_item"
             },
             "minItems": 1
         },
@@ -205,7 +205,7 @@
             "description": "Some general options, these options will appear in any situation",
             "type": "array",
             "items": {
-                "$ref": "#/$defs/options_item"
+                "$ref": "#/definitions/options_item"
             },
             "minItems": 1
         },
