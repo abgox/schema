@@ -1,0 +1,1 @@
+{"$schema":"http://json-schema.org/draft-07/schema","type":"object","required":["list"],"properties":{"list":{"description":"所有可以被添加的补全","type":"array","items":{"type":"string","description":"每一个可以被添加的补全","minLength":1},"minItems":1}}}
