@@ -46,6 +46,8 @@
 
 |Schema|Source|Tag|
 |:-:|:-:|:-:|
+|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/en-US/.eslintrc.json) `en-US`|[.eslintrc.json](https://json.schemastore.org/eslintrc.json)|<img src="https://img.shields.io/badge/-Need%20Update-red" />|
+|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/zh-CN/.eslintrc.json) `zh-CN`|||
 |[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/en-US/.prettierrc.json) `en-US`|[.prettierrc.json](https://json.schemastore.org/prettierrc.json)||
 |[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json) `zh-CN`|||
 |[PSCompletions/completion.json](https://abgox.github.io/schema/PSCompletions/en-US/completion.json) `en-US`|||
