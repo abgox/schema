@@ -15,7 +15,7 @@
             "checkver"
         ]
     },
-    "$defs": {
+    "definitions": {
         "bool": {
             "type": "boolean",
             "title": "类型: 布尔值",
@@ -87,16 +87,16 @@
                     "properties": {
                         "identifier": {
                             "description": "SPDX 标识符，或者 \"Freeware\"(永久免费)、\"Proprietary\"(必须付费使用)、\"Public Domain\"(公共领域)、\"Shareware\"(免费尝试，最终必须付费)、\"Unknown\"(无法确定许可证)，视情况而定。",
-                            "$ref": "#/$defs/license_examples"
+                            "$ref": "#/definitions/license_examples"
                         },
                         "url": {
                             "description": "非 SPDX 许可证的链接。\n也可以是 SPDX 许可证的链接。\n如果难以确定所有不同的许可证，可以在 SPDX 列表末尾添加 \"......\"。如果既有开源许可又有非开源许可，请先列出所有非开源许可(如：Freeware/Proprietary/Shareware)\n如果无法确定应用程序的许可证，请使用 \"Unknown\"。",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         }
                     }
                 },
                 {
-                    "$ref": "#/$defs/license_examples"
+                    "$ref": "#/definitions/license_examples"
                 }
             ]
         },
@@ -104,31 +104,31 @@
             "title": "类型: 对象",
             "properties": {
                 "url": {
-                    "$ref": "#/$defs/url"
+                    "$ref": "#/definitions/url"
                 },
                 "extract_dir": {
-                    "$ref": "#/$defs/extract_dir"
+                    "$ref": "#/definitions/extract_dir"
                 },
                 "bin": {
-                    "$ref": "#/$defs/bin"
+                    "$ref": "#/definitions/bin"
                 },
                 "shortcuts": {
-                    "$ref": "#/$defs/shortcuts"
+                    "$ref": "#/definitions/shortcuts"
                 },
                 "installer": {
-                    "$ref": "#/$defs/installer"
+                    "$ref": "#/definitions/installer"
                 },
                 "uninstaller": {
-                    "$ref": "#/$defs/uninstaller"
+                    "$ref": "#/definitions/uninstaller"
                 },
                 "pre_install": {
-                    "$ref": "#/$defs/pre_install"
+                    "$ref": "#/definitions/pre_install"
                 },
                 "post_install": {
-                    "$ref": "#/$defs/post_install"
+                    "$ref": "#/definitions/post_install"
                 },
                 "checkver": {
-                    "$ref": "#/$defs/checkver"
+                    "$ref": "#/definitions/checkver"
                 }
             }
         },
@@ -139,12 +139,12 @@
             ],
             "allOf": [
                 {
-                    "$ref": "#/$defs/architecture"
+                    "$ref": "#/definitions/architecture"
                 },
                 {
                     "properties": {
                         "hash": {
-                            "$ref": "#/$defs/hash"
+                            "$ref": "#/definitions/hash"
                         }
                     }
                 }
@@ -156,12 +156,12 @@
             ],
             "allOf": [
                 {
-                    "$ref": "#/$defs/architecture"
+                    "$ref": "#/definitions/architecture"
                 },
                 {
                     "properties": {
                         "hash": {
-                            "$ref": "#/$defs/get_hash"
+                            "$ref": "#/definitions/get_hash"
                         }
                     }
                 }
@@ -177,15 +177,15 @@
             "properties": {
                 "url": {
                     "description": "用于下载RDF/JSON文件或提取哈希的URL模板",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "regex": {
                     "description": "别名：find\nRegEx表达式来提取哈希",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "find": {
                     "description": "别名：regex\nRegEx表达式来提取哈希",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "mode": {
                     "description": "extract: 通过RegEx从纯文本文件或网页中提取(默认，可省略)\njson: 通过JSONPath从JSON文件中提取\nxpath: 通过XML文件提取\nrdf: 从RDF文件中提取\nmetalink: 从Metalink的头文件或 .meta4 文件中提取\nfosshub: 自动。为FossHub预定义\nsourceforge: 自动。为SourceForge预定义\ndownload: 下载应用程序文件并在本地对其进行散列(回退)",
@@ -203,31 +203,31 @@
                             ]
                         },
                         {
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         }
                     ]
                 },
                 "jp": {
                     "description": "别名：jsonpath\nJSONPath表达式提取哈希",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "jsonpath": {
                     "description": "别名：jp\nJSONPath表达式提取哈希",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "xpath": {
                     "description": "XPath表达式来提取哈希值",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 }
             }
         },
         "url": {
             "description": "要下载的文件的URL。\n如果有多个URL，可以使用JSON数组\n例如: \"url\": [\"http://example.org/program.zip\", \"http://example.org/dependencies.zip\"] 。\nURL可以是HTTP、HTTPS或FTP。\n要更改下载URL的文件名，您可以将 URL 片段以 (#) 开头）附加到 URL\n如：\"http://example.org/program.exe\" -> \"http://example.org/program.exe#/dl.7z\"\n请注意，片段必须以 #/ 开头才有效。\n在上面的例子中，Scoop将下载 program.exe ，但将其保存为 dl.7z ，然后将使用7-Zip自动提取。\n此技术通常用于 Scoop 清单中，以绕过可能具有不良副作用的可执行安装程序，如注册表更改，放置在安装目录外的文件或管理员提升提示。",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "hash": {
             "description": "一个字符串或字符串数组，其中包含 url 中每个 URL 的文件哈希。\n哈希值默认为 SHA 256，但你可以使用 SHA 512，SHA1 或 MD5，方法是在哈希字符串前面加上'sha 512:'，'sha1:'或'md5:'",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "bin": {
             "title": "类型: 字符串或数组(一维或二维)",
@@ -271,12 +271,12 @@
                             {
                                 "type": "array",
                                 "items": {
-                                    "$ref": "#/$defs/str"
+                                    "$ref": "#/definitions/str"
                                 },
                                 "maxItems": 3
                             },
                             {
-                                "$ref": "#/$defs/str"
+                                "$ref": "#/definitions/str"
                             }
                         ]
                     }
@@ -284,7 +284,7 @@
                 {
                     "type": "array",
                     "items": {
-                        "$ref": "#/$defs/str"
+                        "$ref": "#/definitions/str"
                     }
                 },
                 {
@@ -315,47 +315,47 @@
                     "properties": {
                         "url": {
                             "description": "版本所在页面",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "github": {
                             "description": "应用的 github 仓库地址",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "re": {
                             "description": "re 是 regex 的别名\n查找版本的 RegEx(正则表达式)",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "regex": {
                             "description": "查找版本的 RegEx(正则表达式)",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "jsonpath": {
                             "description": "使用带有 JSONPath 表达式的 JSON 端点检索版本，可以使用点标注或括号标注。",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "jp": {
                             "description": "jp 是 jsonpath 的别名\n使用带有 JSONPath 表达式的 JSON 端点检索版本，可以使用点标注或括号标注。",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "xpath": {
                             "description": "查找版本的 XPath 表达式",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "reverse": {
                             "description": "如果设置为 true, 则匹配最后一次出现(默认为匹配第一次出现)",
-                            "$ref": "#/$defs/bool"
+                            "$ref": "#/definitions/bool"
                         },
                         "replace": {
                             "description": "用计算值替换匹配值",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "useragent": {
                             "description": "用于获取网页内容的 User-Agent",
-                            "$ref": "#/$defs/str"
+                            "$ref": "#/definitions/str"
                         },
                         "script": {
                             "description": "可包含 PowerShell 命令的字符串或字符串数组，用于跟踪多个链接",
-                            "$ref": "#/$defs/arr_str"
+                            "$ref": "#/definitions/arr_str"
                         }
                     }
                 },
@@ -395,23 +395,23 @@
             "properties": {
                 "file": {
                     "description": "安装程序可执行文件。对于 installer ，默认为最后下载的URL。必须为 uninstaller 指定。",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "script": {
                     "description": "一行字符串或字符串数组，作为安装程序而不是 file 执行。\n可用变量：$fname(上次下载的文件)、 $manifest(已验证的清单引用)、 $architecture(64bit 或 32bit)、 $dir(安装目录)",
-                    "$ref": "#/$defs/arr_str"
+                    "$ref": "#/definitions/arr_str"
                 },
                 "args": {
                     "type": "array",
                     "description": "传递给安装程序的参数数组。可选的.",
                     "items": {
-                        "$ref": "#/$defs/str"
+                        "$ref": "#/definitions/str"
                     },
                     "minItems": 1
                 },
                 "keep": {
                     "description": "如果安装程序在运行后应该保留(例如，用于将来的卸载)，则设置为 true。\n如果忽略或设置为任何其他值，安装程序将在运行后被删除。",
-                    "$ref": "#/$defs/bool"
+                    "$ref": "#/definitions/bool"
                 }
             }
         },
@@ -446,17 +446,17 @@
             "properties": {
                 "file": {
                     "description": "卸载程序可执行文件。",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "script": {
                     "description": "一行字符串或字符串数组，作为卸载程序而不是 file 执行。\n可用变量：$fname(上次下载的文件)、 $manifest(已验证的清单引用)、 $architecture(64bit 或 32bit)、 $dir(安装目录)",
-                    "$ref": "#/$defs/arr_str"
+                    "$ref": "#/definitions/arr_str"
                 },
                 "args": {
                     "type": "array",
                     "description": "传递给卸载程序的参数数组。可选的",
                     "items": {
-                        "$ref": "#/$defs/str"
+                        "$ref": "#/definitions/str"
                     },
                     "minItems": 1
                 }
@@ -464,19 +464,19 @@
         },
         "pre_install": {
             "description": "一行字符串或字符串数组，用于在安装应用程序之前执行命令\n可以使用的函数:\nappdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n可以使用的变量：\n$app: 应用程序名称(应用清单名称)\n$architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n$cmd: 当前正在运行的子命令，如 uninstall/update/install\n$cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n$global: 如果值为$true，则全局安装\n$manifest: 反序列化清单(PowerShell 对象)，如 @{homepage=https://xxx.com/; description=xxx;...}\n$version: 正在安装的版本，如 1.2.3\n$dir: 应用程序安装目录(实际版本号目录)\n$persist_dir: 数据持久化目录\n$bucketsdir: Scoop buckets 目录，如 C:\\Users\\username\\scoop\\buckets\n$bucket: 当前安装应用所属于的 bucket 名称(pre_uninstall,post_uninstall 中不存在此变量)\n$cachedir: Scoop cache 目录\n$cfgpath: Scoop 配置的路径\n$globaldir: 全局安装目录\n$modulesdir: Scoop modules 目录\n$original_dir: 应用程序安装目录(实际版本号目录)\n$scoopdir: Scoop 所在目录\n$oldscoopdir: 旧的 Scoop 目录",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "post_install": {
             "description": "一行字符串或字符串数组，用于在安装应用程序之后执行命令\n可以使用的函数:\nappdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n可以使用的变量：\n$app: 应用程序名称(应用清单名称)\n$architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n$cmd: 当前正在运行的子命令，如 uninstall/update/install\n$cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n$global: 如果值为$true，则全局安装\n$manifest: 反序列化清单(PowerShell 对象)，如 @{homepage=https://xxx.com/; description=xxx;...}\n$version: 正在安装的版本，如 1.2.3\n$dir: 应用程序安装目录(current 目录)\n$persist_dir: 数据持久化目录\n$bucketsdir: Scoop buckets 目录，如 C:\\Users\\username\\scoop\\buckets\n$bucket: 当前安装应用所属于的 bucket 名称(pre_uninstall,post_uninstall 中不存在此变量)\n$cachedir: Scoop cache 目录\n$cfgpath: Scoop 配置的路径\n$globaldir: 全局安装目录\n$modulesdir: Scoop modules 目录\n$original_dir: 应用程序安装目录(实际版本号目录)\n$scoopdir: Scoop 所在目录\n$oldscoopdir: 旧的 Scoop 目录",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "extract_dir": {
             "description": "如果 url 指向一个压缩文件(支持.zip、.7z、.tar、.gz、.lzma和.lzh)，Scoop将只提取其中指定的目录",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "extract_to": {
             "description": "如果 url 指向压缩文件(支持.zip、.7z、.tar、.gz、.lzma和.lzh)，Scoop会将所有内容提取到指定的目录",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "shortcuts": {
             "type": "array",
@@ -523,7 +523,7 @@
         },
         "env_add_path": {
             "description": "将此目录添加到用户路径(如果使用 --global ，则添加到系统路径)。\n该目录是相对于安装目录的，并且必须位于安装目录内。",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "env_set": {
             "description": "为用户(或系统，如果使用 --global)设置一个或多个环境变量",
@@ -591,7 +591,7 @@
             "properties": {
                 "name": {
                     "description": "模块的名称，它应该与提取目录中的至少一个文件匹配，以便 PowerShell 将其识别为模块。",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 }
             }
         }
@@ -601,7 +601,7 @@
             "description": "此应用清单安装的应用程序的版本。",
             "allOf": [
                 {
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 {
                     "examples": [
@@ -612,18 +612,18 @@
         },
         "description": {
             "description": "一个单行字符串，包含程序的简短描述。\n如果程序名与此应用清单的文件名相同，请不要在描述中包含程序名。",
-            "$ref": "#/$defs/str"
+            "$ref": "#/definitions/str"
         },
         "homepage": {
             "description": "程序的主页。",
-            "$ref": "#/$defs/str"
+            "$ref": "#/definitions/str"
         },
         "license": {
-            "$ref": "#/$defs/license"
+            "$ref": "#/definitions/license"
         },
         "##": {
             "description": "单行字符串或字符串数组，可以将其作为注释",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "architecture": {
             "type": "object",
@@ -668,89 +668,89 @@
             "properties": {
                 "64bit": {
                     "description": "64位架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts,checkver",
-                    "$ref": "#/$defs/architecture_install"
+                    "$ref": "#/definitions/architecture_install"
                 },
                 "32bit": {
                     "description": "32位架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts,checkver",
-                    "$ref": "#/$defs/architecture_install"
+                    "$ref": "#/definitions/architecture_install"
                 },
                 "arm64": {
                     "description": "arm64架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts,checkver",
-                    "$ref": "#/$defs/architecture_install"
+                    "$ref": "#/definitions/architecture_install"
                 }
             }
         },
         "url": {
-            "$ref": "#/$defs/url"
+            "$ref": "#/definitions/url"
         },
         "hash": {
-            "$ref": "#/$defs/hash"
+            "$ref": "#/definitions/hash"
         },
         "extract_dir": {
-            "$ref": "#/$defs/extract_dir"
+            "$ref": "#/definitions/extract_dir"
         },
         "bin": {
-            "$ref": "#/$defs/bin"
+            "$ref": "#/definitions/bin"
         },
         "shortcuts": {
-            "$ref": "#/$defs/shortcuts"
+            "$ref": "#/definitions/shortcuts"
         },
         "installer": {
-            "$ref": "#/$defs/installer"
+            "$ref": "#/definitions/installer"
         },
         "uninstaller": {
-            "$ref": "#/$defs/uninstaller"
+            "$ref": "#/definitions/uninstaller"
         },
         "pre_install": {
-            "$ref": "#/$defs/pre_install"
+            "$ref": "#/definitions/pre_install"
         },
         "post_install": {
-            "$ref": "#/$defs/post_install"
+            "$ref": "#/definitions/post_install"
         },
         "checkver": {
-            "$ref": "#/$defs/checkver"
+            "$ref": "#/definitions/checkver"
         },
         "notes": {
             "description": "一行字符串或字符串数组，安装程序之后的提示信息",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "persist": {
-            "$ref": "#/$defs/persist"
+            "$ref": "#/definitions/persist"
         },
         "pre_uninstall": {
             "description": "一行字符串或字符串数组，用于在卸载应用程序之前执行命令\n可以使用的函数:\nappdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n可以使用的变量：\n$app: 应用程序名称(应用清单名称)\n$architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n$cmd: 当前正在运行的子命令，如 uninstall/update/install\n$cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n$global: 如果值为$true，则全局卸载\n$manifest: 反序列化清单(PowerShell 对象)，如 @{homepage=https://xxx.com/; description=xxx;...}\n$version: 正在安装的版本，如 1.2.3\n$dir: 应用程序安装目录(实际版本号目录)\n$persist_dir: 数据持久化目录\n$bucketsdir: Scoop buckets 目录，如 C:\\Users\\username\\scoop\\buckets\n$cachedir: Scoop cache 目录\n$cfgpath: Scoop 配置的路径\n$globaldir: 全局安装目录\n$modulesdir: Scoop modules 目录\n$original_dir: 应用程序安装目录(实际版本号目录)\n$scoopdir: Scoop 所在目录\n$oldscoopdir: 旧的 Scoop 目录",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "post_uninstall": {
             "description": "一行字符串或字符串数组，用于在卸载应用程序之后执行命令\n可以使用的函数:\nappdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n可以使用的变量：\n$app: 应用程序名称(应用清单名称)\n$architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n$cmd: 当前正在运行的子命令，如 uninstall/update/install\n$cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n$global: 如果值为$true，则全局卸载\n$manifest: 反序列化清单(PowerShell 对象)，如 @{homepage=https://xxx.com/; description=xxx;...}\n$version: 正在安装的版本，如 1.2.3\n$dir: 应用程序安装目录(实际版本号目录)\n$persist_dir: 数据持久化目录\n$bucketsdir: Scoop buckets 目录，如 C:\\Users\\username\\scoop\\buckets\n$cachedir: Scoop cache 目录\n$cfgpath: Scoop 配置的路径\n$globaldir: 全局安装目录\n$modulesdir: Scoop modules 目录\n$original_dir: 应用程序安装目录(实际版本号目录)\n$scoopdir: Scoop 所在目录\n$oldscoopdir: 旧的 Scoop 目录",
-            "$ref": "#/$defs/arr_str"
+            "$ref": "#/definitions/arr_str"
         },
         "depends": {
             "description": "suggests 是 depends 的一个替代方案\n应用的运行时依赖会被自动安装",
-            "$ref": "#/$defs/str"
+            "$ref": "#/definitions/str"
         },
         "env_add_path": {
-            "$ref": "#/$defs/env_add_path"
+            "$ref": "#/definitions/env_add_path"
         },
         "env_set": {
-            "$ref": "#/$defs/env_set"
+            "$ref": "#/definitions/env_set"
         },
         "extract_to": {
-            "$ref": "#/$defs/extract_to"
+            "$ref": "#/definitions/extract_to"
         },
         "innosetup": {
             "description": "如果安装程序基于 InnoSetup，则设置为 true",
-            "$ref": "#/$defs/bool"
+            "$ref": "#/definitions/bool"
         },
         "psmodule": {
-            "$ref": "#/$defs/psmodule"
+            "$ref": "#/definitions/psmodule"
         },
         "suggest": {
             "type": "object",
             "description": "显示一条消息，建议提供补充功能的可选应用程序。\n如果已经安装了针对该功能建议的任何应用程序，则该功能将被视为“已实现”，用户不会看到任何建议。",
             "patternProperties": {
                 "": {
-                    "$ref": "#/$defs/arr_str"
+                    "$ref": "#/definitions/arr_str"
                 }
             }
         },
@@ -834,7 +834,7 @@
             "properties": {
                 "note": {
                     "description": "自动更新完成之后的提示信息",
-                    "$ref": "#/$defs/str"
+                    "$ref": "#/definitions/str"
                 },
                 "architecture": {
                     "type": "object",
@@ -888,62 +888,62 @@
                     "properties": {
                         "64bit": {
                             "description": "64位架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts",
-                            "$ref": "#/$defs/architecture_autoupdate"
+                            "$ref": "#/definitions/architecture_autoupdate"
                         },
                         "32bit": {
                             "description": "32位架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts",
                             "required": [
                                 "url"
                             ],
-                            "$ref": "#/$defs/architecture_autoupdate"
+                            "$ref": "#/definitions/architecture_autoupdate"
                         },
                         "arm64": {
                             "description": "arm64架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts",
                             "required": [
                                 "url"
                             ],
-                            "$ref": "#/$defs/architecture_autoupdate"
+                            "$ref": "#/definitions/architecture_autoupdate"
                         }
                     }
                 },
                 "url": {
-                    "$ref": "#/$defs/url"
+                    "$ref": "#/definitions/url"
                 },
                 "hash": {
-                    "$ref": "#/$defs/get_hash"
+                    "$ref": "#/definitions/get_hash"
                 },
                 "bin": {
-                    "$ref": "#/$defs/bin"
+                    "$ref": "#/definitions/bin"
                 },
                 "extract_dir": {
-                    "$ref": "#/$defs/extract_dir"
+                    "$ref": "#/definitions/extract_dir"
                 },
                 "extract_to": {
-                    "$ref": "#/$defs/extract_to"
+                    "$ref": "#/definitions/extract_to"
                 },
                 "env_add_path": {
-                    "$ref": "#/$defs/env_add_path"
+                    "$ref": "#/definitions/env_add_path"
                 },
                 "env_set": {
-                    "$ref": "#/$defs/env_set"
+                    "$ref": "#/definitions/env_set"
                 },
                 "installer": {
-                    "$ref": "#/$defs/installer"
+                    "$ref": "#/definitions/installer"
                 },
                 "license": {
-                    "$ref": "#/$defs/license"
+                    "$ref": "#/definitions/license"
                 },
                 "persist": {
-                    "$ref": "#/$defs/persist"
+                    "$ref": "#/definitions/persist"
                 },
                 "post_install": {
-                    "$ref": "#/$defs/post_install"
+                    "$ref": "#/definitions/post_install"
                 },
                 "psmodule": {
-                    "$ref": "#/$defs/psmodule"
+                    "$ref": "#/definitions/psmodule"
                 },
                 "shortcuts": {
-                    "$ref": "#/$defs/shortcuts"
+                    "$ref": "#/definitions/shortcuts"
                 }
             }
         }
