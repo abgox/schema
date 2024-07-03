@@ -1,4 +1,12 @@
-## Schema
+<p align="center">
+    <h1 align="center">✨schema ✨</h1>
+</p>
+<p align="center">
+    <a href="README.md">English</a> |
+    <a href="README-CN.md">简体中文</a> |
+    <a href="https://github.com/abgox/schema">Github</a> |
+    <a href="https://gitee.com/abgox/schema">Gitee</a>
+</p>
 
 ### How to use
 
