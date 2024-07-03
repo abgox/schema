@@ -49,18 +49,15 @@ function generateInfo() {
             catch {
                 "{}" | Out-File $newPath -Encoding UTF8 -Force
             }
-            $old = Get-Content $oldPath -Raw
-            $new = Get-Content $newPath -Raw
-            Write-Host ($old -eq $new )
-            if ($old -ne $new) {
+            $old = Get-Content $oldPath
+            $new = Get-Content $newPath
+            if (Compare-Object $old $new -PassThru) {
                 $updateTip = '<img src="https://img.shields.io/badge/-Need%20Update-red" />'
             }
             Remove-Item $oldPath
             Remove-Item $newPath
         }
         $info += $updateTip
-
-
         $resulst += "|" + ($info -join "|") + "|"
     }
     return ($resulst | Sort-Object)
