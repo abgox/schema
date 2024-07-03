@@ -47,7 +47,7 @@
 
 |Schema|Source|Tag|
 |:-:|:-:|:-:|
-|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/en-US/.eslintrc.json) `en-US`|[.eslintrc.json](https://json.schemastore.org/eslintrc.json)|<img src="https://img.shields.io/badge/-Need%20Update-red" />|
+|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/en-US/.eslintrc.json) `en-US`|[.eslintrc.json](https://json.schemastore.org/eslintrc.json)||
 |[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/zh-CN/.eslintrc.json) `zh-CN`|||
 |[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/en-US/.prettierrc.json) `en-US`|[.prettierrc.json](https://json.schemastore.org/prettierrc.json)||
 |[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json) `zh-CN`|||
@@ -59,3 +59,5 @@
 |[PSCompletions/config.json](https://abgox.github.io/schema/PSCompletions/zh-CN/config.json) `zh-CN`|||
 |[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/en-US/manifest.json) `en-US`|||
 |[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json) `zh-CN`|||
+|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json) `en-US`|[tsconfig.json](https://json.schemastore.org/tsconfig)|<img src="https://img.shields.io/badge/-Need%20Update-red" />|
+|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/zh-CN/tsconfig.json) `zh-CN`|||

@@ -30,19 +30,31 @@ function generateInfo() {
         $info += "[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name)) ``$($lang)``"
 
         # Source
-        $source = ""
+        $id = ""
         if ($json.'$id') {
-            $source = "[$($_.Name)]($($json.'$id'))"
+            $id = $json.'$id'
         }
-        $info += $source
+        elseif ($json.'id') {
+            $id = $json.'id'
+        }
+        if ($id -notlike "http*") {
+            $id = ""
+        }
+
+        if ($id) {
+            $info += "[$($_.Name)]($($id))"
+        }
+        else {
+            $info += ""
+        }
 
         # Tag
         $updateTip = ""
-        if ($json.'$id') {
+        if ($id) {
             $wc = New-Object System.Net.WebClient
             $oldPath = "$(New-Guid)-old.json"
             $newPath = "$(New-Guid)-new.json"
-            $wc.DownloadFile($json.'$id', $oldPath)
+            $wc.DownloadFile($id, $oldPath)
             try {
                 $wc.DownloadFile("https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name)", $newPath)
             }
