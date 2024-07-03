@@ -610,7 +610,7 @@
             ]
         },
         "description": {
-            "description": "A one line string containing a short description of the program.\nDon’t include the name of the program, if it’s the same as the app’s filename.\nNot technically required, but all new or updated manifests should include a description.",
+            "description": "A one line string containing a short description of the program.\nDon't include the name of the program, if it's the same as the app's filename.\nNot technically required, but all new or updated manifests should include a description.",
             "$ref": "#/$defs/str"
         },
         "homepage": {
