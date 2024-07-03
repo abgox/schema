@@ -1,0 +1,1 @@
+{"$schema":"http://json-schema.org/draft-07/schema","type":"object","required":["list"],"properties":{"list":{"description":"All completions that can be added.","type":"array","items":{"type":"string","description":"Every completion that can be added.","minLength":1},"minItems":1}}}
