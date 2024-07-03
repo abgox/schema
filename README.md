@@ -58,5 +58,5 @@
 |[PSCompletions/config.json](https://abgox.github.io/schema/PSCompletions/zh-CN/config.json) `zh-CN`|||
 |[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/en-US/manifest.json) `en-US`|||
 |[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json) `zh-CN`|||
-|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json) `en-US`|[tsconfig.json](https://json.schemastore.org/tsconfig)|<img src="https://img.shields.io/badge/-Need%20Update-red" />|
+|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json) `en-US`|[tsconfig.json](https://json.schemastore.org/tsconfig)||
 |[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/zh-CN/tsconfig.json) `zh-CN`|||
