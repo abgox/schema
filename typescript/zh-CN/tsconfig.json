@@ -1,0 +1,1427 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"allowTrailingCommas": true,
+	"allOf": [
+		{
+			"$ref": "#/definitions/compilerOptionsDefinition"
+		},
+		{
+			"$ref": "#/definitions/compileOnSaveDefinition"
+		},
+		{
+			"$ref": "#/definitions/typeAcquisitionDefinition"
+		},
+		{
+			"$ref": "#/definitions/extendsDefinition"
+		},
+		{
+			"$ref": "#/definitions/watchOptionsDefinition"
+		},
+		{
+			"$ref": "#/definitions/buildOptionsDefinition"
+		},
+		{
+			"$ref": "#/definitions/tsNodeDefinition"
+		},
+		{
+			"anyOf": [
+				{
+					"$ref": "#/definitions/filesDefinition"
+				},
+				{
+					"$ref": "#/definitions/excludeDefinition"
+				},
+				{
+					"$ref": "#/definitions/includeDefinition"
+				},
+				{
+					"$ref": "#/definitions/referencesDefinition"
+				}
+			]
+		}
+	],
+	"definitions": {
+		"//": {
+			"explainer": "https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#overview",
+			"reference": "https://www.typescriptlang.org/tsconfig",
+			"reference metadata": "https://github.com/microsoft/TypeScript-Website/blob/v2/packages/tsconfig-reference/scripts/tsconfigRules.ts"
+		},
+		"filesDefinition": {
+			"properties": {
+				"files": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"description": "如果在 tsconfig.json 中不存在 'files' 或 'include' 属性，则编译器默认包含目录及其子目录中的所有文件，但排除 'exclude' 属性指定的文件。当指定了 'files' 属性时，仅包括这些文件及 'include' 属性指定的文件。",
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"items": {
+						"type": ["string", "null"]
+					}
+				}
+			}
+		},
+		"excludeDefinition": {
+			"properties": {
+				"exclude": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"description": "指定要从编译中排除的文件列表。'exclude' 属性仅影响通过 'include' 属性包含的文件，不影响 'files' 属性。Glob 模式要求 TypeScript 版本为 2.0 或更高。",
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"items": {
+						"type": ["string", "null"]
+					}
+				}
+			}
+		},
+		"includeDefinition": {
+			"properties": {
+				"include": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"description": "指定要包含在编译中的文件的 glob 模式列表。如果在 tsconfig.json 中不存在 'files' 或 'include' 属性，则编译器默认包含目录及其子目录中的所有文件，但排除 'exclude' 属性指定的文件。要求 TypeScript 版本为 2.0 或更高。",
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"items": {
+						"type": ["string", "null"]
+					}
+				}
+			}
+		},
+		"compileOnSaveDefinition": {
+			"properties": {
+				"compileOnSave": {
+					"description": "为该项目启用保存时编译。",
+					"type": ["boolean", "null"]
+				}
+			}
+		},
+		"extendsDefinition": {
+			"properties": {
+				"extends": {
+					"description": "指定要继承的基础配置文件路径（要求 TypeScript 版本为 2.1 或更高），或者基础文件的数组，从右至左优先级递增（要求 TypeScript 版本为 5.0 或更高）。",
+					"oneOf": [
+						{
+							"default": "",
+							"type": "string"
+						},
+						{
+							"default": [],
+							"items": {
+								"type": "string"
+							},
+							"type": "array"
+						}
+					]
+				}
+			}
+		},
+		"buildOptionsDefinition": {
+			"properties": {
+				"buildOptions": {
+					"properties": {
+						"dry": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "~",
+							"type": ["boolean", "null"],
+							"default": false
+						},
+						"force": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "构建所有项目，包括看似已经是最新的项目。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "构建所有项目，包括看似已经是最新的项目\n\n详见：https://www.typescriptlang.org/tsconfig#force"
+						},
+						"verbose": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用详细日志记录。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "启用详细日志记录\n\n详见：https://www.typescriptlang.org/tsconfig#verbose"
+						},
+						"incremental": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "保存 .tsbuildinfo 文件以允许项目的增量编译。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "保存 .tsbuildinfo 文件以允许项目的增量编译\n\n详见：https://www.typescriptlang.org/tsconfig#incremental"
+						},
+						"assumeChangesOnlyAffectDirectDependencies": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在使用 `incremental` 和 `watch` 模式的项目中，假设文件内的更改只影响直接依赖它的文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在使用 `incremental` 和 `watch` 模式的项目中，假设文件内的更改只影响直接依赖它的文件\n\n详见：https://www.typescriptlang.org/tsconfig#assumeChangesOnlyAffectDirectDependencies"
+						},
+						"traceResolution": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "记录在 `moduleResolution` 过程中使用的路径。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "记录在 `moduleResolution` 过程中使用的路径\n\n详见：https://www.typescriptlang.org/tsconfig#traceResolution"
+						}
+					}
+				}
+			}
+		},
+		"watchOptionsDefinition": {
+			"properties": {
+				"watchOptions": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"type": ["object", "null"],
+					"description": "TypeScript 监视模式的设置。",
+					"properties": {
+						"force": {
+							"description": "~",
+							"type": ["string", "null"]
+						},
+						"watchFile": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定 TypeScript 监视模式的工作方式。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定 TypeScript 监视模式的工作方式。\n\n详见：https://www.typescriptlang.org/tsconfig#watchFile"
+						},
+						"watchDirectory": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定在缺少递归文件监视功能的系统上，如何监视目录。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定在缺少递归文件监视功能的系统上，如何监视目录。\n\n详见：https://www.typescriptlang.org/tsconfig#watchDirectory"
+						},
+						"fallbackPolling": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定如果系统的本地文件监视器不足时，监视器应采用的方法。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定如果系统的本地文件监视器不足时，监视器应采用的方法。\n\n详见：https://www.typescriptlang.org/tsconfig#fallbackPolling"
+						},
+						"synchronousWatchDirectory": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在不支持本地递归监视的平台上，同步调用回调并更新目录监视器的状态。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在不支持本地递归监视的平台上，同步调用回调并更新目录监视器的状态。\n\n详见：https://www.typescriptlang.org/tsconfig#synchronousWatchDirectory"
+						},
+						"excludeFiles": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "从监视模式的处理中移除文件列表。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							},
+							"markdownDescription": "从监视模式的处理中移除文件列表。\n\n详见：https://www.typescriptlang.org/tsconfig#excludeFiles"
+						},
+						"excludeDirectories": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "从监视过程中移除目录列表。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							},
+							"markdownDescription": "从监视过程中移除目录列表。\n\n详见：https://www.typescriptlang.org/tsconfig#excludeDirectories"
+						}
+					}
+				}
+			}
+		},
+		"compilerOptionsDefinition": {
+			"properties": {
+				"compilerOptions": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"type": ["object", "null"],
+					"description": "指示 TypeScript 编译器如何编译 .ts 文件。",
+					"properties": {
+						"allowArbitraryExtensions": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "允许导入具有任何扩展名的文件，前提是存在声明文件。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "允许导入具有任何扩展名的文件，前提是存在声明文件。\n\n详见：https://www.typescriptlang.org/tsconfig#allowImportingTsExtensions"
+						},
+						"allowImportingTsExtensions": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "允许导入包含 TypeScript 文件扩展名。需要设置 '--moduleResolution bundler' 以及 '--noEmit' 或 '--emitDeclarationOnly'。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "允许导入包含 TypeScript 文件扩展名。需要设置 '--moduleResolution bundler' 以及 '--noEmit' 或 '--emitDeclarationOnly'。\n\n详见：https://www.typescriptlang.org/tsconfig#allowImportingTsExtensions"
+						},
+						"charset": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "不再支持。在早期版本中，手动设置用于读取文件的文本编码。",
+							"type": ["string", "null"],
+							"markdownDescription": "不再支持。在早期版本中，手动设置用于读取文件的文本编码。\n\n详见：https://www.typescriptlang.org/tsconfig#charset"
+						},
+						"composite": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用允许 TypeScript 项目与项目引用一起使用的约束条件。",
+							"type": ["boolean", "null"],
+							"default": true,
+							"markdownDescription": "启用允许 TypeScript 项目与项目引用一起使用的约束条件。\n\n详见：https://www.typescriptlang.org/tsconfig#composite"
+						},
+						"customConditions": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在解析导入时，设置额外的条件以补充特定于解析器的默认值。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							},
+							"markdownDescription": "在解析导入时，设置额外的条件以补充特定于解析器的默认值。\n\n详见：https://www.typescriptlang.org/tsconfig#customConditions"
+						},
+						"declaration": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "从 TypeScript 和 JavaScript 文件生成 .d.ts 文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "从 TypeScript 和 JavaScript 文件生成 .d.ts 文件。\n\n详见：https://www.typescriptlang.org/tsconfig#declaration"
+						},
+						"declarationDir": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定生成声明文件的输出目录。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定生成声明文件的输出目录。\n\n详见：https://www.typescriptlang.org/tsconfig#declarationDir"
+						},
+						"diagnostics": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在构建后输出编译器性能信息。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在构建后输出编译器性能信息。\n\n详见：https://www.typescriptlang.org/tsconfig#diagnostics"
+						},
+						"disableReferencedProjectLoad": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "减少 TypeScript 自动加载的项目数量。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "减少 TypeScript 自动加载的项目数量。\n\n详见：https://www.typescriptlang.org/tsconfig#disableReferencedProjectLoad"
+						},
+						"noPropertyAccessFromIndexSignature": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "强制使用索引访问器来访问使用索引类型声明的键。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "强制使用索引访问器来访问使用索引类型声明的键\n\n详见：https://www.typescriptlang.org/tsconfig#noPropertyAccessFromIndexSignature"
+						},
+						"emitBOM": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在输出文件开头插入 UTF-8 字节顺序标记（BOM）。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在输出文件开头插入 UTF-8 字节顺序标记（BOM）。\n\n详见：https://www.typescriptlang.org/tsconfig#emitBOM"
+						},
+						"emitDeclarationOnly": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "仅输出 d.ts 文件，而不输出 JavaScript 文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "仅输出 d.ts 文件，而不输出 JavaScript 文件。\n\n详见：https://www.typescriptlang.org/tsconfig#emitDeclarationOnly"
+						},
+						"exactOptionalPropertyTypes": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在类型检查时区分 undefined 和不存在的属性。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在类型检查时区分 undefined 和不存在的属性。\n\n详见：https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes"
+						},
+						"incremental": {
+							"description": "启用增量编译。要求 TypeScript 版本为 3.4 或更高。",
+							"type": ["boolean", "null"]
+						},
+						"tsBuildInfoFile": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定 .tsbuildinfo 增量编译文件的文件夹。",
+							"default": ".tsbuildinfo",
+							"type": ["string", "null"],
+							"markdownDescription": "指定 .tsbuildinfo 增量编译文件的文件夹。\n\n详见：https://www.typescriptlang.org/tsconfig#tsBuildInfoFile"
+						},
+						"inlineSourceMap": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在生成的 JavaScript 文件中包含源映射文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在生成的 JavaScript 文件中包含源映射文件。\n\n详见：https://www.typescriptlang.org/tsconfig#inlineSourceMap"
+						},
+						"inlineSources": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在生成的 JavaScript 中包含源码映射。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在生成的 JavaScript 中包含源码映射。\n\n详见：https://www.typescriptlang.org/tsconfig#inlineSources"
+						},
+						"jsx": {
+							"description": "指定生成的 JSX 代码。",
+							"enum": [
+								"preserve",
+								"react",
+								"react-jsx",
+								"react-jsxdev",
+								"react-native"
+							]
+						},
+						"reactNamespace": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定在目标为 `react` JSX 发布时调用的 `createElement` 对象。",
+							"type": ["string", "null"],
+							"default": "React",
+							"markdownDescription": "指定在目标为 `react` JSX 发布时调用的 `createElement` 对象。\n\n详见：https://www.typescriptlang.org/tsconfig#reactNamespace"
+						},
+						"jsxFactory": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定在目标为 React JSX 发布时使用的 JSX 工厂函数，例如 'React.createElement' 或 'h'。",
+							"type": ["string", "null"],
+							"default": "React.createElement",
+							"markdownDescription": "指定在目标为 React JSX 发布时使用的 JSX 工厂函数，例如 'React.createElement' 或 'h'。\n\n详见：https://www.typescriptlang.org/tsconfig#jsxFactory"
+						},
+						"jsxFragmentFactory": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定在目标为 React JSX 发布时用于片段的 JSX Fragment 引用，例如 'React.Fragment' 或 'Fragment'。",
+							"type": ["string", "null"],
+							"default": "React.Fragment",
+							"markdownDescription": "指定在目标为 React JSX 发布时用于片段的 JSX Fragment 引用，例如 'React.Fragment' 或 'Fragment'。\n\n详见：https://www.typescriptlang.org/tsconfig#jsxFragmentFactory"
+						},
+						"jsxImportSource": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定在使用 `jsx: react-jsx` 时导入 JSX 工厂函数的模块说明符。",
+							"type": ["string", "null"],
+							"default": "react",
+							"markdownDescription": "指定在使用 `jsx: react-jsx` 时导入 JSX 工厂函数的模块说明符。\n\n详见：https://www.typescriptlang.org/tsconfig#jsxImportSource"
+						},
+						"listFiles": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "打印编译期间读取的所有文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "打印编译期间读取的所有文件。\n\n详见：https://www.typescriptlang.org/tsconfig#listFiles"
+						},
+						"mapRoot": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定调试器应该定位映射文件的位置，而不是生成的位置。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定调试器应该定位映射文件的位置，而不是生成的位置。\n\n详见：https://www.typescriptlang.org/tsconfig#mapRoot"
+						},
+						"module": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定生成的模块代码。",
+							"type": ["string", "null"],
+							"anyOf": [
+								{
+									"enum": [
+										"CommonJS",
+										"AMD",
+										"System",
+										"UMD",
+										"ES6",
+										"ES2015",
+										"ES2020",
+										"ESNext",
+										"None",
+										"ES2022",
+										"Node16",
+										"NodeNext",
+										"Preserve"
+									]
+								},
+								{
+									"pattern": "^([Cc][Oo][Mm][Mm][Oo][Nn][Jj][Ss]|[AaUu][Mm][Dd]|[Ss][Yy][Ss][Tt][Ee][Mm]|[Ee][Ss]([356]|20(1[567]|2[02])|[Nn][Ee][Xx][Tt])|[Nn][Oo][dD][Ee]16|[Nn][Oo][Dd][Ee][Nn][Ee][Xx][Tt]|[Nn][Oo][Nn][Ee]|[Pp][Rr][Ee][Ss][Ee][Rr][Vv][Ee])$"
+								}
+							],
+							"markdownDescription": "指定生成的模块代码。\n\n详见：https://www.typescriptlang.org/tsconfig#module"
+						},
+						"moduleResolution": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定 TypeScript 如何从给定的模块说明符查找文件。",
+							"type": ["string", "null"],
+							"anyOf": [
+								{
+									"enum": [
+										"Classic",
+										"Node",
+										"Node10",
+										"Node16",
+										"NodeNext",
+										"Bundler"
+									],
+									"markdownEnumDescriptions": [
+										"推荐使用 `\"Node16\"`",
+										"已废弃，在 TypeScript 5.0+ 中请使用 `\"Node10\"`",
+										"推荐使用 `\"Node16\"`",
+										"这是库和 Node.js 应用程序的推荐设置",
+										"这是库和 Node.js 应用程序的推荐设置",
+										"这是在 TypeScript 5.0+ 中使用打包器的应用程序的推荐设置"
+									]
+								},
+								{
+									"pattern": "^(([Nn]ode)|([Nn]ode1[06])|([Nn]ode[Nn]ext)|([Cc]lassic)|([Bb]undler))$"
+								}
+							],
+							"markdownDescription": "指定 TypeScript 如何从给定的模块说明符查找文件。\n\n详见：https://www.typescriptlang.org/tsconfig#moduleResolution"
+						},
+						"newLine": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "设置用于生成文件的换行符。",
+							"type": ["string", "null"],
+							"anyOf": [
+								{
+									"enum": ["crlf", "lf"]
+								},
+								{
+									"pattern": "^(CRLF|LF|crlf|lf)$"
+								}
+							],
+							"markdownDescription": "设置用于生成文件的换行符。\n\n详见：https://www.typescriptlang.org/tsconfig#newLine"
+						},
+						"noEmit": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁止在编译过程中生成文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁止在编译过程中生成文件。\n\n详见：https://www.typescriptlang.org/tsconfig#noEmit"
+						},
+						"noEmitHelpers": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁止在编译输出中生成自定义助手函数，如 `__extends`。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁止在编译输出中生成自定义助手函数，如 `__extends`。\n\n详见：https://www.typescriptlang.org/tsconfig#noEmitHelpers"
+						},
+						"noEmitOnError": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "如果报告任何类型检查错误，则禁止生成文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "如果报告任何类型检查错误，则禁止生成文件。\n\n详见：https://www.typescriptlang.org/tsconfig#noEmitOnError"
+						},
+						"noImplicitAny": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "对具有隐含的 `any` 类型的表达式和声明启用错误报告。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "对具有隐含的 `any` 类型的表达式和声明启用错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#noImplicitAny"
+						},
+						"noImplicitThis": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用当 `this` 被赋予 `any` 类型时的错误报告。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "启用当 `this` 被赋予 `any` 类型时的错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#noImplicitThis"
+						},
+						"noUnusedLocals": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用未使用的局部变量的错误报告。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "启用未使用的局部变量的错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#noUnusedLocals"
+						},
+						"noUnusedParameters": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在函数参数未被使用时引发错误。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在函数参数未被使用时引发错误。\n\n详见：https://www.typescriptlang.org/tsconfig#noUnusedParameters"
+						},
+						"noLib": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用包含任何库文件，包括默认的 lib.d.ts。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用包含任何库文件，包括默认的 lib.d.ts。\n\n详见：https://www.typescriptlang.org/tsconfig#noLib"
+						},
+						"noResolve": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "不允许 `import`、`require` 或 `<reference>` 扩展 TypeScript 应该添加到项目中的文件数量。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "不允许 `import`、`require` 或 `<reference>` 扩展 TypeScript 应该添加到项目中的文件数量。\n\n详见：https://www.typescriptlang.org/tsconfig#noResolve"
+						},
+						"noStrictGenericChecks": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用对函数类型中泛型签名的严格检查。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用对函数类型中泛型签名的严格检查。\n\n详见：https://www.typescriptlang.org/tsconfig#noStrictGenericChecks"
+						},
+						"skipDefaultLibCheck": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "跳过对包含在 TypeScript 中的 .d.ts 文件的类型检查。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "跳过对包含在 TypeScript 中的 .d.ts 文件的类型检查。\n\n详见：https://www.typescriptlang.org/tsconfig#skipDefaultLibCheck"
+						},
+						"skipLibCheck": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "跳过对所有 .d.ts 文件的类型检查。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "跳过对所有 .d.ts 文件的类型检查。\n\n详见：https://www.typescriptlang.org/tsconfig#skipLibCheck"
+						},
+						"outFile": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定一个文件，将所有输出打包成一个 JavaScript 文件。如果 `declaration` 为 true，则还指定一个文件，将所有 .d.ts 输出打包在一起。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定一个文件，将所有输出打包成一个 JavaScript 文件。如果 `declaration` 为 true，则还指定一个文件，将所有 .d.ts 输出打包在一起。\n\n详见：https://www.typescriptlang.org/tsconfig#outFile"
+						},
+						"outDir": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "为所有生成的文件指定一个输出文件夹。",
+							"type": ["string", "null"],
+							"markdownDescription": "为所有生成的文件指定一个输出文件夹。\n\n详见：https://www.typescriptlang.org/tsconfig#outDir"
+						},
+						"preserveConstEnums": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用在生成的代码中擦除 `const enum` 声明。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用在生成的代码中擦除 `const enum` 声明。\n\n详见：https://www.typescriptlang.org/tsconfig#preserveConstEnums"
+						},
+						"preserveSymlinks": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用将符号链接解析为其真实路径。这与 Node 中的相同标志相关联。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用将符号链接解析为其真实路径。这与 Node 中的相同标志相关联。\n\n详见：https://www.typescriptlang.org/tsconfig#preserveSymlinks"
+						},
+						"preserveValueImports": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "保留在 JavaScript 输出中未使用的导入值，否则这些值将被移除。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "保留在 JavaScript 输出中未使用的导入值，否则这些值将被移除。\n\n详见：https://www.typescriptlang.org/tsconfig#preserveValueImports"
+						},
+						"preserveWatchOutput": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在监视模式下禁用清空控制台输出。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在监视模式下禁用清空控制台输出。\n\n详见：https://www.typescriptlang.org/tsconfig#preserveWatchOutput"
+						},
+						"pretty": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用输出中的颜色和格式，以便更容易阅读编译器错误。",
+							"type": ["boolean", "null"],
+							"default": true,
+							"markdownDescription": "启用输出中的颜色和格式，以便更容易阅读编译器错误。\n\n详见：https://www.typescriptlang.org/tsconfig#pretty"
+						},
+						"removeComments": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用输出注释。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用输出注释。\n\n详见：https://www.typescriptlang.org/tsconfig#removeComments"
+						},
+						"rootDir": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定源文件的根文件夹。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定源文件的根文件夹。\n\n详见：https://www.typescriptlang.org/tsconfig#rootDir"
+						},
+						"isolatedModules": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "确保每个文件可以安全地进行转译，而不依赖于其他导入。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "确保每个文件可以安全地进行转译，而不依赖于其他导入。\n\n详见：https://www.typescriptlang.org/tsconfig#isolatedModules"
+						},
+						"sourceMap": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "为生成的 JavaScript 文件创建源映射文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "为生成的 JavaScript 文件创建源映射文件。\n\n详见：https://www.typescriptlang.org/tsconfig#sourceMap"
+						},
+						"sourceRoot": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定调试器查找参考源代码的根路径。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定调试器查找参考源代码的根路径。\n\n详见：https://www.typescriptlang.org/tsconfig#sourceRoot"
+						},
+						"suppressExcessPropertyErrors": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在创建对象文字时禁用多余属性错误的报告。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在创建对象文字时禁用多余属性错误的报告。\n\n详见：https://www.typescriptlang.org/tsconfig#suppressExcessPropertyErrors"
+						},
+						"suppressImplicitAnyIndexErrors": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "当索引对象缺乏索引签名时，抑制 `noImplicitAny` 错误。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "当索引对象缺乏索引签名时，抑制 `noImplicitAny` 错误。\n\n详见：https://www.typescriptlang.org/tsconfig#suppressImplicitAnyIndexErrors"
+						},
+						"stripInternal": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁止生成带有 JSDoc 注释中 `@internal` 的声明。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "禁止生成带有 JSDoc 注释中 `@internal` 的声明。\n\n详见：https://www.typescriptlang.org/tsconfig#stripInternal"
+						},
+						"target": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "设置生成的 JavaScript 的 JavaScript 语言版本，并包括兼容的库声明。",
+							"type": ["string", "null"],
+							"default": "ES3",
+							"anyOf": [
+								{
+									"enum": [
+										"ES3",
+										"ES5",
+										"ES6",
+										"ES2015",
+										"ES2016",
+										"ES2017",
+										"ES2018",
+										"ES2019",
+										"ES2020",
+										"ES2021",
+										"ES2022",
+										"ES2023",
+										"ESNext"
+									]
+								},
+								{
+									"pattern": "^([Ee][Ss]([356]|(20(1[56789]|2[0123]))|[Nn][Ee][Xx][Tt]))$"
+								}
+							],
+							"markdownDescription": "设置生成的 JavaScript 的 JavaScript 语言版本，并包括兼容的库声明。\n\n详见：https://www.typescriptlang.org/tsconfig#target"
+						},
+						"useUnknownInCatchVariables": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在捕获变量中将默认的 catch 子句变量类型设置为 `unknown` 而不是 `any`。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在捕获变量中将默认的 catch 子句变量类型设置为 `unknown` 而不是 `any`。\n\n详见：https://www.typescriptlang.org/tsconfig#useUnknownInCatchVariables"
+						},
+						"watch": {
+							"description": "监视输入文件。",
+							"type": ["boolean", "null"]
+						},
+						"fallbackPolling": {
+							"description": "指定系统在没有或不支持本地文件监视器时使用的轮询策略。要求 TypeScript 版本为 3.8 或更高。",
+							"enum": [
+								"fixedPollingInterval",
+								"priorityPollingInterval",
+								"dynamicPriorityPolling",
+								"fixedInterval",
+								"priorityInterval",
+								"dynamicPriority",
+								"fixedChunkSize"
+							]
+						},
+						"watchDirectory": {
+							"description": "指定在缺乏递归文件监视功能的系统下监视目录的策略。要求 TypeScript 版本为 3.8 或更高。",
+							"enum": [
+								"useFsEvents",
+								"fixedPollingInterval",
+								"dynamicPriorityPolling",
+								"fixedChunkSizePolling"
+							],
+							"default": "useFsEvents"
+						},
+						"watchFile": {
+							"description": "指定监视单个文件的策略。要求 TypeScript 版本为 3.8 或更高。",
+							"enum": [
+								"fixedPollingInterval",
+								"priorityPollingInterval",
+								"dynamicPriorityPolling",
+								"useFsEvents",
+								"useFsEventsOnParentDirectory",
+								"fixedChunkSizePolling"
+							],
+							"default": "useFsEvents"
+						},
+						"experimentalDecorators": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用 TC39 阶段 2 草案装饰器的实验性支持。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "启用 TC39 阶段 2 草案装饰器的实验性支持。\n\n详见：https://www.typescriptlang.org/tsconfig#experimentalDecorators"
+						},
+						"emitDecoratorMetadata": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在源文件中为装饰声明发出设计类型元数据。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在源文件中为装饰声明发出设计类型元数据。\n\n详见：https://www.typescriptlang.org/tsconfig#emitDecoratorMetadata"
+						},
+						"allowUnusedLabels": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用未使用标签的错误报告。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "禁用未使用标签的错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#allowUnusedLabels"
+						},
+						"noImplicitReturns": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用对函数中未明确返回的代码路径的错误报告。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "启用对函数中未明确返回的代码路径的错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#noImplicitReturns"
+						},
+						"noUncheckedIndexedAccess": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在使用索引访问时，将 `undefined` 添加到类型中。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在使用索引访问时，将 `undefined` 添加到类型中。\n\n详见：https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess"
+						},
+						"noFallthroughCasesInSwitch": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用对 switch 语句中的穿透 case 的错误报告。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "启用对 switch 语句中的穿透 case 的错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#noFallthroughCasesInSwitch"
+						},
+						"noImplicitOverride": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "确保派生类中的重写成员标记有 override 修饰符。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "确保派生类中的重写成员标记有 override 修饰符。\n\n详见：https://www.typescriptlang.org/tsconfig#noImplicitOverride"
+						},
+						"allowUnreachableCode": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用对不可访问代码的错误报告。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "禁用对不可访问代码的错误报告。\n\n详见：https://www.typescriptlang.org/tsconfig#allowUnreachableCode"
+						},
+						"forceConsistentCasingInFileNames": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "确保导入时文件名的大小写正确。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "确保导入时文件名的大小写正确。\n\n详见：https://www.typescriptlang.org/tsconfig#forceConsistentCasingInFileNames"
+						},
+						"generateCpuProfile": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "为调试而发出编译器运行的 v8 CPU 配置文件。",
+							"type": ["string", "null"],
+							"default": "profile.cpuprofile",
+							"markdownDescription": "为调试而发出编译器运行的 v8 CPU 配置文件。\n\n详见：https://www.typescriptlang.org/tsconfig#generateCpuProfile"
+						},
+						"baseUrl": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定基础目录以解析非相对模块名。",
+							"type": ["string", "null"],
+							"markdownDescription": "指定基础目录以解析非相对模块名。\n\n详见：https://www.typescriptlang.org/tsconfig#baseUrl"
+						},
+						"paths": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定一组条目，重新映射导入到额外的查找位置。",
+							"type": ["object", "null"],
+							"additionalProperties": {
+								"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+								"type": ["array", "null"],
+								"uniqueItems": true,
+								"items": {
+									"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+									"type": ["string", "null"],
+									"description": "相对于 baseUrl 选项计算的路径映射。"
+								}
+							},
+							"markdownDescription": "指定一组条目，重新映射导入到额外的查找位置。\n\n详见：https://www.typescriptlang.org/tsconfig#paths"
+						},
+						"plugins": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定要包含的语言服务插件列表。",
+							"type": ["array", "null"],
+							"items": {
+								"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+								"type": ["object", "null"],
+								"properties": {
+									"name": {
+										"description": "插件名称。",
+										"type": ["string", "null"]
+									}
+								}
+							},
+							"markdownDescription": "指定要包含的语言服务插件列表。\n\n详见：https://www.typescriptlang.org/tsconfig#plugins"
+						},
+						"rootDirs": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在解析模块时允许将多个文件夹视为一个。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							},
+							"markdownDescription": "在解析模块时允许将多个文件夹视为一个。\n\n详见：https://www.typescriptlang.org/tsconfig#rootDirs"
+						},
+						"typeRoots": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定多个文件夹，类似于 `./node_modules/@types`。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							},
+							"markdownDescription": "指定多个文件夹，类似于 `./node_modules/@types`。\n\n详见：https://www.typescriptlang.org/tsconfig#typeRoots"
+						},
+						"types": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定要包含的类型包名称，而无需在源文件中引用。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							},
+							"markdownDescription": "指定要包含的类型包名称，而无需在源文件中引用。\n\n详见：https://www.typescriptlang.org/tsconfig#types"
+						},
+						"traceResolution": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用名称解析过程的跟踪。要求 TypeScript 版本 2.0 或更高。",
+							"type": ["boolean", "null"],
+							"default": false
+						},
+						"allowJs": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "允许 JavaScript 文件成为程序的一部分。使用 `checkJS` 选项从这些文件中获取错误。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "允许 JavaScript 文件成为程序的一部分。使用 `checkJS` 选项从这些文件中获取错误。\n\n详见：https://www.typescriptlang.org/tsconfig#allowJs"
+						},
+						"noErrorTruncation": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用错误消息中的类型截断。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用错误消息中的类型截断。\n\n详见：https://www.typescriptlang.org/tsconfig#noErrorTruncation"
+						},
+						"allowSyntheticDefaultImports": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在模块没有默认导出时允许 'import x from y'。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在模块没有默认导出时允许 'import x from y'。\n\n详见：https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports"
+						},
+						"noImplicitUseStrict": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用在生成的 JavaScript 文件中添加 'use strict' 指令。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用在生成的 JavaScript 文件中添加 'use strict' 指令。\n\n详见：https://www.typescriptlang.org/tsconfig#noImplicitUseStrict"
+						},
+						"listEmittedFiles": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在编译后打印生成的文件名称。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在编译后打印生成的文件名称。\n\n详见：https://www.typescriptlang.org/tsconfig#listEmittedFiles"
+						},
+						"disableSizeLimit": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "移除 TypeScript 语言服务器中 JavaScript 文件总源代码大小的 20mb 上限。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "移除 TypeScript 语言服务器中 JavaScript 文件总源代码大小的 20mb 上限。\n\n详见：https://www.typescriptlang.org/tsconfig#disableSizeLimit"
+						},
+
+						"lib": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定一组捆绑的库声明文件，描述目标运行时环境。",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+								"type": ["string", "null"],
+								"anyOf": [
+									{
+										"enum": [
+											"ES5",
+											"ES6",
+											"ES2015",
+											"ES2015.Collection",
+											"ES2015.Core",
+											"ES2015.Generator",
+											"ES2015.Iterable",
+											"ES2015.Promise",
+											"ES2015.Proxy",
+											"ES2015.Reflect",
+											"ES2015.Symbol.WellKnown",
+											"ES2015.Symbol",
+											"ES2016",
+											"ES2016.Array.Include",
+											"ES2017",
+											"ES2017.Intl",
+											"ES2017.Object",
+											"ES2017.SharedMemory",
+											"ES2017.String",
+											"ES2017.TypedArrays",
+											"ES2018",
+											"ES2018.AsyncGenerator",
+											"ES2018.AsyncIterable",
+											"ES2018.Intl",
+											"ES2018.Promise",
+											"ES2018.Regexp",
+											"ES2019",
+											"ES2019.Array",
+											"ES2019.Intl",
+											"ES2019.Object",
+											"ES2019.String",
+											"ES2019.Symbol",
+											"ES2020",
+											"ES2020.BigInt",
+											"ES2020.Promise",
+											"ES2020.String",
+											"ES2020.Symbol.WellKnown",
+											"ESNext",
+											"ESNext.Array",
+											"ESNext.AsyncIterable",
+											"ESNext.BigInt",
+											"ESNext.Intl",
+											"ESNext.Promise",
+											"ESNext.String",
+											"ESNext.Symbol",
+											"DOM",
+											"DOM.AsyncIterable",
+											"DOM.Iterable",
+											"ScriptHost",
+											"WebWorker",
+											"WebWorker.AsyncIterable",
+											"WebWorker.ImportScripts",
+											"Webworker.Iterable",
+											"ES7",
+											"ES2021",
+											"ES2020.SharedMemory",
+											"ES2020.Intl",
+											"ES2020.Date",
+											"ES2020.Number",
+											"ES2021.Promise",
+											"ES2021.String",
+											"ES2021.WeakRef",
+											"ESNext.WeakRef",
+											"ES2021.Intl",
+											"ES2022",
+											"ES2022.Array",
+											"ES2022.Error",
+											"ES2022.Intl",
+											"ES2022.Object",
+											"ES2022.String",
+											"ES2022.SharedMemory",
+											"ES2022.RegExp",
+											"ES2023",
+											"ES2023.Array",
+											"Decorators",
+											"Decorators.Legacy",
+											"ES2017.Date",
+											"ES2023.Collection",
+											"ESNext.Decorators",
+											"ESNext.Disposable"
+										]
+									},
+									{
+										"pattern": "^[Ee][Ss]5|[Ee][Ss]6|[Ee][Ss]7$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2015(\\.([Cc][Oo][Ll][Ll][Ee][Cc][Tt][Ii][Oo][Nn]|[Cc][Oo][Rr][Ee]|[Gg][Ee][Nn][Ee][Rr][Aa][Tt][Oo][Rr]|[Ii][Tt][Ee][Rr][Aa][Bb][Ll][Ee]|[Pp][Rr][Oo][Mm][Ii][Ss][Ee]|[Pp][Rr][Oo][Xx][Yy]|[Rr][Ee][Ff][Ll][Ee][Cc][Tt]|[Ss][Yy][Mm][Bb][Oo][Ll]\\.[Ww][Ee][Ll][Ll][Kk][Nn][Oo][Ww][Nn]|[Ss][Yy][Mm][Bb][Oo][Ll]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2016(\\.[Aa][Rr][Rr][Aa][Yy]\\.[Ii][Nn][Cc][Ll][Uu][Dd][Ee])?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2017(\\.([Ii][Nn][Tt][Ll]|[Oo][Bb][Jj][Ee][Cc][Tt]|[Ss][Hh][Aa][Rr][Ee][Dd][Mm][Ee][Mm][Oo][Rr][Yy]|[Ss][Tt][Rr][Ii][Nn][Gg]|[Tt][Yy][Pp][Ee][Dd][Aa][Rr][Rr][Aa][Yy][Ss]|[Dd][Aa][Tt][Ee]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2018(\\.([Aa][Ss][Yy][Nn][Cc][Gg][Ee][Nn][Ee][Rr][Aa][Tt][Oo][Rr]|[Aa][Ss][Yy][Nn][Cc][Ii][Tt][Ee][Rr][Aa][Bb][Ll][Ee]|[Ii][Nn][Tt][Ll]|[Pp][Rr][Oo][Mm][Ii][Ss][Ee]|[Rr][Ee][Gg][Ee][Xx][Pp]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2019(\\.([Aa][Rr][Rr][Aa][Yy]|[Ii][Nn][Tt][Ll]|[Oo][Bb][Jj][Ee][Cc][Tt]|[Ss][Tt][Rr][Ii][Nn][Gg]|[Ss][Yy][Mm][Bb][Oo][Ll]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2020(\\.([Bb][Ii][Gg][Ii][Nn][Tt]|[Pp][Rr][Oo][Mm][Ii][Ss][Ee]|[Ss][Tt][Rr][Ii][Nn][Gg]|[Ss][Yy][Mm][Bb][Oo][Ll]\\.[Ww][Ee][Ll][Ll][Kk][Nn][Oo][Ww][Nn]|[Ss][Hh][Aa][Rr][Ee][Dd][Mm][Ee][Mm][Oo][Rr][Yy]|[Ii][Nn][Tt][Ll]|[Dd][Aa][Tt][Ee]|[Nn][Uu][Mm][Bb][Ee][Rr]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2021(\\.([Ii][Nn][Tt][Ll]|[Pp][Rr][Oo][Mm][Ii][Ss][Ee]|[Ss][Tt][Rr][Ii][Nn][Gg]|[Ww][Ee][Aa][Kk][Rr][Ee][Ff]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2022(\\.([Aa][Rr][Rr][Aa][Yy]|[Ee][Rr][Rr][Oo][Rr]|[Ii][Nn][Tt][Ll]|[Oo][Bb][Jj][Ee][Cc][Tt]|[Ss][Tt][Rr][Ii][Nn][Gg]|[Ss][Hh][Aa][Rr][Ee][Dd][Mm][Ee][Mm][Oo][Rr][Yy]|[Rr][Ee][Gg][Ee][Xx][Pp]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss]2023(\\.([Aa][Rr][Rr][Aa][Yy]|[Cc][Oo][Ll][Ll][Ee][Cc][Tt][Ii][Oo][Nn]))?$"
+									},
+									{
+										"pattern": "^[Ee][Ss][Nn][Ee][Xx][Tt](\\.([Aa][Rr][Rr][Aa][Yy]|[Aa][Ss][Yy][Nn][Cc][Ii][Tt][Ee][Rr][Aa][Bb][Ll][Ee]|[Bb][Ii][Gg][Ii][Nn][Tt]|[Ii][Nn][Tt][Ll]|[Pp][Rr][Oo][Mm][Ii][Ss][Ee]|[Ss][Tt][Rr][Ii][Nn][Gg]|[Ss][Yy][Mm][Bb][Oo][Ll]|[Ww][Ee][Aa][Kk][Rr][Ee][Ff]|[Dd][Ee][Cc][Oo][Rr][Aa][Tt][Oo][Rr][Ss]|[Dd][Ii][Ss][Pp][Oo][Ss][Aa][Bb][Ll][Ee]))?$"
+									},
+									{
+										"pattern": "^[Dd][Oo][Mm](\\.[Ii][Tt][Ee][Rr][Aa][Bb][Ll][Ee])?$"
+									},
+									{
+										"pattern": "^[Ss][Cc][Rr][Ii][Pp][Tt][Hh][Oo][Ss][Tt]$"
+									},
+									{
+										"pattern": "^[Ww][Ee][Bb][Ww][Oo][Rr][Kk][Ee][Rr](\\.([Ii][Mm][Pp][Oo][Rr][Tt][Ss][Cc][Rr][Ii][Pp][Tt][Ss]|[Ii][Tt][Ee][Rr][Aa][Bb][Ll][Ee]))?$"
+									},
+									{
+										"pattern": "^[Dd][Ee][Cc][Oo][Rr][Aa][Tt][Oo][Rr][Ss](\\.([Ll][Ee][Gg][Aa][Cc][Yy]))?$"
+									}
+								]
+							},
+							"markdownDescription": "指定一组捆绑的库声明文件，描述目标运行时环境。\n\n查看更多：https://www.typescriptlang.org/tsconfig#lib"
+						},
+						"moduleDetection": {
+							"description": "指定 TypeScript 如何确定文件是否为模块。",
+							"enum": ["auto", "legacy", "force"]
+						},
+						"strictNullChecks": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在类型检查时，考虑 `null` 和 `undefined`。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在类型检查时，考虑 `null` 和 `undefined`。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#strictNullChecks"
+						},
+						"maxNodeModuleJsDepth": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定从 `node_modules` 中检查 JavaScript 文件时的最大文件夹深度。仅在 `allowJs` 为 true 时适用。",
+							"type": ["number", "null"],
+							"default": 0,
+							"markdownDescription": "指定从 `node_modules` 中检查 JavaScript 文件时的最大文件夹深度。仅在 `allowJs` 为 true 时适用。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#maxNodeModuleJsDepth"
+						},
+						"importHelpers": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "允许在项目中仅从 tslib 导入一次帮助函数，而不是每个文件都包含它们。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "允许在项目中仅从 tslib 导入一次帮助函数，而不是每个文件都包含它们。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#importHelpers"
+						},
+						"importsNotUsedAsValues": {
+							"description": "指定导入仅用于类型时的发出/检查行为。",
+							"default": "remove",
+							"enum": ["remove", "preserve", "error"]
+						},
+						"alwaysStrict": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "始终发出 'use strict'。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "始终发出 'use strict'。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#alwaysStrict"
+						},
+						"strict": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用所有严格类型检查选项。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "启用所有严格类型检查选项。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#strict"
+						},
+						"strictBindCallApply": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "检查 `bind`, `call` 和 `apply` 方法的参数是否与原始函数匹配。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "检查 `bind`, `call` 和 `apply` 方法的参数是否与原始函数匹配。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#strictBindCallApply"
+						},
+						"downlevelIteration": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "发出更符合规范但更冗长且性能较低的迭代 JavaScript。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "发出更符合规范但更冗长且性能较低的迭代 JavaScript。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#downlevelIteration"
+						},
+						"checkJs": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在类型检查的 JavaScript 文件中启用错误报告。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在类型检查的 JavaScript 文件中启用错误报告。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#checkJs"
+						},
+						"strictFunctionTypes": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在分配函数时，检查确保参数和返回值是子类型兼容的。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在分配函数时，检查确保参数和返回值是子类型兼容的。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#strictFunctionTypes"
+						},
+						"strictPropertyInitialization": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "检查类属性是否在构造函数中声明但未设置。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "检查类属性是否在构造函数中声明但未设置。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#strictPropertyInitialization"
+						},
+						"esModuleInterop": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "发出额外的 JavaScript 以便于支持导入 CommonJS 模块。这启用了 `allowSyntheticDefaultImports` 以实现类型兼容性。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "发出额外的 JavaScript 以便于支持导入 CommonJS 模块。这启用了 `allowSyntheticDefaultImports` 以实现类型兼容性。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#esModuleInterop"
+						},
+						"allowUmdGlobalAccess": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "允许从模块访问 UMD 全局对象。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "允许从模块访问 UMD 全局对象。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#allowUmdGlobalAccess"
+						},
+						"keyofStringsOnly": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "仅使 keyof 返回字符串而不是字符串、数字或符号。遗留选项。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "仅使 keyof 返回字符串而不是字符串、数字或符号。遗留选项。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#keyofStringsOnly"
+						},
+						"useDefineForClassFields": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "发出符合 ECMAScript 标准的类字段。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "发出符合 ECMAScript 标准的类字段。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#useDefineForClassFields"
+						},
+						"declarationMap": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "为 d.ts 文件创建源映射。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "为 d.ts 文件创建源映射。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#declarationMap"
+						},
+						"resolveJsonModule": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用导入 .json 文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "启用导入 .json 文件。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#resolveJsonModule"
+						},
+						"resolvePackageJsonExports": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在解析包导入时使用 package.json 的 'exports' 字段。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在解析包导入时使用 package.json 的 'exports' 字段。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#resolvePackageJsonExports"
+						},
+						"resolvePackageJsonImports": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在解析导入时使用 package.json 的 'imports' 字段。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在解析导入时使用 package.json 的 'imports' 字段。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#resolvePackageJsonImports"
+						},
+						"assumeChangesOnlyAffectDirectDependencies": {
+							"description": "在 '--incremental' 和 '--watch' 模式下假定文件内的更改只会影响直接依赖它的文件。要求 TypeScript 版本为 3.8 或更高。",
+							"type": ["boolean", "null"]
+						},
+						"extendedDiagnostics": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在构建后输出更详细的编译器性能信息。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "在构建后输出更详细的编译器性能信息。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#extendedDiagnostics"
+						},
+						"listFilesOnly": {
+							"description": "打印编译中的文件名称，并停止处理。",
+							"type": ["boolean", "null"]
+						},
+						"disableSourceOfProjectReferenceRedirect": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在引用复合项目时，禁用优先使用源文件而不是声明文件。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在引用复合项目时，禁用优先使用源文件而不是声明文件。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#disableSourceOfProjectReferenceRedirect"
+						},
+						"disableSolutionSearching": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "在编辑时选择性地排除项目，以免进行多项目引用检查。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "在编辑时选择性地排除项目，以免进行多项目引用检查。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#disableSolutionSearching"
+						},
+						"verbatimModuleSyntax": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "不转换或省略任何未标记为仅类型的导入或导出，确保它们按照输出文件的格式基于 'module' 设置写入。",
+							"type": ["boolean", "null"],
+							"markdownDescription": "不转换或省略任何未标记为仅类型的导入或导出，确保它们按照输出文件的格式基于 'module' 设置写入。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax"
+						}
+					}
+				}
+			}
+		},
+		"typeAcquisitionDefinition": {
+			"properties": {
+				"typeAcquisition": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"type": ["object", "null"],
+					"description": "此项目的自动类型 (.d.ts) 获取选项。要求 TypeScript 版本为 2.1 或更高。",
+					"properties": {
+						"enable": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "启用自动类型获取",
+							"type": ["boolean", "null"],
+							"default": false
+						},
+						"include": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定要包含在自动类型获取中的类型声明列表。例如 [\"jquery\", \"lodash\"]",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							}
+						},
+						"exclude": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "指定要从自动类型获取中排除的类型声明列表。例如 [\"jquery\", \"lodash\"]",
+							"type": ["array", "null"],
+							"uniqueItems": true,
+							"items": {
+								"type": ["string", "null"]
+							}
+						}
+					}
+				}
+			}
+		},
+		"referencesDefinition": {
+			"properties": {
+				"references": {
+					"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"description": "被引用的项目。要求 TypeScript 版本为 3.0 或更高。",
+					"items": {
+						"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+						"type": ["object", "null"],
+						"description": "项目引用。",
+						"properties": {
+							"path": {
+								"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+								"type": ["string", "null"],
+								"description": "指向被引用的 tsconfig 或包含 tsconfig 的文件夹的路径。"
+							}
+						}
+					}
+				}
+			}
+		},
+		"tsNodeModuleTypes": {
+			"type": ["object", "null"]
+		},
+		"tsNodeDefinition": {
+			"properties": {
+				"ts-node": {
+					"description": "ts-node 选项。参见：https://typestrong.org/ts-node/docs/configuration\n\nts-node 提供了用于 Node.js 的 TypeScript 执行和 REPL，支持源映射。",
+					"properties": {
+						"compiler": {
+							"default": "typescript",
+							"description": "指定自定义的 TypeScript 编译器。",
+							"type": ["string", "null"]
+						},
+						"compilerHost": {
+							"default": false,
+							"description": "使用 TypeScript 的编译器主机 API 而不是语言服务 API。",
+							"type": ["boolean", "null"]
+						},
+						"compilerOptions": {
+							"additionalProperties": true,
+							"allOf": [
+								{
+									"$ref": "#/definitions/compilerOptionsDefinition/properties/compilerOptions"
+								}
+							],
+							"description": "要与 TypeScript 的 `compilerOptions` 合并的 JSON 对象。",
+							"properties": {},
+							"type": ["object", "null"]
+						},
+						"emit": {
+							"default": false,
+							"description": "将输出文件生成到 `.ts-node` 目录。",
+							"type": ["boolean", "null"]
+						},
+						"esm": {
+							"description": "启用原生 ESM 支持。\n\n详情请参阅：https://typestrong.org/ts-node/docs/imports#native-ecmascript-modules",
+							"type": ["boolean", "null"]
+						},
+						"experimentalReplAwait": {
+							"description": "允许在 REPL 中使用顶级 await。\n\n使用 Node 的实现来实现这一点，通过 AST 语法转换完成。\n\n当 tsconfig 的目标为 es2018 或更高时，默认启用。设置为 false 可禁用。\n\n**注意**: 当 tsconfig 的目标版本过低时，设置为 `true` 将会抛出错误。保留为 `undefined` 以获取默认的自动行为。",
+							"type": ["boolean", "null"]
+						},
+						"experimentalResolver": {
+							"description": "启用实验性功能，重新映射导入和 require 调用以支持：\n`baseUrl`、`paths`、`rootDirs`，`.js` 到 `.ts` 文件扩展名映射，\n`outDir` 到 `rootDir` 的映射，适用于组合项目和 monorepos。\n\n详情请参阅：https://github.com/TypeStrong/ts-node/issues/1514",
+							"type": ["boolean", "null"]
+						},
+						"experimentalSpecifierResolution": {
+							"description": "类似于 Node 的 `--experimental-specifier-resolution`，但也可以在您的 `tsconfig.json` 中设置以方便使用。\n\n详情请参阅：https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#customizing-esm-specifier-resolution-algorithm",
+							"enum": ["explicit", "node"],
+							"type": ["string", "null"]
+						},
+						"files": {
+							"default": false,
+							"description": "在启动时从 `tsconfig.json` 加载 \"files\" 和 \"include\"。\n\n默认是覆盖 `tsconfig.json` 的 \"files\" 和 \"include\"，仅包括入口脚本。",
+							"type": ["boolean", "null"]
+						},
+						"ignore": {
+							"default": ["(?:^|/)node_modules/"],
+							"description": "不应进行编译的路径。\n\n数组中的每个字符串通过 `new RegExp()` 转换为正则表达式，并在编译之前针对源路径进行测试。\n\n源路径会被规范化为 posix 风格的分隔符，相对于包含 `tsconfig.json` 的目录或者在没有加载 `tsconfig.json` 的情况下相对于当前工作目录（cwd）。\n\n默认是忽略所有的 node_modules 子目录。",
+							"items": {
+								"type": ["string", "null"]
+							},
+							"type": ["array", "null"]
+						},
+						"ignoreDiagnostics": {
+							"description": "通过诊断代码忽略 TypeScript 的警告。",
+							"items": {
+								"type": ["string", "number"]
+							},
+							"type": ["array", "null"]
+						},
+						"logError": {
+							"default": false,
+							"description": "将 TypeScript 错误记录到 stderr 而不是抛出异常。",
+							"type": ["boolean", "null"]
+						},
+						"moduleTypes": {
+							"$ref": "#/definitions/tsNodeModuleTypes",
+							"description": "覆盖某些路径，将其编译和执行为 CommonJS 或 ECMAScript 模块。\n当覆盖时，将覆盖 tsconfig 的 \"module\" 和 package.json 的 \"type\" 字段，并忽略文件扩展名。\n如果无法使用 .mts、.cts、.mjs 或 .cjs 文件扩展名，则此选项非常有用；\n它达到了相同的效果。\n\n每个键是一个 glob 模式，遵循与 tsconfig 的 \"include\" 数组相同的规则。\n当多个模式匹配同一文件时，以最后一个模式为准。\n\n`cjs` 将匹配的文件编译和执行为 CommonJS。\n`esm` 将匹配的文件编译和执行为原生 ECMAScript 模块。\n`package` 将覆盖上述任一选项到默认行为，遵循 package.json 的 \"type\" 和 tsconfig.json 的 \"module\" 选项。"
+						},
+						"preferTsExts": {
+							"default": false,
+							"description": "重新排序文件扩展名，以优先使用 TypeScript 导入。\n\n例如，当存在 `index.js` 和 `index.ts` 时，启用此选项会导致 `require('./index')` 解析为 `index.ts` 而不是 `index.js`。",
+							"type": ["boolean", "null"]
+						},
+						"pretty": {
+							"default": false,
+							"description": "使用美观的诊断格式化程序。",
+							"type": ["boolean", "null"]
+						},
+						"require": {
+							"description": "要求的模块，类似于 Node 的 `--require` 标志。\n\n如果在 `tsconfig.json` 中指定，这些模块将相对于 `tsconfig.json` 文件解析。\n\n如果以编程方式指定，则每个输入字符串应预先解析为最佳结果的绝对路径。",
+							"items": {
+								"type": ["string", "null"]
+							},
+							"type": ["array", "null"]
+						},
+						"scope": {
+							"default": false,
+							"description": "限制编译器仅对 `scopeDir` 中的文件进行作用域编译。",
+							"type": ["boolean", "null"]
+						},
+						"scopeDir": {
+							"default": "首先是：如果指定了 `tsconfig.json` 的 \"rootDir\"，则使用它；如果未指定，则使用包含 `tsconfig.json` 的目录；如果没有加载 `tsconfig.json`，则使用当前工作目录。",
+							"type": ["string", "null"]
+						},
+						"skipIgnore": {
+							"default": false,
+							"description": "跳过忽略检查，以便对所有具有匹配扩展名的文件尝试编译。",
+							"type": ["boolean", "null"]
+						},
+						"swc": {
+							"description": "使用 swc 而不是 TypeScript 编译器进行转译，并跳过类型检查。\n\n相当于设置 `transpileOnly: true` 和 `transpiler: 'ts-node/transpilers/swc'`。\n\n完整说明请参见：https://typestrong.org/ts-node/docs/transpilers",
+							"type": ["boolean", "null"]
+						},
+						"transpileOnly": {
+							"default": false,
+							"description": "使用 TypeScript 更快的 `transpileModule`。",
+							"type": ["boolean", "null"]
+						},
+						"transpiler": {
+							"anyOf": [
+								{
+									"items": [
+										{
+											"type": ["string", "null"]
+										},
+										{
+											"additionalProperties": true,
+											"properties": {},
+											"type": ["object", "null"]
+										}
+									],
+									"maxItems": 2,
+									"minItems": 2,
+									"type": ["array", "null"]
+								},
+								{
+									"type": ["string", "null"]
+								}
+							],
+							"description": "指定用于 `transpileOnly` 的自定义转译器。"
+						},
+						"typeCheck": {
+							"default": true,
+							"description": "**已弃用** 指定是否启用类型检查（例如 `transpileOnly == false`）。",
+							"type": ["boolean", "null"]
+						}
+					},
+					"type": ["object", "null"]
+				}
+			}
+		}
+	},
+	"title": "TypeScript 编译器配置文件的 JSON Schema 架构",
+	"type": "object"
+}
