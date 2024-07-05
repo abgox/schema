@@ -11,12 +11,11 @@ foreach ($_ in $schemaList.Keys) {
         $old = Get-Content $oldPath
         $new = Get-Content $newPath
         $isDiff = Compare-Object $old $new -PassThru
-        if (!$isDiff) {
+        if ($isDiff) {
             $diffList += $schemaList.$_.to
         }
     }
     catch {}
-    Remove-Item $oldPath, $newPath -Force -ErrorAction SilentlyContinue
 }
 
 if ($diffList) {
