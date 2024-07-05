@@ -13,7 +13,7 @@ function getList {
     return $list
 }
 
-function generateInfo() {
+function generateInfo($language) {
     $resulst = @()
     $list = getList
     foreach ($_ in $list) {
@@ -27,61 +27,36 @@ function generateInfo() {
         $compressedJson | Out-File "$($_.Directory.FullName)\$($_.BaseName)-min.json" -Encoding utf8 -Force
 
         # Schema
-        $info += "[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name)) ``$($lang)``"
+        if ($language -eq "zh-CN") {
+            $info += "[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name) '点击获取未压缩版本') ``$($lang)``<br><a href=`"https://abgox.github.io/schema/$($dir)/$($lang)/$($_.BaseName)-min.json`" title=`"点击获取压缩版本`"><img src=`"https://img.shields.io/badge/-点我获取压缩版本-blue`" />"
+        }
+        else {
+            $info += "[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name) 'Click to get uncompressed version') ``$($lang)``<br><a href=`"https://abgox.github.io/schema/$($dir)/$($lang)/$($_.BaseName)-min.json`" title=`"Click to get compressed version`"><img src=`"https://img.shields.io/badge/-Click%20to%20get%20Compressed%20version-blue`" />"
+        }
 
         # Source
-        $id = ""
-        if ($json.'$id') {
-            $id = $json.'$id'
-        }
-        elseif ($json.'id') {
-            $id = $json.'id'
-        }
-        if ($id -notlike "http*") {
-            $id = ""
-        }
-
+        $schemaList = Get-Content "$PSScriptRoot/../list.jsonc" | ConvertFrom-Json -AsHashtable
+        $obj = $schemaList."$($dir)/$($_.Name)"
+        $id = if ($obj) { $obj.from }else { "" }
         if ($id) {
-            $info += "[$($_.Name)]($($id))"
+            $info += "[$($obj.from)]($($id))"
         }
         else {
             $info += ""
         }
 
-        # Tag
-        $updateTip = ""
-        if ($id) {
-            $wc = New-Object System.Net.WebClient
-            $oldPath = "$(New-Guid)-old.json"
-            $newPath = "$(New-Guid)-new.json"
-            $wc.DownloadFile($id, $oldPath)
-            try {
-                $wc.DownloadFile("https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name)", $newPath)
-            }
-            catch {
-                "{}" | Out-File $newPath -Encoding UTF8 -Force
-            }
-            $old = Get-Content $oldPath
-            $new = Get-Content $newPath
-            if (Compare-Object $old $new -PassThru) {
-                $updateTip = '<img src="https://img.shields.io/badge/-Need%20Update-red" />'
-            }
-            Remove-Item $oldPath
-            Remove-Item $newPath
-        }
-        $info += $updateTip
         $resulst += "|" + ($info -join "|") + "|"
     }
     return ($resulst | Sort-Object)
 }
 
-$content = generateInfo
 
-function handle($path) {
+function handle($path, $language) {
+    $content = generateInfo $language
     function getStaticContent($path) {
         $content = Get-Content -Path $path -Encoding UTF8
 
-        $match = $content | Select-String -Pattern "\|:-:\|:-:\|:-:\|"
+        $match = $content | Select-String -Pattern "\|:-:\|:-:\|"
 
         if ($match) {
             $matchLineNumber = ([array]$match.LineNumber)[0]
@@ -91,5 +66,5 @@ function handle($path) {
     }
     (getStaticContent $path) + $content | Out-File $path -Encoding UTF8 -Force
 }
-handle "$PSScriptRoot\..\README.md"
-handle "$PSScriptRoot\..\README-CN.md"
+handle "$PSScriptRoot\..\README-CN.md" "zh-CN"
+handle "$PSScriptRoot\..\README.md" "en-US"
