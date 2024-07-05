@@ -8,7 +8,7 @@
     <a href="https://gitee.com/abgox/schema">Gitee</a>
 </p>
 
-### How to use
+## How to use
 
 1. Add the `$schema` attribute to the json file. (Not recommended)
 
@@ -33,30 +33,28 @@
    - Add it yourself in Settings
    - `Settings` => `Languages & Frameworks` => `Schemas and DTDS`=>`JSON Schema Mappings`
 
-### List
+## List
 
 - Add the `-min` from the file name, which means the compressed file. (e.g. `.prettierrc.json`)
 
-  - uncompressed: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json
-  - compressed: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json
+  - Uncompressed version: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json
+  - Compressed version: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json
 
-- <img src="https://img.shields.io/badge/-Need%20Update-red" />
-
-  - It means that there is a difference between Schema and `Source` in the repository and need update.
-
-|Schema|Source|Tag|
-|:-:|:-:|:-:|
-|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/en-US/.eslintrc.json) `en-US`|[.eslintrc.json](https://json.schemastore.org/eslintrc.json)||
-|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/zh-CN/.eslintrc.json) `zh-CN`|||
-|[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/en-US/.prettierrc.json) `en-US`|[.prettierrc.json](https://json.schemastore.org/prettierrc.json)||
-|[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json) `zh-CN`|||
-|[PSCompletions/completion.json](https://abgox.github.io/schema/PSCompletions/en-US/completion.json) `en-US`|||
-|[PSCompletions/completion.json](https://abgox.github.io/schema/PSCompletions/zh-CN/completion.json) `zh-CN`|||
-|[PSCompletions/completions.json](https://abgox.github.io/schema/PSCompletions/en-US/completions.json) `en-US`|||
-|[PSCompletions/completions.json](https://abgox.github.io/schema/PSCompletions/zh-CN/completions.json) `zh-CN`|||
-|[PSCompletions/config.json](https://abgox.github.io/schema/PSCompletions/en-US/config.json) `en-US`|||
-|[PSCompletions/config.json](https://abgox.github.io/schema/PSCompletions/zh-CN/config.json) `zh-CN`|||
-|[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/en-US/manifest.json) `en-US`|||
-|[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json) `zh-CN`|||
-|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json) `en-US`|[tsconfig.json](https://json.schemastore.org/tsconfig)||
-|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/zh-CN/tsconfig.json) `zh-CN`|||
+|Schema|Source|
+|:-:|:-:|
+|[biomejs/biome.json](https://abgox.github.io/schema/biomejs/en-US/biome.json) `en-US`|[https://biomejs.dev/schemas/1.8.3/schema.json](https://biomejs.dev/schemas/1.8.3/schema.json)|
+|[biomejs/biome.json](https://abgox.github.io/schema/biomejs/zh-CN/biome.json) `zh-CN`|[https://biomejs.dev/schemas/1.8.3/schema.json](https://biomejs.dev/schemas/1.8.3/schema.json)|
+|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/en-US/.eslintrc.json) `en-US`|[https://json.schemastore.org/eslintrc.json](https://json.schemastore.org/eslintrc.json)|
+|[eslint/.eslintrc.json](https://abgox.github.io/schema/eslint/zh-CN/.eslintrc.json) `zh-CN`|[https://json.schemastore.org/eslintrc.json](https://json.schemastore.org/eslintrc.json)|
+|[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/en-US/.prettierrc.json) `en-US`|[https://json.schemastore.org/prettierrc.json](https://json.schemastore.org/prettierrc.json)|
+|[prettier/.prettierrc.json](https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json) `zh-CN`|[https://json.schemastore.org/prettierrc.json](https://json.schemastore.org/prettierrc.json)|
+|[PSCompletions/completion.json](https://abgox.github.io/schema/PSCompletions/en-US/completion.json) `en-US`||
+|[PSCompletions/completion.json](https://abgox.github.io/schema/PSCompletions/zh-CN/completion.json) `zh-CN`||
+|[PSCompletions/completions.json](https://abgox.github.io/schema/PSCompletions/en-US/completions.json) `en-US`||
+|[PSCompletions/completions.json](https://abgox.github.io/schema/PSCompletions/zh-CN/completions.json) `zh-CN`||
+|[PSCompletions/config.json](https://abgox.github.io/schema/PSCompletions/en-US/config.json) `en-US`||
+|[PSCompletions/config.json](https://abgox.github.io/schema/PSCompletions/zh-CN/config.json) `zh-CN`||
+|[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/en-US/manifest.json) `en-US`||
+|[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json) `zh-CN`||
+|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json) `en-US`|[https://json.schemastore.org/tsconfig.json](https://json.schemastore.org/tsconfig.json)|
+|[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/zh-CN/tsconfig.json) `zh-CN`|[https://json.schemastore.org/tsconfig.json](https://json.schemastore.org/tsconfig.json)|
