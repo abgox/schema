@@ -856,6 +856,9 @@
 					"$ref": "#/definitions/rule",
 					"description": "禁用特定的语法"
 				},
+				"no-spaced-func": {
+					"$ref": "#/definitions/rule"
+				},
 				"no-tabs": {
 					"$ref": "#/definitions/rule",
 					"description": "禁用制表符"
@@ -896,6 +899,9 @@
 					"$ref": "#/definitions/rule",
 					"description": "强制将对象的属性放在不同的行上"
 				},
+				"object-shorthand": {
+					"$ref": "#/definitions/rule"
+				},
 				"one-var": {
 					"$ref": "#/definitions/rule",
 					"description": "强制函数中的变量在一起声明或分开声明"
@@ -920,14 +926,6 @@
 					"$ref": "#/definitions/rule",
 					"description": "要求或禁止在语句之间填充空行"
 				},
-				"prefer-exponentiation-operator": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止 Math.pow 的标准方法并且要求使用操作符 **"
-				},
-				"prefer-object-spread": {
-					"$ref": "#/definitions/rule",
-					"description": "强制将对象展开符号用作复制对象的一种方法"
-				},
 				"quote-props": {
 					"$ref": "#/definitions/rule",
 					"description": "要求对象字面量属性名称使用一致的引号风格"
@@ -935,6 +933,10 @@
 				"quotes": {
 					"$ref": "#/definitions/rule",
 					"description": "强制使用一致的引号风格"
+				},
+				"require-jsdoc": {
+					"$ref": "#/definitions/rule",
+					"description": "需要 JSDoc 注释"
 				},
 				"semi": {
 					"$ref": "#/definitions/rule",
@@ -964,22 +966,23 @@
 					"$ref": "#/definitions/rule",
 					"description": "强制在 function 的左括号之前使用一致的空格"
 				},
-				"space-in-parens": {
+				"spaced-comment": {
 					"$ref": "#/definitions/rule",
-					"description": "强制在圆括号内使用一致的空格"
+					"description": "确保注释中 // 或 /* 后的间距一致"
 				},
 				"space-infix-ops": {
 					"$ref": "#/definitions/rule",
 					"description": "要求操作符周围有空格"
 				},
+				"space-in-parens": {
+					"$ref": "#/definitions/rule",
+					"description": "强制在圆括号内使用一致的空格"
+				},
 				"space-unary-ops": {
 					"$ref": "#/definitions/rule",
 					"description": "强制在一元操作符前后使用一致的空格"
 				},
-				"spaced-comment": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在注释前有空白"
-				},
+
 				"switch-colon-spacing": {
 					"$ref": "#/definitions/rule",
 					"description": "强制在 switch 的冒号左右有空格"
