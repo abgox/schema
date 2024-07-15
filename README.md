@@ -13,20 +13,22 @@
 1. Add the `$schema` attribute to the json file. (Not recommended)
 
 ```json
-"$schema": "https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json",
+"$schema": "https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json",
 ```
 
 2. vscode `settings.json`
 
+- [Invalid schema (vscode issue)](https://github.com/microsoft/vscode/issues/219855)
+
 ```json
-"json.schemas": [
-        {
-            "url": "https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json",
-            "fileMatch": [
-                ".prettierrc.json"
-            ]
-        }
-    ]
+  "json.schemas": [
+    {
+      "url": "https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json",
+      "fileMatch": [
+        "biome.json"
+      ]
+    }
+  ]
 ```
 
 3. WebStorm
@@ -35,10 +37,10 @@
 
 ## List
 
-- Add the `-min` from the file name, which means the compressed file. (e.g. `.prettierrc.json`)
+- Add the `-min` from the file name, which means the compressed file. (e.g. `biome.json`)
 
-  - Uncompressed version: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json
-  - Compressed version: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json
+  - Uncompressed version: https://abgox.github.io/schema/biomejs/zh-CN/biome.json
+  - Compressed version: https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json
 
 |Schema|Source|
 |:-:|:-:|

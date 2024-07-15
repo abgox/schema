@@ -15,7 +15,7 @@
 
     -   方式一: 在 json 中直接添加此属性
         ```json
-        "$schema": "https://abgox.github.io/ScoopType/schema/zh-CN-min.json",
+        "$schema": "https://abgox.github.io/schema/Scoop/zh-CN/manifest-min.json",
         ```
     -   方式二: 可以在 vscode 配置文件(settings.json)中添加, 这会作用于所有匹配的 json 文件
 
@@ -24,7 +24,7 @@
         ```json
         "json.schemas": [
                 {
-                    "url": "https://abgox.github.io/ScoopType/schema/zh-CN-min.json",
+                    "url": "https://abgox.github.io/schema/Scoop/zh-CN/manifest-min.json",
                     "fileMatch": [
                         "bucket/**/*.json",
                         "deprecated/**/*.json"
@@ -37,9 +37,9 @@
 
 -   Url (移除文件名中的 `-min`，就是未压缩文件)
 
-    -   `https://abgox.github.io/ScoopType/schema/zh-CN-min.json`
+    -   `https://abgox.github.io/schema/Scoop/zh-CN/manifest-min.json`
 
-    -   `https://abgox.github.io/ScoopType/schema/en-US-min.json`
+    -   `https://abgox.github.io/schema/Scoop/en-US/manifest-min.json`
 
 ## Demo
 

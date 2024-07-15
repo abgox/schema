@@ -8,26 +8,27 @@
     <a href="https://gitee.com/abgox/schema">Gitee</a>
 </p>
 
-
 ## 如何使用
 
 1. 直接在 json 文件中添加 `$schema` 属性(不推荐)
 
 ```json
-"$schema": "https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json",
+"$schema": "https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json",
 ```
 
 2. vscode `settings.json`
 
+- [schema 未生效(vscode issue)](https://github.com/microsoft/vscode/issues/219855)
+
 ```json
-"json.schemas": [
-        {
-            "url": "https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json",
-            "fileMatch": [
-                ".prettierrc.json"
-            ]
-        }
-    ]
+  "json.schemas": [
+    {
+      "url": "https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json",
+      "fileMatch": [
+        "biome.json"
+      ]
+    }
+  ]
 ```
 
 3. WebStorm
@@ -36,10 +37,10 @@
 
 ## List
 
-- 在文件末尾添加 `-min` 则获取压缩后的 JSON Schema，以 `.prettierrc.json` 为例
+- 在文件末尾添加 `-min` 则获取压缩后的 JSON Schema，以 `biome.json` 为例
 
-  - 未压缩版本: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc.json
-  - 已压缩版本: https://abgox.github.io/schema/prettier/zh-CN/.prettierrc-min.json
+  - 未压缩版本: https://abgox.github.io/schema/biomejs/zh-CN/biome.json
+  - 已压缩版本: https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json
 
 |Schema|Source|
 |:-:|:-:|
