@@ -14,6 +14,7 @@ foreach ($_ in $schemaList.Keys) {
         if ($isDiff) {
             $diffList += $schemaList.$_.from
         }
+        Remove-Item $oldPath, $newPath -Force
     }
     catch {}
 }
