@@ -1206,6 +1206,20 @@
 							"description": "不转换或省略任何未标记为仅类型的导入或导出，确保它们按照输出文件的格式基于 'module' 设置写入。",
 							"type": ["boolean", "null"],
 							"markdownDescription": "不转换或省略任何未标记为仅类型的导入或导出，确保它们按照输出文件的格式基于 'module' 设置写入。\n\n查看更多信息: https://www.typescriptlang.org/tsconfig#verbatimModuleSyntax"
+						},
+						"noCheck": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "禁用完整类型检查(只报告关键的 parse 和 emit 错误)",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "禁用完整类型检查(只报告关键的 parse 和 emit 错误)\n\nSee more: https://www.typescriptlang.org/tsconfig#noCheck"
+						},
+						"isolatedDeclarations": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "要求对导出内容进行充分注释，以便其他工具可以轻松生成声明文件。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "要求对导出内容进行充分注释，以便其他工具可以轻松生成声明文件。\n\nSee more: https://www.typescriptlang.org/tsconfig#isolatedDeclarations"
 						}
 					}
 				}
