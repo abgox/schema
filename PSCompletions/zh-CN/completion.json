@@ -15,6 +15,11 @@
             "required": [
                 "options"
             ]
+        },
+        {
+            "required": [
+                "common_options"
+            ]
         }
     ],
     "definitions": {
@@ -300,7 +305,7 @@
                 }
             }
         },
-        "$schema":{
+        "$schema": {
             "description": "定义 Schema 架构"
         }
     },
