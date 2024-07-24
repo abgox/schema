@@ -35,16 +35,17 @@ function generateInfo($language) {
         }
 
         # Source
-        $schemaList = Get-Content "$PSScriptRoot/../list.jsonc" | ConvertFrom-Json -AsHashtable
-        $obj = $schemaList."$($dir)/$($_.Name)"
-        $id = if ($obj) { $obj.from }else { "" }
-        if ($id) {
-            $info += "[$($obj.from)]($($id))"
+        if ($lang -eq "en-US") {
+            $schemaList = Get-Content "$PSScriptRoot/../list.jsonc" | ConvertFrom-Json -AsHashtable
+            $obj = $schemaList."$($dir)/$($_.Name)"
+            $id = if ($obj) { $obj.from }else { "" }
+            if ($id) {
+                $info += "[$($obj.from)]($($id))"
+            }
+            else {
+                $info += ""
+            }
         }
-        else {
-            $info += ""
-        }
-
         $resulst += "|" + ($info -join "|") + "|"
     }
     return ($resulst | Sort-Object)
