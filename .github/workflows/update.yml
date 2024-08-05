@@ -17,9 +17,10 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Handle schema
+    - name: Handle schema, check update and update README
       run: |
         .\script\handle-schema.ps1
+        .\script\check-update.ps1
 
     - name: Commit and push changes
       run: |
