@@ -20,11 +20,12 @@ foreach ($_ in $schemaList.Keys) {
 }
 
 if ($diffList) {
+    $imgTag = "<img src=`"https://img.shields.io/badge/-update-yellow`" />"
     foreach ($url in $diffList) {
         foreach ($_ in @("README.md", "README-CN.md")) {
             $path = "$PSScriptRoot/../$_"
-            $content = Get-Content $path -Raw
-            $content -replace "\($url\)", "($url) <img src=`"https://img.shields.io/badge/-update-yellow`" />" | Out-File $path -Force
+            $content = (Get-Content $path -Raw).TrimEnd()
+            $content -replace "\($url\)(?! $imgTag)", "($url) $imgTag" | Out-File $path -Force
         }
     }
 }
