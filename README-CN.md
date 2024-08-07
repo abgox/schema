@@ -42,6 +42,7 @@
   - 未压缩版本: https://abgox.github.io/schema/biomejs/zh-CN/biome.json
   - 已压缩版本: https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json
 
+<!-- prettier-ignore-start -->
 |Schema|Source|
 |:-:|:-:|
 |[biomejs/biome.json](https://abgox.github.io/schema/biomejs/en-US/biome.json '点击获取未压缩版本') `en-US`<br><a href="https://abgox.github.io/schema/biomejs/en-US/biome-min.json" title="点击获取压缩版本"><img src="https://img.shields.io/badge/-点我获取压缩版本-blue" />|[https://biomejs.dev/schemas/1.8.3/schema.json](https://biomejs.dev/schemas/1.8.3/schema.json)|
@@ -60,3 +61,4 @@
 |[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json '点击获取未压缩版本') `zh-CN`<br><a href="https://abgox.github.io/schema/Scoop/zh-CN/manifest-min.json" title="点击获取压缩版本"><img src="https://img.shields.io/badge/-点我获取压缩版本-blue" />|
 |[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json '点击获取未压缩版本') `en-US`<br><a href="https://abgox.github.io/schema/typescript/en-US/tsconfig-min.json" title="点击获取压缩版本"><img src="https://img.shields.io/badge/-点我获取压缩版本-blue" />|[https://json.schemastore.org/tsconfig.json](https://json.schemastore.org/tsconfig.json) <img src="https://img.shields.io/badge/-update-yellow" />|
 |[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/zh-CN/tsconfig.json '点击获取未压缩版本') `zh-CN`<br><a href="https://abgox.github.io/schema/typescript/zh-CN/tsconfig-min.json" title="点击获取压缩版本"><img src="https://img.shields.io/badge/-点我获取压缩版本-blue" />|
+<!-- prettier-ignore-end -->

@@ -1,1574 +1,1574 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"definitions": {
-		"stringOrStringArray": {
-			"oneOf": [
-				{
-					"type": "string"
-				},
-				{
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				}
-			]
-		},
-		"rule": {
-			"oneOf": [
-				{
-					"description": "ESLint 规则",
-					"type": "integer",
-					"oneOf": [
-						{
-							"enum": [0],
-							"description": "关闭规则"
-						},
-						{
-							"enum": [1],
-							"description": "打开规则作为警告（不影响退出代码）"
-						},
-						{
-							"enum": [2],
-							"description": "打开规则作为错误（触发时退出代码为 1）"
-						}
-					],
-					"minimum": 0,
-					"maximum": 2
-				},
-				{
-					"description": "ESLint 规则",
-					"type": "string",
-					"oneOf": [
-						{
-							"enum": ["off"],
-							"description": "关闭规则"
-						},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "stringOrStringArray": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "rule": {
+      "oneOf": [
+        {
+          "description": "ESLint 规则",
+          "type": "integer",
+          "oneOf": [
+            {
+              "enum": [0],
+              "description": "关闭规则"
+            },
+            {
+              "enum": [1],
+              "description": "打开规则作为警告（不影响退出代码）"
+            },
+            {
+              "enum": [2],
+              "description": "打开规则作为错误（触发时退出代码为 1）"
+            }
+          ],
+          "minimum": 0,
+          "maximum": 2
+        },
+        {
+          "description": "ESLint 规则",
+          "type": "string",
+          "oneOf": [
+            {
+              "enum": ["off"],
+              "description": "关闭规则"
+            },
 
-						{
-							"enum": ["warn"],
-							"description": "打开规则作为警告（不影响退出代码）"
-						},
-						{
-							"enum": ["error"],
-							"description": "将规则打开为错误（触发时退出代码为 1）"
-						}
-					]
-				},
-				{
-					"type": "array"
-				}
-			]
-		},
-		"possibleErrors": {
-			"type": "object",
-			"properties": {
-				"comma-dangle": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止尾随逗号"
-				},
-				"for-direction": {
-					"$ref": "#/definitions/rule",
-					"description": "强制执行 \"for\" 循环更新子句，使计数器向正确的方向移动"
-				},
-				"getter-return": {
-					"$ref": "#/definitions/rule",
-					"description": "在 getter 中强制执行 return 语句"
-				},
-				"no-await-in-loop": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在循环内 await"
-				},
-				"no-compare-neg-zero": {
-					"$ref": "#/definitions/rule",
-					"description": "不允许与 -0 进行比较"
-				},
-				"no-cond-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在条件表达式中使用赋值运算符"
-				},
-				"no-console": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 console"
-				},
-				"no-constant-condition": {
-					"$ref": "#/definitions/rule",
-					"description": "不允许在条件中使用常量表达式"
-				},
-				"no-control-regex": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在正则表达式中使用控制字符"
-				},
-				"no-debugger": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 debugger"
-				},
-				"no-dupe-args": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在函数定义中使用重复参数"
-				},
-				"no-dupe-keys": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止对象文本中的重复键"
-				},
-				"no-duplicate-case": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用重复 case 标签"
-				},
-				"no-empty": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止空的块语句"
-				},
-				"no-empty-character-class": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在正则表达式中使用空字符类"
-				},
-				"no-ex-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 catch 子句中重新分配异常"
-				},
-				"no-extra-boolean-cast": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的布尔类型转换"
-				},
-				"no-extra-parens": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的括号"
-				},
-				"no-extra-semi": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的分号"
-				},
-				"no-func-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止重新分配函数声明"
-				},
-				"no-inner-declarations": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在嵌套的块中声明函数或变量"
-				},
-				"no-invalid-regexp": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 RegExp 构造函数中使用无效的正则表达式字符串"
-				},
-				"no-irregular-whitespace": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在字符串和注释之外的不规则空白"
-				},
-				"no-negated-in-lhs": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 in 表达式中对左操作数使用否定（已弃用）"
-				},
-				"no-obj-calls": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止将全局对象属性作为函数调用"
-				},
-				"no-prototype-builtins": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止直接在对象上调用某些 Object.prototype 方法"
-				},
-				"no-regex-spaces": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在正则表达式中使用多个空格"
-				},
-				"no-sparse-arrays": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止稀疏数组"
-				},
-				"no-template-curly-in-string": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在常规字符串中使用模板文字占位符语法"
-				},
-				"no-unexpected-multiline": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止令人困惑的多行表达式"
-				},
-				"no-unreachable": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 return、throw、continue 和 break 语句之后出现无法访问的代码"
-				},
-				"no-unsafe-finally": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 finally 代码块中出现控制流语句"
-				},
-				"no-unsafe-negation": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止对关系运算符的左操作数使用否定操作符"
-				},
-				"use-isnan": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在检查 NaN 时调用 isNaN()"
-				},
-				"valid-jsdoc": {
-					"$ref": "#/definitions/rule",
-					"description": "强制执行有效的 JSDoc 注释"
-				},
-				"valid-typeof": {
-					"$ref": "#/definitions/rule",
-					"description": "强制将 typeof 表达式与有效的字符串进行比较"
-				}
-			}
-		},
-		"bestPractices": {
-			"type": "object",
-			"properties": {
-				"accessor-pairs": {
-					"$ref": "#/definitions/rule",
-					"description": "在对象中强制执行 getter 和 setter 成对出现"
-				},
-				"array-callback-return": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在数组方法的回调中使用 return 语句"
-				},
-				"block-scoped-var": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在定义变量的块级作用域内使用变量"
-				},
-				"class-methods-use-this": {
-					"$ref": "#/definitions/rule",
-					"description": "强制类方法使用 this"
-				},
-				"complexity": {
-					"$ref": "#/definitions/rule",
-					"description": "强制程序中允许的最大环路复杂度"
-				},
-				"consistent-return": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 return 语句要么始终指定返回值，要么始终不指定返回值"
-				},
-				"curly": {
-					"$ref": "#/definitions/rule",
-					"description": "强制所有控制语句使用一致的括号风格"
-				},
-				"default-case": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 switch 语句中有 default 分支"
-				},
-				"dot-location": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在点号之前或之后换行"
-				},
-				"dot-notation": {
-					"$ref": "#/definitions/rule",
-					"description": "强制尽可能地使用点号"
-				},
-				"eqeqeq": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用 === 和 !=="
-				},
-				"guard-for-in": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 for-in 循环包含 if 语句"
-				},
-				"no-alert": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 alert, confirm 和 prompt"
-				},
-				"no-caller": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 arguments.caller 或 arguments.callee"
-				},
-				"no-case-declarations": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 case 或 default 子句中出现词法声明"
-				},
-				"no-div-regex": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在正则表达式开头使用除法操作符"
-				},
-				"no-else-return": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 return 语句之后有 else 块"
-				},
-				"no-empty-function": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止出现空函数"
-				},
-				"no-empty-pattern": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用空解构模式"
-				},
-				"no-eq-null": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止与 null 进行比较而不使用类型检查运算符"
-				},
-				"no-eval": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 eval()"
-				},
-				"no-extend-native": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止扩展原生类型"
-				},
-				"no-extra-bind": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的 .bind() 调用"
-				},
-				"no-extra-label": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的标签"
-				},
-				"no-fallthrough": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止 case 语句落空"
-				},
-				"no-floating-decimal": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止数字字面量中使用前导和末尾小数点"
-				},
-				"no-global-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止对原生对象或只读的全局对象进行赋值"
-				},
-				"no-implicit-coercion": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止隐式类型转换"
-				},
-				"no-implicit-globals": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在全局范围内使用 var 和命名的函数声明"
-				},
-				"no-implied-eval": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用类似 eval() 的方法"
-				},
-				"no-invalid-this": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止 this 关键字在类或类对象之外出现"
-				},
-				"no-iterator": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 __iterator__ 属性"
-				},
-				"no-labels": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用标签语句"
-				},
-				"no-lone-blocks": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的嵌套块"
-				},
-				"no-loop-func": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在循环中出现 function 声明和表达式"
-				},
-				"no-magic-numbers": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用魔术数字"
-				},
-				"no-multi-spaces": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用多个空格"
-				},
-				"no-multi-str": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用多行字符串"
-				},
-				"no-native-reassign": {
-					"$ref": "#/definitions/rule"
-				},
-				"no-new": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在赋值或条件语句中使用 new 操作符"
-				},
-				"no-new-func": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 Function 构造函数"
-				},
-				"no-new-wrappers": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 String, Number 和 Boolean 的构造函数"
-				},
-				"no-octal": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用八进制字面量"
-				},
-				"no-octal-escape": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在字符串字面量中使用八进制转义序列"
-				},
-				"no-param-reassign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止重新分配函数参数"
-				},
-				"no-proto": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 __proto__ 属性"
-				},
-				"no-redeclare": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止变量重新声明"
-				},
-				"no-restricted-properties": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在特定对象上使用某些属性"
-				},
-				"no-return-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 return 语句中使用赋值语句"
-				},
-				"no-return-await": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 return 语句中使用 await"
-				},
-				"no-script-url": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 javascript: urls"
-				},
-				"no-self-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止自身赋值"
-				},
-				"no-self-compare": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止自身比较"
-				},
-				"no-sequences": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用逗号操作符"
-				},
-				"no-throw-literal": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止抛出字面量作为异常"
-				},
-				"no-unmodified-loop-condition": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止未修改的循环条件"
-				},
-				"no-unused-expressions": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止未使用的表达式"
-				},
-				"no-unused-labels": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止未使用的标签"
-				},
-				"no-useless-call": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的 .call() 和 .apply() 调用"
-				},
-				"no-useless-concat": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的字符串拼接"
-				},
-				"no-useless-escape": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的转义字符"
-				},
-				"no-useless-return": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止多余的 return 语句"
-				},
-				"no-void": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 void 操作符"
-				},
-				"no-warning-comments": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用警告注释"
-				},
-				"no-with": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 with 语句"
-				},
-				"prefer-promise-reject-errors": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用 Error 对象作为 Promise 拒绝的原因"
-				},
-				"radix": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在使用 parseInt() 时使用基数参数"
-				},
-				"require-await": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用没有 await 表达式的 async 函数"
-				},
-				"vars-on-top": {
-					"$ref": "#/definitions/rule",
-					"description": "要求所有的 var 声明位于它们所在的作用域顶部"
-				},
-				"wrap-iife": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 IIFE 使用括号包裹"
-				},
-				"yoda": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止 Yoda 条件"
-				}
-			},
-			"additionalProperties": false
-		},
-		"strictMode": {
-			"type": "object",
-			"properties": {
-				"strict": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止严格模式指令"
-				}
-			}
-		},
-		"variables": {
-			"type": "object",
-			"properties": {
-				"init-declarations": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止在变量声明时进行初始化"
-				},
-				"no-catch-shadow": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止 catch 子句的参数与外层作用域中的变量同名"
-				},
-				"no-delete-var": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止删除变量"
-				},
-				"no-label-var": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止标签与变量同名"
-				},
-				"no-restricted-globals": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用特定的全局变量"
-				},
-				"no-shadow": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止变量声明与外层作用域的变量同名"
-				},
-				"no-shadow-restricted-names": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止标识符与受限制的名称同名"
-				},
-				"no-undef": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用未声明的变量，除非它们在 /*global */ 注释中被提到"
-				},
-				"no-undefined": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止将 undefined 作为标识符使用"
-				},
-				"no-undef-init": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止将变量初始化为 undefined"
-				},
-				"no-unused-vars": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止未使用的变量"
-				},
-				"no-use-before-define": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在变量定义之前使用它们"
-				}
-			}
-		},
-		"nodeAndCommonJs": {
-			"type": "object",
-			"properties": {
-				"callback-return": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在回调函数中有 return 语句"
-				},
-				"global-require": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 require() 调用位于模块作用域的顶层"
-				},
-				"handle-callback-err": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在回调函数中有错误处理"
-				},
-				"no-buffer-constructor": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 Buffer() 构造函数"
-				},
-				"no-mixed-requires": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止 require 调用与常规变量声明混合使用"
-				},
-				"no-new-require": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在 require 调用中使用 new 操作符"
-				},
-				"no-path-concat": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用字符串连接来构建 __dirname 和 __filename"
-				},
-				"no-process-env": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 process.env"
-				},
-				"no-process-exit": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 process.exit()"
-				},
-				"no-restricted-modules": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止加载指定的模块"
-				},
-				"no-sync": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用同步方法"
-				}
-			}
-		},
-		"stylisticIssues": {
-			"type": "object",
-			"properties": {
-				"array-bracket-newline": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在数组括号内的开括号后和闭括号前有换行"
-				},
-				"array-bracket-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制数组方括号中使用一致的空格"
-				},
-				"array-element-newline": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在数组元素的逗号后使用一致的换行符"
-				},
-				"block-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制单行代码块中使用一致的空格"
-				},
-				"brace-style": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在代码块中使用一致的大括号风格"
-				},
-				"camelcase": {
-					"$ref": "#/definitions/rule",
-					"description": "强制使用骆驼拼写法命名约定"
-				},
-				"capitalized-comments": {
-					"$ref": "#/definitions/rule",
-					"description": "强制注释的第一个字母大写或小写"
-				},
-				"comma-dangle": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止使用拖尾逗号"
-				},
-				"comma-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在逗号前后使用一致的空格"
-				},
-				"comma-style": {
-					"$ref": "#/definitions/rule",
-					"description": "强制使用一致的逗号风格"
-				},
-				"computed-property-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在计算属性中使用一致的空格"
-				},
-				"consistent-this": {
-					"$ref": "#/definitions/rule",
-					"description": "当获取当前执行上下文的 this 是变量时，强制使用一致的命名"
-				},
-				"eol-last": {
-					"$ref": "#/definitions/rule",
-					"description": "要求文件末尾保留至少一个空行"
-				},
-				"func-call-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止在函数标识符和其调用之间有空格"
-				},
-				"func-name-matching": {
-					"$ref": "#/definitions/rule",
-					"description": "要求函数名与它们分配给的变量或属性的名称匹配"
-				},
-				"func-names": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止命名的函数表达式"
-				},
-				"func-style": {
-					"$ref": "#/definitions/rule",
-					"description": "强制使用函数声明或函数表达式的一致风格"
-				},
-				"function-call-argument-newline": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在函数调用的参数之间有换行"
-				},
-				"function-paren-newline": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在函数括号内使用一致的换行"
-				},
-				"id-blacklist": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用指定的标识符"
-				},
-				"id-length": {
-					"$ref": "#/definitions/rule",
-					"description": "强制标识符的最小和最大长度"
-				},
-				"id-match": {
-					"$ref": "#/definitions/rule",
-					"description": "要求标识符匹配指定的正则表达式"
-				},
-				"implicit-arrow-linebreak": {
-					"$ref": "#/definitions/rule",
-					"description": "强制隐式返回箭头函数体的位置"
-				},
-				"indent": {
-					"$ref": "#/definitions/rule",
-					"description": "强制一致的缩进"
-				},
-				"indent-legacy": {
-					"$ref": "#/definitions/rule",
-					"description": "强制一致的缩进（遗留，已废弃）"
-				},
-				"jsx-quotes": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在 JSX 属性中一致使用双引号或单引号"
-				},
-				"key-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在对象字面量属性中键和值之间使用一致的空格"
-				},
-				"keyword-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在关键字前后使用一致的空格"
-				},
-				"line-comment-position": {
-					"$ref": "#/definitions/rule",
-					"description": "强制行注释的位置"
-				},
-				"lines-between-class-members": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止类成员之间的空行"
-				},
-				"linebreak-style": {
-					"$ref": "#/definitions/rule",
-					"description": "强制统一的换行风格"
-				},
-				"lines-around-comment": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在注释周围有空行"
-				},
-				"lines-around-directive": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止指令周围有空行"
-				},
-				"max-depth": {
-					"$ref": "#/definitions/rule",
-					"description": "强制块中的最大深度"
-				},
-				"max-len": {
-					"$ref": "#/definitions/rule",
-					"description": "强制一行的最大长度"
-				},
-				"max-lines": {
-					"$ref": "#/definitions/rule",
-					"description": "强制文件的最大行数"
-				},
-				"max-nested-callbacks": {
-					"$ref": "#/definitions/rule",
-					"description": "强制回调函数最大嵌套深度"
-				},
-				"max-params": {
-					"$ref": "#/definitions/rule",
-					"description": "强制函数定义中最多的参数数量"
-				},
-				"max-statements": {
-					"$ref": "#/definitions/rule",
-					"description": "强制函数块中最多的语句数量"
-				},
-				"max-statements-per-line": {
-					"$ref": "#/definitions/rule",
-					"description": "强制每行的最大语句数量"
-				},
-				"multiline-comment-style": {
-					"$ref": "#/definitions/rule",
-					"description": "强制多行注释的样式"
-				},
-				"multiline-ternary": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在三元表达式中间隔的换行符"
-				},
-				"new-cap": {
-					"$ref": "#/definitions/rule",
-					"description": "要求构造函数名以大写字母开头"
-				},
-				"newline-after-var": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 var 声明后有空行"
-				},
-				"newline-before-return": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 return 语句之前有空行"
-				},
-				"newline-per-chained-call": {
-					"$ref": "#/definitions/rule",
-					"description": "要求方法链中每个调用都有一个换行符"
-				},
-				"new-parens": {
-					"$ref": "#/definitions/rule",
-					"description": "要求调用无参构造函数时有圆括号"
-				},
-				"no-array-constructor": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 Array 构造函数"
-				},
-				"no-bitwise": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用按位运算符"
-				},
-				"no-continue": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用 continue 语句"
-				},
-				"no-inline-comments": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在代码后使用内联注释"
-				},
-				"no-lonely-if": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止 if 语句作为唯一语句出现在 else 语句块中"
-				},
-				"no-mixed-operators": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止混合使用不同的操作符"
-				},
-				"no-mixed-spaces-and-tabs": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止混合使用空格和制表符"
-				},
-				"no-multi-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止连续赋值"
-				},
-				"no-multiple-empty-lines": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止多个空行"
-				},
-				"no-negated-condition": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用否定条件"
-				},
-				"no-nested-ternary": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用嵌套的三元表达式"
-				},
-				"no-new-object": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 Object 构造函数"
-				},
-				"no-plusplus": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用一元操作符 ++ 和 --"
-				},
-				"no-restricted-syntax": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用特定的语法"
-				},
-				"no-spaced-func": {
-					"$ref": "#/definitions/rule"
-				},
-				"no-tabs": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用制表符"
-				},
-				"no-ternary": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用三元操作符"
-				},
-				"no-trailing-spaces": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用行尾空格"
-				},
-				"no-underscore-dangle": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止标识符中有悬空下划线"
-				},
-				"no-unneeded-ternary": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止可以表达为更简单结构的三元表达式"
-				},
-				"no-whitespace-before-property": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止属性前有空白"
-				},
-				"nonblock-statement-body-position": {
-					"$ref": "#/definitions/rule",
-					"description": "强制单个语句的位置"
-				},
-				"object-curly-newline": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在花括号内使用一致的换行符"
-				},
-				"object-curly-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在花括号中使用一致的空格"
-				},
-				"object-property-newline": {
-					"$ref": "#/definitions/rule",
-					"description": "强制将对象的属性放在不同的行上"
-				},
-				"object-shorthand": {
-					"$ref": "#/definitions/rule"
-				},
-				"one-var": {
-					"$ref": "#/definitions/rule",
-					"description": "强制函数中的变量在一起声明或分开声明"
-				},
-				"one-var-declaration-per-line": {
-					"$ref": "#/definitions/rule",
-					"description": "要求每个变量声明有单独的行"
-				},
-				"operator-assignment": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止在可能的情况下使用简化的赋值操作符"
-				},
-				"operator-linebreak": {
-					"$ref": "#/definitions/rule",
-					"description": "强制操作符使用一致的换行符风格"
-				},
-				"padded-blocks": {
-					"$ref": "#/definitions/rule",
-					"description": "要求块内填充行"
-				},
-				"padding-line-between-statements": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止在语句之间填充空行"
-				},
-				"quote-props": {
-					"$ref": "#/definitions/rule",
-					"description": "要求对象字面量属性名称使用一致的引号风格"
-				},
-				"quotes": {
-					"$ref": "#/definitions/rule",
-					"description": "强制使用一致的引号风格"
-				},
-				"require-jsdoc": {
-					"$ref": "#/definitions/rule",
-					"description": "需要 JSDoc 注释"
-				},
-				"semi": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止使用分号而不是 ASI"
-				},
-				"semi-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制分号前后有空格"
-				},
-				"semi-style": {
-					"$ref": "#/definitions/rule",
-					"description": "强制分号的位置"
-				},
-				"sort-keys": {
-					"$ref": "#/definitions/rule",
-					"description": "强制对象字面量属性键按字母顺序排序"
-				},
-				"sort-vars": {
-					"$ref": "#/definitions/rule",
-					"description": "强制同一个变量声明中的变量按顺序排列"
-				},
-				"space-before-blocks": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在块之前使用一致的空格"
-				},
-				"space-before-function-paren": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在 function 的左括号之前使用一致的空格"
-				},
-				"spaced-comment": {
-					"$ref": "#/definitions/rule",
-					"description": "确保注释中 // 或 /* 后的间距一致"
-				},
-				"space-infix-ops": {
-					"$ref": "#/definitions/rule",
-					"description": "要求操作符周围有空格"
-				},
-				"space-in-parens": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在圆括号内使用一致的空格"
-				},
-				"space-unary-ops": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在一元操作符前后使用一致的空格"
-				},
+            {
+              "enum": ["warn"],
+              "description": "打开规则作为警告（不影响退出代码）"
+            },
+            {
+              "enum": ["error"],
+              "description": "将规则打开为错误（触发时退出代码为 1）"
+            }
+          ]
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+    "possibleErrors": {
+      "type": "object",
+      "properties": {
+        "comma-dangle": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止尾随逗号"
+        },
+        "for-direction": {
+          "$ref": "#/definitions/rule",
+          "description": "强制执行 \"for\" 循环更新子句，使计数器向正确的方向移动"
+        },
+        "getter-return": {
+          "$ref": "#/definitions/rule",
+          "description": "在 getter 中强制执行 return 语句"
+        },
+        "no-await-in-loop": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在循环内 await"
+        },
+        "no-compare-neg-zero": {
+          "$ref": "#/definitions/rule",
+          "description": "不允许与 -0 进行比较"
+        },
+        "no-cond-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在条件表达式中使用赋值运算符"
+        },
+        "no-console": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 console"
+        },
+        "no-constant-condition": {
+          "$ref": "#/definitions/rule",
+          "description": "不允许在条件中使用常量表达式"
+        },
+        "no-control-regex": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在正则表达式中使用控制字符"
+        },
+        "no-debugger": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 debugger"
+        },
+        "no-dupe-args": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在函数定义中使用重复参数"
+        },
+        "no-dupe-keys": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止对象文本中的重复键"
+        },
+        "no-duplicate-case": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用重复 case 标签"
+        },
+        "no-empty": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止空的块语句"
+        },
+        "no-empty-character-class": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在正则表达式中使用空字符类"
+        },
+        "no-ex-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 catch 子句中重新分配异常"
+        },
+        "no-extra-boolean-cast": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的布尔类型转换"
+        },
+        "no-extra-parens": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的括号"
+        },
+        "no-extra-semi": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的分号"
+        },
+        "no-func-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止重新分配函数声明"
+        },
+        "no-inner-declarations": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在嵌套的块中声明函数或变量"
+        },
+        "no-invalid-regexp": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 RegExp 构造函数中使用无效的正则表达式字符串"
+        },
+        "no-irregular-whitespace": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在字符串和注释之外的不规则空白"
+        },
+        "no-negated-in-lhs": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 in 表达式中对左操作数使用否定（已弃用）"
+        },
+        "no-obj-calls": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止将全局对象属性作为函数调用"
+        },
+        "no-prototype-builtins": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止直接在对象上调用某些 Object.prototype 方法"
+        },
+        "no-regex-spaces": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在正则表达式中使用多个空格"
+        },
+        "no-sparse-arrays": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止稀疏数组"
+        },
+        "no-template-curly-in-string": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在常规字符串中使用模板文字占位符语法"
+        },
+        "no-unexpected-multiline": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止令人困惑的多行表达式"
+        },
+        "no-unreachable": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 return、throw、continue 和 break 语句之后出现无法访问的代码"
+        },
+        "no-unsafe-finally": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 finally 代码块中出现控制流语句"
+        },
+        "no-unsafe-negation": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止对关系运算符的左操作数使用否定操作符"
+        },
+        "use-isnan": {
+          "$ref": "#/definitions/rule",
+          "description": "要求在检查 NaN 时调用 isNaN()"
+        },
+        "valid-jsdoc": {
+          "$ref": "#/definitions/rule",
+          "description": "强制执行有效的 JSDoc 注释"
+        },
+        "valid-typeof": {
+          "$ref": "#/definitions/rule",
+          "description": "强制将 typeof 表达式与有效的字符串进行比较"
+        }
+      }
+    },
+    "bestPractices": {
+      "type": "object",
+      "properties": {
+        "accessor-pairs": {
+          "$ref": "#/definitions/rule",
+          "description": "在对象中强制执行 getter 和 setter 成对出现"
+        },
+        "array-callback-return": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在数组方法的回调中使用 return 语句"
+        },
+        "block-scoped-var": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在定义变量的块级作用域内使用变量"
+        },
+        "class-methods-use-this": {
+          "$ref": "#/definitions/rule",
+          "description": "强制类方法使用 this"
+        },
+        "complexity": {
+          "$ref": "#/definitions/rule",
+          "description": "强制程序中允许的最大环路复杂度"
+        },
+        "consistent-return": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 return 语句要么始终指定返回值，要么始终不指定返回值"
+        },
+        "curly": {
+          "$ref": "#/definitions/rule",
+          "description": "强制所有控制语句使用一致的括号风格"
+        },
+        "default-case": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 switch 语句中有 default 分支"
+        },
+        "dot-location": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在点号之前或之后换行"
+        },
+        "dot-notation": {
+          "$ref": "#/definitions/rule",
+          "description": "强制尽可能地使用点号"
+        },
+        "eqeqeq": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用 === 和 !=="
+        },
+        "guard-for-in": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 for-in 循环包含 if 语句"
+        },
+        "no-alert": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 alert, confirm 和 prompt"
+        },
+        "no-caller": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 arguments.caller 或 arguments.callee"
+        },
+        "no-case-declarations": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 case 或 default 子句中出现词法声明"
+        },
+        "no-div-regex": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在正则表达式开头使用除法操作符"
+        },
+        "no-else-return": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 return 语句之后有 else 块"
+        },
+        "no-empty-function": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止出现空函数"
+        },
+        "no-empty-pattern": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用空解构模式"
+        },
+        "no-eq-null": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止与 null 进行比较而不使用类型检查运算符"
+        },
+        "no-eval": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 eval()"
+        },
+        "no-extend-native": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止扩展原生类型"
+        },
+        "no-extra-bind": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的 .bind() 调用"
+        },
+        "no-extra-label": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的标签"
+        },
+        "no-fallthrough": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止 case 语句落空"
+        },
+        "no-floating-decimal": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止数字字面量中使用前导和末尾小数点"
+        },
+        "no-global-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止对原生对象或只读的全局对象进行赋值"
+        },
+        "no-implicit-coercion": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止隐式类型转换"
+        },
+        "no-implicit-globals": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在全局范围内使用 var 和命名的函数声明"
+        },
+        "no-implied-eval": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用类似 eval() 的方法"
+        },
+        "no-invalid-this": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止 this 关键字在类或类对象之外出现"
+        },
+        "no-iterator": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 __iterator__ 属性"
+        },
+        "no-labels": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用标签语句"
+        },
+        "no-lone-blocks": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的嵌套块"
+        },
+        "no-loop-func": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在循环中出现 function 声明和表达式"
+        },
+        "no-magic-numbers": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用魔术数字"
+        },
+        "no-multi-spaces": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用多个空格"
+        },
+        "no-multi-str": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用多行字符串"
+        },
+        "no-native-reassign": {
+          "$ref": "#/definitions/rule"
+        },
+        "no-new": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在赋值或条件语句中使用 new 操作符"
+        },
+        "no-new-func": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 Function 构造函数"
+        },
+        "no-new-wrappers": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 String, Number 和 Boolean 的构造函数"
+        },
+        "no-octal": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用八进制字面量"
+        },
+        "no-octal-escape": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在字符串字面量中使用八进制转义序列"
+        },
+        "no-param-reassign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止重新分配函数参数"
+        },
+        "no-proto": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 __proto__ 属性"
+        },
+        "no-redeclare": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止变量重新声明"
+        },
+        "no-restricted-properties": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在特定对象上使用某些属性"
+        },
+        "no-return-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 return 语句中使用赋值语句"
+        },
+        "no-return-await": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 return 语句中使用 await"
+        },
+        "no-script-url": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 javascript: urls"
+        },
+        "no-self-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止自身赋值"
+        },
+        "no-self-compare": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止自身比较"
+        },
+        "no-sequences": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用逗号操作符"
+        },
+        "no-throw-literal": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止抛出字面量作为异常"
+        },
+        "no-unmodified-loop-condition": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止未修改的循环条件"
+        },
+        "no-unused-expressions": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止未使用的表达式"
+        },
+        "no-unused-labels": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止未使用的标签"
+        },
+        "no-useless-call": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的 .call() 和 .apply() 调用"
+        },
+        "no-useless-concat": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的字符串拼接"
+        },
+        "no-useless-escape": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的转义字符"
+        },
+        "no-useless-return": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止多余的 return 语句"
+        },
+        "no-void": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 void 操作符"
+        },
+        "no-warning-comments": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用警告注释"
+        },
+        "no-with": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 with 语句"
+        },
+        "prefer-promise-reject-errors": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用 Error 对象作为 Promise 拒绝的原因"
+        },
+        "radix": {
+          "$ref": "#/definitions/rule",
+          "description": "要求在使用 parseInt() 时使用基数参数"
+        },
+        "require-await": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用没有 await 表达式的 async 函数"
+        },
+        "vars-on-top": {
+          "$ref": "#/definitions/rule",
+          "description": "要求所有的 var 声明位于它们所在的作用域顶部"
+        },
+        "wrap-iife": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 IIFE 使用括号包裹"
+        },
+        "yoda": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止 Yoda 条件"
+        }
+      },
+      "additionalProperties": false
+    },
+    "strictMode": {
+      "type": "object",
+      "properties": {
+        "strict": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止严格模式指令"
+        }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "properties": {
+        "init-declarations": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止在变量声明时进行初始化"
+        },
+        "no-catch-shadow": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止 catch 子句的参数与外层作用域中的变量同名"
+        },
+        "no-delete-var": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止删除变量"
+        },
+        "no-label-var": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止标签与变量同名"
+        },
+        "no-restricted-globals": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用特定的全局变量"
+        },
+        "no-shadow": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止变量声明与外层作用域的变量同名"
+        },
+        "no-shadow-restricted-names": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止标识符与受限制的名称同名"
+        },
+        "no-undef": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用未声明的变量，除非它们在 /*global */ 注释中被提到"
+        },
+        "no-undefined": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止将 undefined 作为标识符使用"
+        },
+        "no-undef-init": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止将变量初始化为 undefined"
+        },
+        "no-unused-vars": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止未使用的变量"
+        },
+        "no-use-before-define": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在变量定义之前使用它们"
+        }
+      }
+    },
+    "nodeAndCommonJs": {
+      "type": "object",
+      "properties": {
+        "callback-return": {
+          "$ref": "#/definitions/rule",
+          "description": "要求在回调函数中有 return 语句"
+        },
+        "global-require": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 require() 调用位于模块作用域的顶层"
+        },
+        "handle-callback-err": {
+          "$ref": "#/definitions/rule",
+          "description": "要求在回调函数中有错误处理"
+        },
+        "no-buffer-constructor": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 Buffer() 构造函数"
+        },
+        "no-mixed-requires": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止 require 调用与常规变量声明混合使用"
+        },
+        "no-new-require": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在 require 调用中使用 new 操作符"
+        },
+        "no-path-concat": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用字符串连接来构建 __dirname 和 __filename"
+        },
+        "no-process-env": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 process.env"
+        },
+        "no-process-exit": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 process.exit()"
+        },
+        "no-restricted-modules": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止加载指定的模块"
+        },
+        "no-sync": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用同步方法"
+        }
+      }
+    },
+    "stylisticIssues": {
+      "type": "object",
+      "properties": {
+        "array-bracket-newline": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在数组括号内的开括号后和闭括号前有换行"
+        },
+        "array-bracket-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制数组方括号中使用一致的空格"
+        },
+        "array-element-newline": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在数组元素的逗号后使用一致的换行符"
+        },
+        "block-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制单行代码块中使用一致的空格"
+        },
+        "brace-style": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在代码块中使用一致的大括号风格"
+        },
+        "camelcase": {
+          "$ref": "#/definitions/rule",
+          "description": "强制使用骆驼拼写法命名约定"
+        },
+        "capitalized-comments": {
+          "$ref": "#/definitions/rule",
+          "description": "强制注释的第一个字母大写或小写"
+        },
+        "comma-dangle": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止使用拖尾逗号"
+        },
+        "comma-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在逗号前后使用一致的空格"
+        },
+        "comma-style": {
+          "$ref": "#/definitions/rule",
+          "description": "强制使用一致的逗号风格"
+        },
+        "computed-property-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在计算属性中使用一致的空格"
+        },
+        "consistent-this": {
+          "$ref": "#/definitions/rule",
+          "description": "当获取当前执行上下文的 this 是变量时，强制使用一致的命名"
+        },
+        "eol-last": {
+          "$ref": "#/definitions/rule",
+          "description": "要求文件末尾保留至少一个空行"
+        },
+        "func-call-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止在函数标识符和其调用之间有空格"
+        },
+        "func-name-matching": {
+          "$ref": "#/definitions/rule",
+          "description": "要求函数名与它们分配给的变量或属性的名称匹配"
+        },
+        "func-names": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止命名的函数表达式"
+        },
+        "func-style": {
+          "$ref": "#/definitions/rule",
+          "description": "强制使用函数声明或函数表达式的一致风格"
+        },
+        "function-call-argument-newline": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在函数调用的参数之间有换行"
+        },
+        "function-paren-newline": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在函数括号内使用一致的换行"
+        },
+        "id-blacklist": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用指定的标识符"
+        },
+        "id-length": {
+          "$ref": "#/definitions/rule",
+          "description": "强制标识符的最小和最大长度"
+        },
+        "id-match": {
+          "$ref": "#/definitions/rule",
+          "description": "要求标识符匹配指定的正则表达式"
+        },
+        "implicit-arrow-linebreak": {
+          "$ref": "#/definitions/rule",
+          "description": "强制隐式返回箭头函数体的位置"
+        },
+        "indent": {
+          "$ref": "#/definitions/rule",
+          "description": "强制一致的缩进"
+        },
+        "indent-legacy": {
+          "$ref": "#/definitions/rule",
+          "description": "强制一致的缩进（遗留，已废弃）"
+        },
+        "jsx-quotes": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在 JSX 属性中一致使用双引号或单引号"
+        },
+        "key-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在对象字面量属性中键和值之间使用一致的空格"
+        },
+        "keyword-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在关键字前后使用一致的空格"
+        },
+        "line-comment-position": {
+          "$ref": "#/definitions/rule",
+          "description": "强制行注释的位置"
+        },
+        "lines-between-class-members": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止类成员之间的空行"
+        },
+        "linebreak-style": {
+          "$ref": "#/definitions/rule",
+          "description": "强制统一的换行风格"
+        },
+        "lines-around-comment": {
+          "$ref": "#/definitions/rule",
+          "description": "要求在注释周围有空行"
+        },
+        "lines-around-directive": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止指令周围有空行"
+        },
+        "max-depth": {
+          "$ref": "#/definitions/rule",
+          "description": "强制块中的最大深度"
+        },
+        "max-len": {
+          "$ref": "#/definitions/rule",
+          "description": "强制一行的最大长度"
+        },
+        "max-lines": {
+          "$ref": "#/definitions/rule",
+          "description": "强制文件的最大行数"
+        },
+        "max-nested-callbacks": {
+          "$ref": "#/definitions/rule",
+          "description": "强制回调函数最大嵌套深度"
+        },
+        "max-params": {
+          "$ref": "#/definitions/rule",
+          "description": "强制函数定义中最多的参数数量"
+        },
+        "max-statements": {
+          "$ref": "#/definitions/rule",
+          "description": "强制函数块中最多的语句数量"
+        },
+        "max-statements-per-line": {
+          "$ref": "#/definitions/rule",
+          "description": "强制每行的最大语句数量"
+        },
+        "multiline-comment-style": {
+          "$ref": "#/definitions/rule",
+          "description": "强制多行注释的样式"
+        },
+        "multiline-ternary": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在三元表达式中间隔的换行符"
+        },
+        "new-cap": {
+          "$ref": "#/definitions/rule",
+          "description": "要求构造函数名以大写字母开头"
+        },
+        "newline-after-var": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 var 声明后有空行"
+        },
+        "newline-before-return": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 return 语句之前有空行"
+        },
+        "newline-per-chained-call": {
+          "$ref": "#/definitions/rule",
+          "description": "要求方法链中每个调用都有一个换行符"
+        },
+        "new-parens": {
+          "$ref": "#/definitions/rule",
+          "description": "要求调用无参构造函数时有圆括号"
+        },
+        "no-array-constructor": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 Array 构造函数"
+        },
+        "no-bitwise": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用按位运算符"
+        },
+        "no-continue": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用 continue 语句"
+        },
+        "no-inline-comments": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在代码后使用内联注释"
+        },
+        "no-lonely-if": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止 if 语句作为唯一语句出现在 else 语句块中"
+        },
+        "no-mixed-operators": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止混合使用不同的操作符"
+        },
+        "no-mixed-spaces-and-tabs": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止混合使用空格和制表符"
+        },
+        "no-multi-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止连续赋值"
+        },
+        "no-multiple-empty-lines": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止多个空行"
+        },
+        "no-negated-condition": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用否定条件"
+        },
+        "no-nested-ternary": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用嵌套的三元表达式"
+        },
+        "no-new-object": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 Object 构造函数"
+        },
+        "no-plusplus": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用一元操作符 ++ 和 --"
+        },
+        "no-restricted-syntax": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用特定的语法"
+        },
+        "no-spaced-func": {
+          "$ref": "#/definitions/rule"
+        },
+        "no-tabs": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用制表符"
+        },
+        "no-ternary": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用三元操作符"
+        },
+        "no-trailing-spaces": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用行尾空格"
+        },
+        "no-underscore-dangle": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止标识符中有悬空下划线"
+        },
+        "no-unneeded-ternary": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止可以表达为更简单结构的三元表达式"
+        },
+        "no-whitespace-before-property": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止属性前有空白"
+        },
+        "nonblock-statement-body-position": {
+          "$ref": "#/definitions/rule",
+          "description": "强制单个语句的位置"
+        },
+        "object-curly-newline": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在花括号内使用一致的换行符"
+        },
+        "object-curly-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在花括号中使用一致的空格"
+        },
+        "object-property-newline": {
+          "$ref": "#/definitions/rule",
+          "description": "强制将对象的属性放在不同的行上"
+        },
+        "object-shorthand": {
+          "$ref": "#/definitions/rule"
+        },
+        "one-var": {
+          "$ref": "#/definitions/rule",
+          "description": "强制函数中的变量在一起声明或分开声明"
+        },
+        "one-var-declaration-per-line": {
+          "$ref": "#/definitions/rule",
+          "description": "要求每个变量声明有单独的行"
+        },
+        "operator-assignment": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止在可能的情况下使用简化的赋值操作符"
+        },
+        "operator-linebreak": {
+          "$ref": "#/definitions/rule",
+          "description": "强制操作符使用一致的换行符风格"
+        },
+        "padded-blocks": {
+          "$ref": "#/definitions/rule",
+          "description": "要求块内填充行"
+        },
+        "padding-line-between-statements": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止在语句之间填充空行"
+        },
+        "quote-props": {
+          "$ref": "#/definitions/rule",
+          "description": "要求对象字面量属性名称使用一致的引号风格"
+        },
+        "quotes": {
+          "$ref": "#/definitions/rule",
+          "description": "强制使用一致的引号风格"
+        },
+        "require-jsdoc": {
+          "$ref": "#/definitions/rule",
+          "description": "需要 JSDoc 注释"
+        },
+        "semi": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止使用分号而不是 ASI"
+        },
+        "semi-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制分号前后有空格"
+        },
+        "semi-style": {
+          "$ref": "#/definitions/rule",
+          "description": "强制分号的位置"
+        },
+        "sort-keys": {
+          "$ref": "#/definitions/rule",
+          "description": "强制对象字面量属性键按字母顺序排序"
+        },
+        "sort-vars": {
+          "$ref": "#/definitions/rule",
+          "description": "强制同一个变量声明中的变量按顺序排列"
+        },
+        "space-before-blocks": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在块之前使用一致的空格"
+        },
+        "space-before-function-paren": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在 function 的左括号之前使用一致的空格"
+        },
+        "spaced-comment": {
+          "$ref": "#/definitions/rule",
+          "description": "确保注释中 // 或 /* 后的间距一致"
+        },
+        "space-infix-ops": {
+          "$ref": "#/definitions/rule",
+          "description": "要求操作符周围有空格"
+        },
+        "space-in-parens": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在圆括号内使用一致的空格"
+        },
+        "space-unary-ops": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在一元操作符前后使用一致的空格"
+        },
 
-				"switch-colon-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在 switch 的冒号左右有空格"
-				},
-				"template-tag-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制模板标记和它们的文字之间有空格"
-				},
-				"unicode-bom": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止 Unicode 字节顺序标记 (BOM)"
-				},
-				"wrap-regex": {
-					"$ref": "#/definitions/rule",
-					"description": "要求正则表达式字面量用括号括起来"
-				}
-			}
-		},
-		"ecmaScript6": {
-			"type": "object",
-			"properties": {
-				"arrow-body-style": {
-					"$ref": "#/definitions/rule",
-					"description": "要求箭头函数体使用大括号"
-				},
-				"arrow-parens": {
-					"$ref": "#/definitions/rule",
-					"description": "要求箭头函数的参数使用圆括号"
-				},
-				"arrow-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制箭头函数的箭头前后使用一致的空格"
-				},
-				"constructor-super": {
-					"$ref": "#/definitions/rule",
-					"description": "要求在构造函数中有 super() 的调用"
-				},
-				"generator-star-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制 generator 函数中 * 号周围使用一致的空格"
-				},
-				"no-class-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止修改类声明的变量"
-				},
-				"no-confusing-arrow": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在可能与比较操作符混淆的地方使用箭头函数"
-				},
-				"no-const-assign": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止修改 const 声明的变量"
-				},
-				"no-dupe-class-members": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止类成员中出现重复的名称"
-				},
-				"no-duplicate-imports": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止重复导入模块"
-				},
-				"no-new-symbol": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止对 Symbol 对象使用 new 操作符"
-				},
-				"no-restricted-imports": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用指定的模块"
-				},
-				"no-this-before-super": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在构造函数中使用 this 或 super 之前调用 super()"
-				},
-				"no-useless-computed-key": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止在对象字面量中使用不必要的计算属性"
-				},
-				"no-useless-constructor": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止不必要的构造函数"
-				},
-				"no-useless-rename": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止导入、导出和解构赋值中不必要的重命名"
-				},
-				"no-var": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用 let 或 const 而不是 var"
-				},
-				"object-shorthand": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止对象字面量中方法和属性使用简写语法"
-				},
-				"prefer-arrow-callback": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用箭头函数作为回调"
-				},
-				"prefer-const": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用 const 声明那些从未被修改的变量"
-				},
-				"prefer-destructuring": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用解构"
-				},
-				"prefer-numeric-literals": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止使用 parseInt() 和 Number.parseInt()，而使用二进制、八进制和十六进制字面量"
-				},
-				"prefer-reflect": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用 Reflect 方法"
-				},
-				"prefer-rest-params": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用剩余参数而不是 arguments"
-				},
-				"prefer-spread": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用扩展运算符而非 .apply()"
-				},
-				"prefer-template": {
-					"$ref": "#/definitions/rule",
-					"description": "要求使用模板字面量而非字符串连接"
-				},
-				"require-yield": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 generator 函数内有 yield"
-				},
-				"rest-spread-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制剩余和扩展运算符及其表达式之间有空格"
-				},
-				"sort-imports": {
-					"$ref": "#/definitions/rule",
-					"description": "强制模块导入声明按序排序"
-				},
-				"symbol-description": {
-					"$ref": "#/definitions/rule",
-					"description": "要求 symbol 描述"
-				},
-				"template-curly-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "要求或禁止模板字符串中的嵌入表达式周围空格的使用"
-				},
-				"yield-star-spacing": {
-					"$ref": "#/definitions/rule",
-					"description": "强制在 yield* 表达式中 * 周围使用空格"
-				}
-			}
-		},
-		"legacy": {
-			"type": "object",
-			"properties": {
-				"max-depth": {
-					"$ref": "#/definitions/rule",
-					"description": "限制代码块嵌套深度"
-				},
-				"max-len": {
-					"$ref": "#/definitions/rule",
-					"description": "强制一行的最大长度"
-				},
-				"max-params": {
-					"$ref": "#/definitions/rule",
-					"description": "限制函数参数数量"
-				},
-				"max-statements": {
-					"$ref": "#/definitions/rule",
-					"description": "限制函数中语句的数量"
-				},
-				"no-bitwise": {
-					"$ref": "#/definitions/rule",
-					"description": "禁止位运算"
-				},
-				"no-plusplus": {
-					"$ref": "#/definitions/rule",
-					"description": "禁用一元操作符 ++ 和 --"
-				}
-			}
-		}
-	},
-	"properties": {
-		"ecmaFeatures": {
-			"description": "默认情况下，ESLint 仅支持 ECMAScript 5 语法。您可以通过配置来覆盖此设置，以启用对 ECMAScript 6 和 JSX 的支持。",
-			"type": "object",
-			"properties": {
-				"arrowFunctions": {
-					"type": "boolean",
-					"description": "是否允许箭头函数语法"
-				},
-				"binaryLiterals": {
-					"type": "boolean",
-					"description": "是否允许二进制字面量语法"
-				},
-				"blockBindings": {
-					"type": "boolean",
-					"description": "是否允许块级作用域语法（如 let 和 const）"
-				},
-				"classes": {
-					"type": "boolean",
-					"description": "是否允许类定义语法"
-				},
-				"defaultParams": {
-					"type": "boolean",
-					"description": "是否允许默认参数语法"
-				},
-				"destructuring": {
-					"type": "boolean",
-					"description": "是否允许解构赋值语法"
-				},
-				"experimentalObjectRestSpread": {
-					"type": "boolean",
-					"description": "是否启用实验性的对象展开和剩余属性语法（重要：这是一个实验性功能，未来可能会发生重大变化。建议不要编写依赖于此功能的规则，除非您愿意承担维护成本。）"
-				},
-				"forOf": {
-					"type": "boolean",
-					"description": "是否允许 for...of 循环语法"
-				},
-				"generators": {
-					"type": "boolean",
-					"description": "是否允许生成器函数语法"
-				},
-				"globalReturn": {
-					"type": "boolean",
-					"description": "是否允许在全局作用域中使用 return 语句"
-				},
-				"impliedStrict": {
-					"type": "boolean",
-					"description": "是否启用全局严格模式（如果 ecmaVersion 是 5 或更高）"
-				},
-				"jsx": {
-					"type": "boolean",
-					"description": "是否启用 JSX 语法"
-				},
-				"modules": {
-					"type": "boolean",
-					"description": "是否允许模块导入语法"
-				},
-				"objectLiteralComputedProperties": {
-					"type": "boolean",
-					"description": "是否允许对象字面量中使用计算属性名"
-				},
-				"objectLiteralDuplicateProperties": {
-					"type": "boolean",
-					"description": "是否允许对象字面量中有重复的属性名"
-				},
-				"objectLiteralShorthandMethods": {
-					"type": "boolean",
-					"description": "是否允许对象字面量中使用方法的简写语法"
-				},
-				"objectLiteralShorthandProperties": {
-					"type": "boolean",
-					"description": "是否允许对象字面量中使用属性的简写语法"
-				},
-				"octalLiterals": {
-					"type": "boolean",
-					"description": "是否允许八进制字面量语法"
-				},
-				"regexUFlag": {
-					"type": "boolean",
-					"description": "是否允许正则表达式使用 'u' 标志"
-				},
-				"regexYFlag": {
-					"type": "boolean",
-					"description": "是否允许正则表达式使用 'y' 标志"
-				},
-				"restParams": {
-					"type": "boolean",
-					"description": "是否允许使用剩余参数语法"
-				},
-				"spread": {
-					"type": "boolean",
-					"description": "是否允许使用展开运算符语法"
-				},
-				"superInFunctions": {
-					"type": "boolean",
-					"description": "是否允许在非构造函数中使用 super 关键字"
-				},
-				"templateStrings": {
-					"type": "boolean",
-					"description": "是否允许使用模板字符串语法"
-				},
-				"unicodeCodePointEscapes": {
-					"type": "boolean",
-					"description": "是否允许使用 Unicode 代码点转义语法"
-				}
-			}
-		},
-		"env": {
-			"description": "环境定义了预定义的全局变量。",
-			"type": "object",
-			"properties": {
-				"amd": {
-					"type": "boolean",
-					"description": "根据 amd 规范定义 require() 和 define() 作为全局变量"
-				},
-				"applescript": {
-					"type": "boolean",
-					"description": "AppleScript 全局变量"
-				},
-				"atomtest": {
-					"type": "boolean",
-					"description": "Atom 测试辅助全局变量"
-				},
-				"browser": {
-					"type": "boolean",
-					"description": "浏览器全局变量"
-				},
-				"commonjs": {
-					"type": "boolean",
-					"description": "CommonJS 全局变量和 CommonJS 作用域（适用于仅在浏览器中使用 Browserify/WebPack 的代码）"
-				},
-				"shared-node-browser": {
-					"type": "boolean",
-					"description": "Node 和浏览器共享的全局变量"
-				},
-				"embertest": {
-					"type": "boolean",
-					"description": "Ember 测试辅助全局变量"
-				},
-				"es6": {
-					"type": "boolean",
-					"description": "启用除模块之外的所有 ECMAScript 6 功能"
-				},
-				"greasemonkey": {
-					"type": "boolean",
-					"description": "GreaseMonkey 全局变量"
-				},
-				"jasmine": {
-					"type": "boolean",
-					"description": "添加 Jasmine 测试的所有全局变量，支持版本 1.3 和 2.0"
-				},
-				"jest": {
-					"type": "boolean",
-					"description": "Jest 全局变量"
-				},
-				"jquery": {
-					"type": "boolean",
-					"description": "jQuery 全局变量"
-				},
-				"meteor": {
-					"type": "boolean",
-					"description": "Meteor 全局变量"
-				},
-				"mocha": {
-					"type": "boolean",
-					"description": "添加所有 Mocha 测试的全局变量"
-				},
-				"mongo": {
-					"type": "boolean",
-					"description": "MongoDB 全局变量"
-				},
-				"nashorn": {
-					"type": "boolean",
-					"description": "Java 8 Nashorn 全局变量"
-				},
-				"node": {
-					"type": "boolean",
-					"description": "Node.js 全局变量和 Node.js 作用域"
-				},
-				"phantomjs": {
-					"type": "boolean",
-					"description": "PhantomJS 全局变量"
-				},
-				"prototypejs": {
-					"type": "boolean",
-					"description": "Prototype.js 全局变量"
-				},
-				"protractor": {
-					"type": "boolean",
-					"description": "Protractor 全局变量"
-				},
-				"qunit": {
-					"type": "boolean",
-					"description": "QUnit 全局变量"
-				},
-				"serviceworker": {
-					"type": "boolean",
-					"description": "Service Worker 全局变量"
-				},
-				"shelljs": {
-					"type": "boolean",
-					"description": "ShellJS 全局变量"
-				},
-				"webextensions": {
-					"type": "boolean",
-					"description": "WebExtensions 全局变量"
-				},
-				"worker": {
-					"type": "boolean",
-					"description": "Web Workers 全局变量"
-				}
-			}
-		},
-		"extends": {
-			"$ref": "#/definitions/stringOrStringArray",
-			"description": "如果您想扩展特定的配置文件，可以使用 extends 属性，并指定文件的路径。路径可以是相对路径或绝对路径。"
-		},
-		"globals": {
-			"description": "将每个全局变量名称设置为 true 允许变量被覆盖，设置为 false 禁止变量被覆盖。",
-			"type": "object",
-			"additionalProperties": {
-				"oneOf": [
-					{
-						"type": "string",
-						"enum": ["readonly", "writable", "off"]
-					},
-					{
-						"description": "值 false|\"readable\" 和 true|\"writeable\" 已被弃用，它们分别等同于 \"readonly\" 和 \"writable\"。",
-						"type": "boolean"
-					}
-				]
-			}
-		},
-		"noInlineConfig": {
-			"description": "防止注释改变配置或规则",
-			"type": "boolean"
-		},
-		"reportUnusedDisableDirectives": {
-			"description": "报告未使用的 eslint-disable 注释",
-			"type": "boolean"
-		},
-		"parser": {
-			"type": "string"
-		},
-		"parserOptions": {
-			"description": "要支持的 JavaScript 语言选项",
-			"type": "object",
-			"properties": {
-				"ecmaFeatures": {
-					"$ref": "#/properties/ecmaFeatures"
-				},
-				"ecmaVersion": {
-					"enum": [
-						3,
-						5,
-						6,
-						2015,
-						7,
-						2016,
-						8,
-						2017,
-						9,
-						2018,
-						10,
-						2019,
-						11,
-						2020,
-						12,
-						2021,
-						13,
-						2022,
-						14,
-						2023,
-						15,
-						2024,
-						"latest"
-					],
-					"default": 5,
-					"description": "设置为 3, 5 (默认), 6, 7, 8, 9, 10, 11, 12, 13, 14, 或 15 来指定您要使用的 ECMAScript 语法版本。您还可以设置为 2015 (等同于 6), 2016 (等同于 7), 2017 (等同于 8), 2018 (等同于 9), 2019 (等同于 10), 2020 (等同于 11), 2021 (等同于 12), 2022 (等同于 13), 2023 (等同于 14), 或 2024 (等同于 15) 使用基于年份的命名。您还可以设置为 \"latest\" 来使用最新支持的版本。"
-				},
-				"sourceType": {
-					"enum": ["script", "module", "commonjs"],
-					"default": "script",
-					"description": "如果您的代码是 ECMAScript 模块，请设置为 \"script\" (默认), \"commonjs\", 或 \"module\"。"
-				}
-			}
-		},
-		"plugins": {
-			"description": "ESLint 支持使用第三方插件。在使用插件之前，您需要使用 npm 安装它。",
-			"type": "array",
-			"items": {
-				"type": "string"
-			}
-		},
-		"root": {
-			"description": "默认情况下，ESLint 会在所有父文件夹中查找配置文件，直到根目录。如果您希望所有项目遵循某种约定，这可能很有用，但有时会导致意外的结果。要将 ESLint 限制为特定项目，请在项目根目录的配置中将此设置为 `true`。",
-			"type": "boolean"
-		},
-		"ignorePatterns": {
-			"$ref": "#/definitions/stringOrStringArray",
-			"description": "告诉 ESLint 忽略特定的文件和目录。每个值使用与 `.eslintignore` 文件相同的模式。"
-		},
-		"rules": {
-			"description": "ESLint 预设了大量的规则。您可以通过配置注释或配置文件修改项目使用的规则。",
-			"type": "object",
-			"allOf": [
-				{
-					"$ref": "#/definitions/possibleErrors"
-				},
-				{
-					"$ref": "#/definitions/bestPractices"
-				},
-				{
-					"$ref": "#/definitions/strictMode"
-				},
-				{
-					"$ref": "#/definitions/variables"
-				},
-				{
-					"$ref": "#/definitions/nodeAndCommonJs"
-				},
-				{
-					"$ref": "#/definitions/stylisticIssues"
-				},
-				{
-					"$ref": "#/definitions/ecmaScript6"
-				},
-				{
-					"$ref": "#/definitions/legacy"
-				},
-				{
-					"$ref": "https://json.schemastore.org/partial-eslint-plugins.json"
-				}
-			]
-		},
-		"settings": {
-			"description": "ESLint 支持在配置文件中添加共享设置。\n您可以向 ESLint 配置文件中添加 settings 对象，并且它将被提供给每个执行的规则。\n如果您正在添加自定义规则并希望它们能够访问相同的信息并轻松配置，这可能非常有用。",
-			"type": "object"
-		},
-		"overrides": {
-			"type": "array",
-			"description": "允许根据 glob 模式覆盖文件和文件夹的配置",
-			"items": {
-				"type": "object",
-				"properties": {
-					"files": {
-						"description": "应用 'overrides' 配置的文件的 glob 模式，相对于配置文件的目录",
-						"oneOf": [
-							{
-								"type": "string"
-							},
-							{
-								"minItems": 1,
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						]
-					},
-					"extends": {
-						"$ref": "#/definitions/stringOrStringArray",
-						"description": "如果要扩展特定的配置文件，可以使用 extends 属性并指定文件的路径。路径可以是相对路径或绝对路径。"
-					},
-					"excludedFiles": {
-						"$ref": "#/definitions/stringOrStringArray",
-						"description": "如果文件匹配任何 'excludedFiles' 的 glob 模式，则 'overrides' 配置不会应用"
-					},
-					"ecmaFeatures": {
-						"$ref": "#/properties/ecmaFeatures"
-					},
-					"env": {
-						"$ref": "#/properties/env"
-					},
-					"globals": {
-						"$ref": "#/properties/globals"
-					},
-					"parser": {
-						"$ref": "#/properties/parser"
-					},
-					"parserOptions": {
-						"$ref": "#/properties/parserOptions"
-					},
-					"plugins": {
-						"$ref": "#/properties/plugins"
-					},
-					"processor": {
-						"description": "指定处理器时，请使用插件名称和处理器名称，用斜杠分隔",
-						"type": "string"
-					},
-					"rules": {
-						"$ref": "#/properties/rules"
-					},
-					"settings": {
-						"$ref": "#/properties/settings"
-					},
-					"overrides": {
-						"$ref": "#/properties/overrides"
-					}
-				},
-				"additionalProperties": false,
-				"required": ["files"]
-			}
-		}
-	},
-	"title": "ESLint 配置文件的 JSON Schema 架构",
-	"type": "object"
+        "switch-colon-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在 switch 的冒号左右有空格"
+        },
+        "template-tag-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制模板标记和它们的文字之间有空格"
+        },
+        "unicode-bom": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止 Unicode 字节顺序标记 (BOM)"
+        },
+        "wrap-regex": {
+          "$ref": "#/definitions/rule",
+          "description": "要求正则表达式字面量用括号括起来"
+        }
+      }
+    },
+    "ecmaScript6": {
+      "type": "object",
+      "properties": {
+        "arrow-body-style": {
+          "$ref": "#/definitions/rule",
+          "description": "要求箭头函数体使用大括号"
+        },
+        "arrow-parens": {
+          "$ref": "#/definitions/rule",
+          "description": "要求箭头函数的参数使用圆括号"
+        },
+        "arrow-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制箭头函数的箭头前后使用一致的空格"
+        },
+        "constructor-super": {
+          "$ref": "#/definitions/rule",
+          "description": "要求在构造函数中有 super() 的调用"
+        },
+        "generator-star-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制 generator 函数中 * 号周围使用一致的空格"
+        },
+        "no-class-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止修改类声明的变量"
+        },
+        "no-confusing-arrow": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在可能与比较操作符混淆的地方使用箭头函数"
+        },
+        "no-const-assign": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止修改 const 声明的变量"
+        },
+        "no-dupe-class-members": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止类成员中出现重复的名称"
+        },
+        "no-duplicate-imports": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止重复导入模块"
+        },
+        "no-new-symbol": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止对 Symbol 对象使用 new 操作符"
+        },
+        "no-restricted-imports": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用指定的模块"
+        },
+        "no-this-before-super": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在构造函数中使用 this 或 super 之前调用 super()"
+        },
+        "no-useless-computed-key": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止在对象字面量中使用不必要的计算属性"
+        },
+        "no-useless-constructor": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止不必要的构造函数"
+        },
+        "no-useless-rename": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止导入、导出和解构赋值中不必要的重命名"
+        },
+        "no-var": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用 let 或 const 而不是 var"
+        },
+        "object-shorthand": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止对象字面量中方法和属性使用简写语法"
+        },
+        "prefer-arrow-callback": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用箭头函数作为回调"
+        },
+        "prefer-const": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用 const 声明那些从未被修改的变量"
+        },
+        "prefer-destructuring": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用解构"
+        },
+        "prefer-numeric-literals": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止使用 parseInt() 和 Number.parseInt()，而使用二进制、八进制和十六进制字面量"
+        },
+        "prefer-reflect": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用 Reflect 方法"
+        },
+        "prefer-rest-params": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用剩余参数而不是 arguments"
+        },
+        "prefer-spread": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用扩展运算符而非 .apply()"
+        },
+        "prefer-template": {
+          "$ref": "#/definitions/rule",
+          "description": "要求使用模板字面量而非字符串连接"
+        },
+        "require-yield": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 generator 函数内有 yield"
+        },
+        "rest-spread-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制剩余和扩展运算符及其表达式之间有空格"
+        },
+        "sort-imports": {
+          "$ref": "#/definitions/rule",
+          "description": "强制模块导入声明按序排序"
+        },
+        "symbol-description": {
+          "$ref": "#/definitions/rule",
+          "description": "要求 symbol 描述"
+        },
+        "template-curly-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "要求或禁止模板字符串中的嵌入表达式周围空格的使用"
+        },
+        "yield-star-spacing": {
+          "$ref": "#/definitions/rule",
+          "description": "强制在 yield* 表达式中 * 周围使用空格"
+        }
+      }
+    },
+    "legacy": {
+      "type": "object",
+      "properties": {
+        "max-depth": {
+          "$ref": "#/definitions/rule",
+          "description": "限制代码块嵌套深度"
+        },
+        "max-len": {
+          "$ref": "#/definitions/rule",
+          "description": "强制一行的最大长度"
+        },
+        "max-params": {
+          "$ref": "#/definitions/rule",
+          "description": "限制函数参数数量"
+        },
+        "max-statements": {
+          "$ref": "#/definitions/rule",
+          "description": "限制函数中语句的数量"
+        },
+        "no-bitwise": {
+          "$ref": "#/definitions/rule",
+          "description": "禁止位运算"
+        },
+        "no-plusplus": {
+          "$ref": "#/definitions/rule",
+          "description": "禁用一元操作符 ++ 和 --"
+        }
+      }
+    }
+  },
+  "properties": {
+    "ecmaFeatures": {
+      "description": "默认情况下，ESLint 仅支持 ECMAScript 5 语法。您可以通过配置来覆盖此设置，以启用对 ECMAScript 6 和 JSX 的支持。",
+      "type": "object",
+      "properties": {
+        "arrowFunctions": {
+          "type": "boolean",
+          "description": "是否允许箭头函数语法"
+        },
+        "binaryLiterals": {
+          "type": "boolean",
+          "description": "是否允许二进制字面量语法"
+        },
+        "blockBindings": {
+          "type": "boolean",
+          "description": "是否允许块级作用域语法（如 let 和 const）"
+        },
+        "classes": {
+          "type": "boolean",
+          "description": "是否允许类定义语法"
+        },
+        "defaultParams": {
+          "type": "boolean",
+          "description": "是否允许默认参数语法"
+        },
+        "destructuring": {
+          "type": "boolean",
+          "description": "是否允许解构赋值语法"
+        },
+        "experimentalObjectRestSpread": {
+          "type": "boolean",
+          "description": "是否启用实验性的对象展开和剩余属性语法（重要：这是一个实验性功能，未来可能会发生重大变化。建议不要编写依赖于此功能的规则，除非您愿意承担维护成本。）"
+        },
+        "forOf": {
+          "type": "boolean",
+          "description": "是否允许 for...of 循环语法"
+        },
+        "generators": {
+          "type": "boolean",
+          "description": "是否允许生成器函数语法"
+        },
+        "globalReturn": {
+          "type": "boolean",
+          "description": "是否允许在全局作用域中使用 return 语句"
+        },
+        "impliedStrict": {
+          "type": "boolean",
+          "description": "是否启用全局严格模式（如果 ecmaVersion 是 5 或更高）"
+        },
+        "jsx": {
+          "type": "boolean",
+          "description": "是否启用 JSX 语法"
+        },
+        "modules": {
+          "type": "boolean",
+          "description": "是否允许模块导入语法"
+        },
+        "objectLiteralComputedProperties": {
+          "type": "boolean",
+          "description": "是否允许对象字面量中使用计算属性名"
+        },
+        "objectLiteralDuplicateProperties": {
+          "type": "boolean",
+          "description": "是否允许对象字面量中有重复的属性名"
+        },
+        "objectLiteralShorthandMethods": {
+          "type": "boolean",
+          "description": "是否允许对象字面量中使用方法的简写语法"
+        },
+        "objectLiteralShorthandProperties": {
+          "type": "boolean",
+          "description": "是否允许对象字面量中使用属性的简写语法"
+        },
+        "octalLiterals": {
+          "type": "boolean",
+          "description": "是否允许八进制字面量语法"
+        },
+        "regexUFlag": {
+          "type": "boolean",
+          "description": "是否允许正则表达式使用 'u' 标志"
+        },
+        "regexYFlag": {
+          "type": "boolean",
+          "description": "是否允许正则表达式使用 'y' 标志"
+        },
+        "restParams": {
+          "type": "boolean",
+          "description": "是否允许使用剩余参数语法"
+        },
+        "spread": {
+          "type": "boolean",
+          "description": "是否允许使用展开运算符语法"
+        },
+        "superInFunctions": {
+          "type": "boolean",
+          "description": "是否允许在非构造函数中使用 super 关键字"
+        },
+        "templateStrings": {
+          "type": "boolean",
+          "description": "是否允许使用模板字符串语法"
+        },
+        "unicodeCodePointEscapes": {
+          "type": "boolean",
+          "description": "是否允许使用 Unicode 代码点转义语法"
+        }
+      }
+    },
+    "env": {
+      "description": "环境定义了预定义的全局变量。",
+      "type": "object",
+      "properties": {
+        "amd": {
+          "type": "boolean",
+          "description": "根据 amd 规范定义 require() 和 define() 作为全局变量"
+        },
+        "applescript": {
+          "type": "boolean",
+          "description": "AppleScript 全局变量"
+        },
+        "atomtest": {
+          "type": "boolean",
+          "description": "Atom 测试辅助全局变量"
+        },
+        "browser": {
+          "type": "boolean",
+          "description": "浏览器全局变量"
+        },
+        "commonjs": {
+          "type": "boolean",
+          "description": "CommonJS 全局变量和 CommonJS 作用域（适用于仅在浏览器中使用 Browserify/WebPack 的代码）"
+        },
+        "shared-node-browser": {
+          "type": "boolean",
+          "description": "Node 和浏览器共享的全局变量"
+        },
+        "embertest": {
+          "type": "boolean",
+          "description": "Ember 测试辅助全局变量"
+        },
+        "es6": {
+          "type": "boolean",
+          "description": "启用除模块之外的所有 ECMAScript 6 功能"
+        },
+        "greasemonkey": {
+          "type": "boolean",
+          "description": "GreaseMonkey 全局变量"
+        },
+        "jasmine": {
+          "type": "boolean",
+          "description": "添加 Jasmine 测试的所有全局变量，支持版本 1.3 和 2.0"
+        },
+        "jest": {
+          "type": "boolean",
+          "description": "Jest 全局变量"
+        },
+        "jquery": {
+          "type": "boolean",
+          "description": "jQuery 全局变量"
+        },
+        "meteor": {
+          "type": "boolean",
+          "description": "Meteor 全局变量"
+        },
+        "mocha": {
+          "type": "boolean",
+          "description": "添加所有 Mocha 测试的全局变量"
+        },
+        "mongo": {
+          "type": "boolean",
+          "description": "MongoDB 全局变量"
+        },
+        "nashorn": {
+          "type": "boolean",
+          "description": "Java 8 Nashorn 全局变量"
+        },
+        "node": {
+          "type": "boolean",
+          "description": "Node.js 全局变量和 Node.js 作用域"
+        },
+        "phantomjs": {
+          "type": "boolean",
+          "description": "PhantomJS 全局变量"
+        },
+        "prototypejs": {
+          "type": "boolean",
+          "description": "Prototype.js 全局变量"
+        },
+        "protractor": {
+          "type": "boolean",
+          "description": "Protractor 全局变量"
+        },
+        "qunit": {
+          "type": "boolean",
+          "description": "QUnit 全局变量"
+        },
+        "serviceworker": {
+          "type": "boolean",
+          "description": "Service Worker 全局变量"
+        },
+        "shelljs": {
+          "type": "boolean",
+          "description": "ShellJS 全局变量"
+        },
+        "webextensions": {
+          "type": "boolean",
+          "description": "WebExtensions 全局变量"
+        },
+        "worker": {
+          "type": "boolean",
+          "description": "Web Workers 全局变量"
+        }
+      }
+    },
+    "extends": {
+      "$ref": "#/definitions/stringOrStringArray",
+      "description": "如果您想扩展特定的配置文件，可以使用 extends 属性，并指定文件的路径。路径可以是相对路径或绝对路径。"
+    },
+    "globals": {
+      "description": "将每个全局变量名称设置为 true 允许变量被覆盖，设置为 false 禁止变量被覆盖。",
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": ["readonly", "writable", "off"]
+          },
+          {
+            "description": "值 false|\"readable\" 和 true|\"writeable\" 已被弃用，它们分别等同于 \"readonly\" 和 \"writable\"。",
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "noInlineConfig": {
+      "description": "防止注释改变配置或规则",
+      "type": "boolean"
+    },
+    "reportUnusedDisableDirectives": {
+      "description": "报告未使用的 eslint-disable 注释",
+      "type": "boolean"
+    },
+    "parser": {
+      "type": "string"
+    },
+    "parserOptions": {
+      "description": "要支持的 JavaScript 语言选项",
+      "type": "object",
+      "properties": {
+        "ecmaFeatures": {
+          "$ref": "#/properties/ecmaFeatures"
+        },
+        "ecmaVersion": {
+          "enum": [
+            3,
+            5,
+            6,
+            2015,
+            7,
+            2016,
+            8,
+            2017,
+            9,
+            2018,
+            10,
+            2019,
+            11,
+            2020,
+            12,
+            2021,
+            13,
+            2022,
+            14,
+            2023,
+            15,
+            2024,
+            "latest"
+          ],
+          "default": 5,
+          "description": "设置为 3, 5 (默认), 6, 7, 8, 9, 10, 11, 12, 13, 14, 或 15 来指定您要使用的 ECMAScript 语法版本。您还可以设置为 2015 (等同于 6), 2016 (等同于 7), 2017 (等同于 8), 2018 (等同于 9), 2019 (等同于 10), 2020 (等同于 11), 2021 (等同于 12), 2022 (等同于 13), 2023 (等同于 14), 或 2024 (等同于 15) 使用基于年份的命名。您还可以设置为 \"latest\" 来使用最新支持的版本。"
+        },
+        "sourceType": {
+          "enum": ["script", "module", "commonjs"],
+          "default": "script",
+          "description": "如果您的代码是 ECMAScript 模块，请设置为 \"script\" (默认), \"commonjs\", 或 \"module\"。"
+        }
+      }
+    },
+    "plugins": {
+      "description": "ESLint 支持使用第三方插件。在使用插件之前，您需要使用 npm 安装它。",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "root": {
+      "description": "默认情况下，ESLint 会在所有父文件夹中查找配置文件，直到根目录。如果您希望所有项目遵循某种约定，这可能很有用，但有时会导致意外的结果。要将 ESLint 限制为特定项目，请在项目根目录的配置中将此设置为 `true`。",
+      "type": "boolean"
+    },
+    "ignorePatterns": {
+      "$ref": "#/definitions/stringOrStringArray",
+      "description": "告诉 ESLint 忽略特定的文件和目录。每个值使用与 `.eslintignore` 文件相同的模式。"
+    },
+    "rules": {
+      "description": "ESLint 预设了大量的规则。您可以通过配置注释或配置文件修改项目使用的规则。",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/possibleErrors"
+        },
+        {
+          "$ref": "#/definitions/bestPractices"
+        },
+        {
+          "$ref": "#/definitions/strictMode"
+        },
+        {
+          "$ref": "#/definitions/variables"
+        },
+        {
+          "$ref": "#/definitions/nodeAndCommonJs"
+        },
+        {
+          "$ref": "#/definitions/stylisticIssues"
+        },
+        {
+          "$ref": "#/definitions/ecmaScript6"
+        },
+        {
+          "$ref": "#/definitions/legacy"
+        },
+        {
+          "$ref": "https://json.schemastore.org/partial-eslint-plugins.json"
+        }
+      ]
+    },
+    "settings": {
+      "description": "ESLint 支持在配置文件中添加共享设置。\n您可以向 ESLint 配置文件中添加 settings 对象，并且它将被提供给每个执行的规则。\n如果您正在添加自定义规则并希望它们能够访问相同的信息并轻松配置，这可能非常有用。",
+      "type": "object"
+    },
+    "overrides": {
+      "type": "array",
+      "description": "允许根据 glob 模式覆盖文件和文件夹的配置",
+      "items": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "description": "应用 'overrides' 配置的文件的 glob 模式，相对于配置文件的目录",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "extends": {
+            "$ref": "#/definitions/stringOrStringArray",
+            "description": "如果要扩展特定的配置文件，可以使用 extends 属性并指定文件的路径。路径可以是相对路径或绝对路径。"
+          },
+          "excludedFiles": {
+            "$ref": "#/definitions/stringOrStringArray",
+            "description": "如果文件匹配任何 'excludedFiles' 的 glob 模式，则 'overrides' 配置不会应用"
+          },
+          "ecmaFeatures": {
+            "$ref": "#/properties/ecmaFeatures"
+          },
+          "env": {
+            "$ref": "#/properties/env"
+          },
+          "globals": {
+            "$ref": "#/properties/globals"
+          },
+          "parser": {
+            "$ref": "#/properties/parser"
+          },
+          "parserOptions": {
+            "$ref": "#/properties/parserOptions"
+          },
+          "plugins": {
+            "$ref": "#/properties/plugins"
+          },
+          "processor": {
+            "description": "指定处理器时，请使用插件名称和处理器名称，用斜杠分隔",
+            "type": "string"
+          },
+          "rules": {
+            "$ref": "#/properties/rules"
+          },
+          "settings": {
+            "$ref": "#/properties/settings"
+          },
+          "overrides": {
+            "$ref": "#/properties/overrides"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["files"]
+      }
+    }
+  },
+  "title": "ESLint 配置文件的 JSON Schema 架构",
+  "type": "object"
 }

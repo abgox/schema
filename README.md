@@ -42,6 +42,7 @@
   - Uncompressed version: https://abgox.github.io/schema/biomejs/zh-CN/biome.json
   - Compressed version: https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json
 
+<!-- prettier-ignore-start -->
 |Schema|Source|
 |:-:|:-:|
 |[biomejs/biome.json](https://abgox.github.io/schema/biomejs/en-US/biome.json 'Click to get uncompressed version') `en-US`<br><a href="https://abgox.github.io/schema/biomejs/en-US/biome-min.json" title="Click to get compressed version"><img src="https://img.shields.io/badge/-Click%20to%20get%20Compressed%20version-blue" />|[https://biomejs.dev/schemas/1.8.3/schema.json](https://biomejs.dev/schemas/1.8.3/schema.json)|
@@ -60,3 +61,4 @@
 |[Scoop/manifest.json](https://abgox.github.io/schema/Scoop/zh-CN/manifest.json 'Click to get uncompressed version') `zh-CN`<br><a href="https://abgox.github.io/schema/Scoop/zh-CN/manifest-min.json" title="Click to get compressed version"><img src="https://img.shields.io/badge/-Click%20to%20get%20Compressed%20version-blue" />|
 |[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/en-US/tsconfig.json 'Click to get uncompressed version') `en-US`<br><a href="https://abgox.github.io/schema/typescript/en-US/tsconfig-min.json" title="Click to get compressed version"><img src="https://img.shields.io/badge/-Click%20to%20get%20Compressed%20version-blue" />|[https://json.schemastore.org/tsconfig.json](https://json.schemastore.org/tsconfig.json) <img src="https://img.shields.io/badge/-update-yellow" />|
 |[typescript/tsconfig.json](https://abgox.github.io/schema/typescript/zh-CN/tsconfig.json 'Click to get uncompressed version') `zh-CN`<br><a href="https://abgox.github.io/schema/typescript/zh-CN/tsconfig-min.json" title="Click to get compressed version"><img src="https://img.shields.io/badge/-Click%20to%20get%20Compressed%20version-blue" />|
+<!-- prettier-ignore-end -->
