@@ -8,10 +8,10 @@ foreach ($_ in $schemaList.Keys) {
     try {
         $wc.DownloadFile($schemaList.$_.from, $oldPath)
         $wc.DownloadFile($schemaList.$_.to, $newPath)
-        $old = Get-Content $oldPath
-        $new = Get-Content $newPath
-        $isDiff = Compare-Object $old $new -PassThru
-        if ($isDiff) {
+        $old = Get-Content $oldPath -Raw | ConvertFrom-Json | ConvertTo-Json -Depth 100 -Compress
+        $new = Get-Content $newPath -Raw | ConvertFrom-Json | ConvertTo-Json -Depth 100 -Compress
+
+        if($new -ne $old){
             $diffList += $schemaList.$_.from
         }
         Remove-Item $oldPath, $newPath -Force
@@ -20,7 +20,7 @@ foreach ($_ in $schemaList.Keys) {
 }
 
 if ($diffList) {
-    $imgTag = "<img src=`"https://img.shields.io/badge/-update-yellow`" />"
+    $imgTag = "<img src=`"https://img.shields.io/badge/update-yellow`" />"
     foreach ($url in $diffList) {
         foreach ($_ in @("README.md", "README-CN.md")) {
             $path = "$PSScriptRoot/../$_"

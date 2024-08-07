@@ -1,6 +1,6 @@
 function getList {
     $list = @()
-    $excludeDir = @(".github", "script")
+    $excludeDir = @(".github", "script", "node_modules", ".git", ".vscode", ".github")
     Get-ChildItem "$PSScriptRoot/../" -Directory | ForEach-Object {
         if ($_.BaseName -notin $excludeDir) {
             foreach ($_ in Get-ChildItem $_.FullName -File -Recurse -Filter "*.json") {
@@ -65,7 +65,7 @@ function handle($path, $language) {
             $result
         }
     }
-    (getStaticContent $path) + $content | Out-File $path -Encoding UTF8 -Force
+    (getStaticContent $path) + $content + "<!-- prettier-ignore-end -->" | Out-File $path -Encoding UTF8 -Force
 }
 handle "$PSScriptRoot\..\README-CN.md" "zh-CN"
 handle "$PSScriptRoot\..\README.md" "en-US"
