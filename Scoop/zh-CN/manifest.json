@@ -726,8 +726,8 @@
             "$ref": "#/definitions/arr_str"
         },
         "depends": {
-            "description": "suggests 是 depends 的一个替代方案\n应用的运行时依赖会被自动安装",
-            "$ref": "#/definitions/str"
+            "description": "应用程序的必要依赖项。\n未安装的依赖项将在应用程序安装前自动安装。\n对于可选的依赖项，请使用 suggests 作为替代方案。\n示例：\n\"ffmpeg\"\n[\"adb\", \"extras/vlc\"]",
+            "$ref": "#/definitions/arr_str"
         },
         "env_add_path": {
             "$ref": "#/definitions/env_add_path"
