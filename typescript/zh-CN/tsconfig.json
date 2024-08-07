@@ -1220,6 +1220,20 @@
 							"type": ["boolean", "null"],
 							"default": false,
 							"markdownDescription": "要求对导出内容进行充分注释，以便其他工具可以轻松生成声明文件。\n\nSee more: https://www.typescriptlang.org/tsconfig#isolatedDeclarations"
+						},
+						"noUncheckedSideEffectImports": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "检查副作用导入。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "检查副作用导入。\n\nSee more: https://www.typescriptlang.org/tsconfig#noUncheckedSideEffectImports"
+						},
+						"strictBuiltinIteratorReturn": {
+							"$comment": "The value of 'null' is UNDOCUMENTED (https://github.com/microsoft/TypeScript/pull/18058).",
+							"description": "内置迭代器的实例化 \"TReturn\" 类型为 \"undefined\"，而不是 \"any\"。",
+							"type": ["boolean", "null"],
+							"default": false,
+							"markdownDescription": "内置迭代器的实例化 \"TReturn\" 类型为 \"undefined\"，而不是 \"any\"。\n\nSee more: https://www.typescriptlang.org/tsconfig#strictBuiltinIteratorReturn"
 						}
 					}
 				}
