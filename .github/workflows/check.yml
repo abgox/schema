@@ -3,7 +3,7 @@ name: Check
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 1 * * 1' # 每周星期一1点
+    - cron: "0 1 * * 1" # 每周星期一1点
 
 permissions:
   contents: write
@@ -12,19 +12,19 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 1
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
 
-    - name: Check update and update README
-      run: |
-        .\script\check-update.ps1
+      - name: Check update and update README
+        run: |
+          .\scripts\check-update.ps1
 
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "abgohxf@outlook.com"
-        git config --local user.name "${{ github.actor }}"
-        git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-        git add .
-        git commit -m "[bot] update README"
-        git push
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "abgohxf@outlook.com"
+          git config --local user.name "${{ github.actor }}"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git add .
+          git commit -m "[bot] update README"
+          git push
