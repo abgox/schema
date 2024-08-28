@@ -15,71 +15,84 @@
     }
   ],
   "definitions": {
+    "string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "array_items": {
+      "$ref": "#/definitions/array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
     "root_item": {
       "type": "object",
       "required": ["name"],
       "properties": {
         "name": {
-          "description": "command name",
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/string",
+          "description": "command name"
         },
         "alias": {
-          "description": "command alias",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
+          "$ref": "#/definitions/array_items",
+          "description": "command alias"
         },
         "symbol": {
-          "description": "Type: string or array\nSymbol. In most cases, it should only return SpaceTab",
-          "oneOf": [
+          "description": "Symbol",
+          "anyOf": [
             {
-              "type": "string",
-              "enum": ["SpaceTab"]
+              "$ref": "#/definitions/array",
+              "description": "It must be an array.",
+              "enum": [[]]
             },
             {
-              "type": "array",
-              "examples": [["{{", "if($true){ 'SpaceTab' }", "}}"]],
+              "$ref": "#/definitions/array",
+              "description": "When using hooks to dynamically generate some completions, you need to specify SpaceTab.",
+              "enum": [["SpaceTab"]]
+            },
+            {
+              "$ref": "#/definitions/array",
+              "description": "You can also use PowerShell syntax, which requires {{ }} wraps.",
+              "enum": [["{{", "if($true){ 'SpaceTab' }", "}}"]]
+            },
+            {
+              "$ref": "#/definitions/array",
               "items": {
-                "type": "string"
-              },
-              "minItems": 1
+                "$ref": "#/definitions/string",
+                "oneOf": [
+                  {
+                    "description": "Specify SpaceTab",
+                    "enum": ["SpaceTab"]
+                  },
+                  {}
+                ]
+              }
             }
           ]
         },
         "tip": {
-          "description": "Completion tip",
-          "examples": ["", []],
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/array_items",
+          "description": "Completion tip"
         },
         "next": {
+          "$ref": "#/definitions/array",
           "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key",
-          "type": "array",
           "items": {
             "$ref": "#/definitions/root_item"
-          },
-          "minItems": 1
+          }
         },
         "options": {
+          "$ref": "#/definitions/array",
           "description": "Available option completion",
-          "type": "array",
           "items": {
             "$ref": "#/definitions/options_item"
-          },
-          "minItems": 1
+          }
         }
       },
       "additionalProperties": false
@@ -89,63 +102,60 @@
       "required": ["name"],
       "properties": {
         "name": {
-          "description": "command name",
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/string",
+          "description": "command name"
         },
         "alias": {
-          "description": "command alias",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
+          "$ref": "#/definitions/array_items",
+          "description": "command alias"
         },
         "symbol": {
-          "description": "Type: string or array\nSymbol.(OptionTab is added by default)",
-          "oneOf": [
+          "description": "Symbol.(OptionTab is added by default)",
+          "anyOf": [
             {
-              "type": "string",
-              "enum": ["WriteSpaceTab"]
+              "$ref": "#/definitions/array",
+              "description": "It must be an array.",
+              "enum": [[]]
             },
             {
-              "type": "array",
-              "examples": [
-                [],
-                ["WriteSpaceTab", "SpaceTab"],
-                ["{{", "if($true){'WriteSpaceTab'}", "}}"]
-              ],
+              "$ref": "#/definitions/array",
+              "description": "Specify Symbol",
+              "enum": [["WriteSpaceTab"], ["SpaceTab"]]
+            },
+            {
+              "$ref": "#/definitions/array",
+              "description": "You can also use PowerShell syntax, which requires {{ }} wraps.",
+              "enum": [["{{", "if($true){'WriteSpaceTab'}", "}}"]]
+            },
+            {
+              "$ref": "#/definitions/array",
               "items": {
-                "type": "string",
-                "examples": ["WriteSpaceTab", "SpaceTab"]
-              },
-              "minItems": 1
+                "$ref": "#/definitions/string",
+                "anyOf": [
+                  {
+                    "description": "Specify WriteSpaceTab",
+                    "enum": ["WriteSpaceTab"]
+                  },
+                  {
+                    "description": "Specify SpaceTab",
+                    "enum": ["SpaceTab"]
+                  },
+                  {}
+                ]
+              }
             }
           ]
         },
         "tip": {
-          "description": "Completion tip",
-          "examples": ["", []],
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/array_items",
+          "description": "Completion tip"
         },
         "next": {
+          "$ref": "#/definitions/array",
           "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key.\nIf next is added, WriteSpaceTab is automatically added to the symbol of the current.",
-          "type": "array",
           "items": {
             "$ref": "#/definitions/root_item"
-          },
-          "minItems": 1
+          }
         }
       },
       "additionalProperties": false
@@ -153,28 +163,25 @@
   },
   "properties": {
     "root": {
+      "$ref": "#/definitions/array",
       "description": "The root node of the command",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/root_item"
-      },
-      "minItems": 1
+      }
     },
     "options": {
-      "description": "Options for the root command",
-      "type": "array",
+      "$ref": "#/definitions/array",
+      "description": "Optional Completion\nfor the root command",
       "items": {
         "$ref": "#/definitions/options_item"
-      },
-      "minItems": 1
+      }
     },
     "common_options": {
-      "description": "Some general options, these options will appear in any situation",
-      "type": "array",
+      "$ref": "#/definitions/array",
+      "description": "General Optional Completion\nSome general options, these options will appear in any situation",
       "items": {
         "$ref": "#/definitions/options_item"
-      },
-      "minItems": 1
+      }
     },
     "info": {
       "description": "Some completion information, which can be accessed using {{ $info.xxx }} in any place in this json file",
@@ -188,27 +195,12 @@
           "required": ["url", "description"],
           "properties": {
             "url": {
-              "type": "string",
-              "description": "The homepage of the command.",
-              "minLength": 1
+              "$ref": "#/definitions/string",
+              "description": "The homepage of the command."
             },
             "description": {
-              "description": "The description of the command.",
-              "examples": ["", [""]],
-              "oneOf": [
-                {
-                  "type": "string",
-                  "minLength": 1
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "minItems": 1
-                }
-              ]
+              "$ref": "#/definitions/array_items",
+              "description": "The description of the command."
             }
           },
           "additionalProperties": false
@@ -223,38 +215,43 @@
         "required": ["name", "value", "tip"],
         "properties": {
           "name": {
-            "type": "string",
-            "description": "A name for the configuration item",
-            "minLength": 1
+            "$ref": "#/definitions/string",
+            "description": "A name for the configuration item"
           },
           "value": {
+            "$ref": "#/definitions/string",
             "description": "A default value for the configuration item"
           },
           "values": {
-            "description": "A list of possible values that will be displayed in the completion of the completion command",
-            "type": "array",
-            "minItems": 1
+            "$ref": "#/definitions/array_items",
+            "description": "A list of possible values that will be displayed in the completion of the completion command"
           },
           "tip": {
-            "description": "A description of the configuration item",
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "minItems": 1
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "$ref": "#/definitions/array_items",
+            "description": "A description of the configuration item"
           }
         }
       }
     },
     "$schema": {
-      "description": "Define Schema."
+      "description": "Define Schema.",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/string",
+          "description": "Compressed version",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/zh-CN/completion-min.json"
+          ]
+        },
+        {
+          "$ref": "#/definitions/string",
+          "description": "Uncompressed version",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/zh-CN/completion.json"
+          ]
+        },
+        {}
+      ]
     }
   },
   "additionalProperties": false

@@ -15,71 +15,84 @@
     }
   ],
   "definitions": {
+    "string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "array_items": {
+      "$ref": "#/definitions/array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
     "root_item": {
       "type": "object",
       "required": ["name"],
       "properties": {
         "name": {
-          "description": "命令名称",
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/string",
+          "description": "命令名称"
         },
         "alias": {
-          "description": "命令别名",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
+          "$ref": "#/definitions/array_items",
+          "description": "命令别名"
         },
         "symbol": {
-          "description": "类型:字符串或数组\n符号,一般情况下它只应该返回 SpaceTab",
-          "oneOf": [
+          "description": "特殊符号",
+          "anyOf": [
             {
-              "type": "string",
-              "enum": ["SpaceTab"]
+              "$ref": "#/definitions/array",
+              "description": "它必须是一个数组",
+              "enum": [[]]
             },
             {
-              "type": "array",
-              "examples": [["{{", "if($true){ 'SpaceTab' }", "}}"]],
+              "$ref": "#/definitions/array",
+              "description": "当使用 hooks 去动态生成一些补全项时，需要指定 SpaceTab",
+              "enum": [["SpaceTab"]]
+            },
+            {
+              "$ref": "#/definitions/array",
+              "description": "你也可以使用 PowerShell 语法，需要 使用 {{ }} 包裹",
+              "enum": [["{{", "if($true){ 'SpaceTab' }", "}}"]]
+            },
+            {
+              "$ref": "#/definitions/array",
               "items": {
-                "type": "string"
-              },
-              "minItems": 1
+                "$ref": "#/definitions/string",
+                "oneOf": [
+                  {
+                    "description": "指定 SpaceTab",
+                    "enum": ["SpaceTab"]
+                  },
+                  {}
+                ]
+              }
             }
           ]
         },
         "tip": {
-          "description": "补全提示信息",
-          "examples": ["", []],
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/array_items",
+          "description": "补全提示信息"
         },
         "next": {
+          "$ref": "#/definitions/array",
           "description": "下一个命令补全, 这用来定义输入命令后按下 Tab 键后可以获取到的补全",
-          "type": "array",
           "items": {
             "$ref": "#/definitions/root_item"
-          },
-          "minItems": 1
+          }
         },
         "options": {
+          "$ref": "#/definitions/array",
           "description": "可用的选项类补全",
-          "type": "array",
           "items": {
             "$ref": "#/definitions/options_item"
-          },
-          "minItems": 1
+          }
         }
       },
       "additionalProperties": false
@@ -89,63 +102,60 @@
       "required": ["name"],
       "properties": {
         "name": {
-          "description": "命令名称",
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/string",
+          "description": "命令名称"
         },
         "alias": {
-          "description": "命令别名",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
+          "$ref": "#/definitions/array_items",
+          "description": "命令别名"
         },
         "symbol": {
-          "description": "类型:字符串或数组\n符号(默认添加了 OptionTab)",
-          "oneOf": [
+          "description": "特殊符号\n默认就指定了 OptionTab,不需要再次指定它，只需要指定其他的特殊符号",
+          "anyOf": [
             {
-              "type": "string",
-              "enum": ["WriteSpaceTab"]
+              "$ref": "#/definitions/array",
+              "description": "它必须是一个数组",
+              "enum": [[]]
             },
             {
-              "type": "array",
-              "examples": [
-                [],
-                ["WriteSpaceTab", "SpaceTab"],
-                ["{{", "if($true){'WriteSpaceTab'}", "}}"]
-              ],
+              "$ref": "#/definitions/array",
+              "description": "指定符号",
+              "enum": [["WriteSpaceTab"], ["SpaceTab"]]
+            },
+            {
+              "$ref": "#/definitions/array",
+              "description": "你也可以使用 PowerShell 语法，需要 使用 {{ }} 包裹",
+              "enum": [["{{", "if($true){'WriteSpaceTab'}", "}}"]]
+            },
+            {
+              "$ref": "#/definitions/array",
               "items": {
-                "type": "string",
-                "examples": ["WriteSpaceTab", "SpaceTab"]
-              },
-              "minItems": 1
+                "$ref": "#/definitions/string",
+                "anyOf": [
+                  {
+                    "description": "指定 WriteSpaceTab",
+                    "enum": ["WriteSpaceTab"]
+                  },
+                  {
+                    "description": "指定 SpaceTab",
+                    "enum": ["SpaceTab"]
+                  },
+                  {}
+                ]
+              }
             }
           ]
         },
         "tip": {
-          "description": "补全提示信息",
-          "examples": ["", []],
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/array_items",
+          "description": "补全提示信息"
         },
         "next": {
+          "$ref": "#/definitions/array",
           "description": "下一个命令补全, 这用来定义输入命令后按下 Tab 键后可以获取到的补全\n如果添加了 next, 会给当前命令的 symbol 自动添加 WriteSpaceTab",
-          "type": "array",
           "items": {
             "$ref": "#/definitions/root_item"
-          },
-          "minItems": 1
+          }
         }
       },
       "additionalProperties": false
@@ -153,28 +163,25 @@
   },
   "properties": {
     "root": {
+      "$ref": "#/definitions/array",
       "description": "命令的根节点",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/root_item"
-      },
-      "minItems": 1
+      }
     },
     "options": {
-      "description": "根命令的选项",
-      "type": "array",
+      "$ref": "#/definitions/array",
+      "description": "根命令的选项类补全",
       "items": {
         "$ref": "#/definitions/options_item"
-      },
-      "minItems": 1
+      }
     },
     "common_options": {
-      "description": "一些通用的选项, 这些选项会在任何情况下都出现",
-      "type": "array",
+      "$ref": "#/definitions/array",
+      "description": "通用选项类补全\n这些选项会在任何情况下都出现",
       "items": {
         "$ref": "#/definitions/options_item"
-      },
-      "minItems": 1
+      }
     },
     "info": {
       "description": "一些补全的信息\n这些信息可以在此 json 文件任何地方使用 {{ $info.xxx }} 进行访问",
@@ -188,27 +195,12 @@
           "required": ["url", "description"],
           "properties": {
             "url": {
-              "type": "string",
-              "description": "命令的主页网址",
-              "minLength": 1
+              "$ref": "#/definitions/string",
+              "description": "命令的主页网址"
             },
             "description": {
-              "description": "命令的描述",
-              "examples": ["", [""]],
-              "oneOf": [
-                {
-                  "type": "string",
-                  "minLength": 1
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "minItems": 1
-                }
-              ]
+              "$ref": "#/definitions/array_items",
+              "description": "命令的描述"
             }
           },
           "additionalProperties": false
@@ -216,45 +208,50 @@
       }
     },
     "config": {
+      "$ref": "#/definitions/array",
       "description": "定义一些特别的配置项",
-      "type": "array",
       "items": {
         "type": "object",
         "required": ["name", "value", "tip"],
         "properties": {
           "name": {
-            "type": "string",
-            "description": "配置项的名称",
-            "minLength": 1
+            "$ref": "#/definitions/string",
+            "description": "配置项的名称"
           },
           "value": {
+            "$ref": "#/definitions/string",
             "description": "配置项的初始值"
           },
           "values": {
-            "description": "配置项的可选值\n这里填写的值会在 completion 命令补全中显示",
-            "type": "array",
-            "minItems": 1
+            "$ref": "#/definitions/array_items",
+            "description": "配置项的可选值\n这里填写的值会在 completion 命令补全中显示"
           },
           "tip": {
-            "description": "配置项的提示信息",
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "minItems": 1
-              },
-              {
-                "type": "string"
-              }
-            ]
+            "$ref": "#/definitions/array_items",
+            "description": "配置项的提示信息"
           }
         }
       }
     },
     "$schema": {
-      "description": "定义 Schema 架构"
+      "description": "定义 Schema 架构",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/string",
+          "description": "压缩版本",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/zh-CN/completion-min.json"
+          ]
+        },
+        {
+          "$ref": "#/definitions/string",
+          "description": "未压缩版本",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/zh-CN/completion.json"
+          ]
+        },
+        {}
+      ]
     }
   },
   "additionalProperties": false

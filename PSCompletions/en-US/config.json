@@ -2,11 +2,29 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "required": ["language"],
+  "definitions": {
+    "string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "array_items": {
+      "$ref": "#/definitions/array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
   "properties": {
     "language": {
+      "$ref": "#/definitions/array",
       "description": "Available languages\nIf the language you want to specify is not an valid value, please submit an issue.",
-      "type": "array",
-      "examples": [["en-US", "zh-CN"]],
+      "examples": [[], ["en-US", "zh-CN"]],
       "items": {
         "type": "string",
         "enum": [
@@ -616,32 +634,35 @@
           "zh-TW",
           "zu-ZA"
         ]
-      },
-      "minItems": 1
+      }
     },
     "hooks": {
       "description": "Whether to use hooks.",
       "type": "boolean"
     },
     "alias": {
-      "description": "The default trigger alias for completion. If not set, the directory name will be used.",
-      "examples": ["", []],
-      "oneOf": [
-        {
-          "type": "string",
-          "minLength": 1
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        }
-      ]
+      "$ref": "#/definitions/array_items",
+      "description": "The default trigger alias for completion. If not set, the directory name will be used."
     },
     "$schema": {
-      "description": "Define Schema."
+      "description": "Define Schema.",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/string",
+          "description": "Compressed version",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/en-US/config-min.json"
+          ]
+        },
+        {
+          "$ref": "#/definitions/string",
+          "description": "Uncompressed version",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/en-US/config.json"
+          ]
+        },
+        {}
+      ]
     }
   },
   "additionalProperties": false

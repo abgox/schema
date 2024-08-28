@@ -2,11 +2,29 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "required": ["language"],
+  "definitions": {
+    "string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "array_items": {
+      "$ref": "#/definitions/array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
   "properties": {
     "language": {
+      "$ref": "#/definitions/array",
       "description": "设置可用的语言\n如果有效值不包括你想要指定的语言, 请提交一个 issue",
-      "type": "array",
-      "examples": [["en-US", "zh-CN"]],
+      "examples": [[], ["en-US", "zh-CN"]],
       "items": {
         "type": "string",
         "enum": [
@@ -616,32 +634,35 @@
           "zh-TW",
           "zu-ZA"
         ]
-      },
-      "minItems": 1
+      }
     },
     "hooks": {
       "description": "是否使用 hooks",
       "type": "boolean"
     },
     "alias": {
-      "description": "补全的默认触发别名，如果没有设置，则使用目录名",
-      "examples": ["", []],
-      "oneOf": [
-        {
-          "type": "string",
-          "minLength": 1
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1
-        }
-      ]
+      "$ref": "#/definitions/array_items",
+      "description": "补全的默认触发别名，如果没有设置，则使用目录名"
     },
     "$schema": {
-      "description": "定义 Schema 架构"
+      "description": "定义 Schema 架构",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/string",
+          "description": "压缩版本",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/zh-CN/config-min.json"
+          ]
+        },
+        {
+          "$ref": "#/definitions/string",
+          "description": "未压缩版本",
+          "enum": [
+            "https://abgox.github.io/schema/PSCompletions/zh-CN/config.json"
+          ]
+        },
+        {}
+      ]
     }
   },
   "additionalProperties": false
