@@ -28,10 +28,10 @@ function generateInfo($language) {
 
         # Schema
         if ($language -eq "zh-CN") {
-            $info += "[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name) '点击获取未压缩版本') ``$($lang)``<br><a href=`"https://abgox.github.io/schema/$($dir)/$($lang)/$($_.BaseName)-min.json`" title=`"点击获取压缩版本`"><img src=`"https://img.shields.io/badge/-点我获取压缩版本-blue`" />"
+            $info += "``$($lang)``<br>[$dir/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name) '点击获取未压缩版本')<br>[$dir/$($_.BaseName)-min.json](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.BaseName)-min.json '点击获取压缩版本')"
         }
         else {
-            $info += "[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name) 'Click to get uncompressed version') ``$($lang)``<br><a href=`"https://abgox.github.io/schema/$($dir)/$($lang)/$($_.BaseName)-min.json`" title=`"Click to get compressed version`"><img src=`"https://img.shields.io/badge/-Click%20to%20get%20Compressed%20version-blue`" />"
+            $info += "``$($lang)``<br>[$($dir)/$($_.Name)](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.Name) 'Click to get uncompressed version')<br>[$dir/$($_.BaseName)-min.json](https://abgox.github.io/schema/$($dir)/$($lang)/$($_.BaseName)-min.json 'Click to get compressed version')"
         }
 
         # Source
@@ -48,7 +48,7 @@ function generateInfo($language) {
         }
         $resulst += "|" + ($info -join "|") + "|"
     }
-    return ($resulst | Sort-Object)
+    return ($resulst | Sort-Object { $_ -replace "(en-US)|(zh-CN)", "" })
 }
 
 
