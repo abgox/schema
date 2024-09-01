@@ -219,11 +219,28 @@
             "description": "配置项的名称"
           },
           "value": {
-            "$ref": "#/definitions/string",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/string"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "description": "配置项的初始值"
           },
           "values": {
-            "$ref": "#/definitions/array_items",
+            "$ref": "#/definitions/array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
             "description": "配置项的可选值\n这里填写的值会在 completion 命令补全中显示"
           },
           "tip": {

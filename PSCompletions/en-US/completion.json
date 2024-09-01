@@ -219,11 +219,28 @@
             "description": "A name for the configuration item"
           },
           "value": {
-            "$ref": "#/definitions/string",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/string"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "description": "A default value for the configuration item"
           },
           "values": {
-            "$ref": "#/definitions/array_items",
+            "$ref": "#/definitions/array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
             "description": "A list of possible values that will be displayed in the completion of the completion command"
           },
           "tip": {
