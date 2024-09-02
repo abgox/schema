@@ -17,9 +17,10 @@ foreach ($_ in $schemaList.Keys) {
         else {
             $diffList += $schemaList.$_.from
         }
-        Remove-Item $oldPath, $newPath -Force
     }
     catch {}
+    Remove-Item $oldPath -Force -ErrorAction SilentlyContinue
+    Remove-Item $newPath -Force -ErrorAction SilentlyContinue
 }
 
 $imgTag = "<img src=`"https://img.shields.io/badge/update-yellow`" />"
