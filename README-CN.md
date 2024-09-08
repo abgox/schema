@@ -46,7 +46,7 @@
 |Schema|Source|
 |:-:|:-:|
 |`zh-CN`<br>[biomejs/biome.json](https://abgox.github.io/schema/biomejs/zh-CN/biome.json '点击获取未压缩版本')<br>[biomejs/biome-min.json](https://abgox.github.io/schema/biomejs/zh-CN/biome-min.json '点击获取压缩版本')|
-|`en-US`<br>[biomejs/biome.json](https://abgox.github.io/schema/biomejs/en-US/biome.json '点击获取未压缩版本')<br>[biomejs/biome-min.json](https://abgox.github.io/schema/biomejs/en-US/biome-min.json '点击获取压缩版本')|[https://biomejs.dev/schemas/1.8.3/schema.json](https://biomejs.dev/schemas/1.8.3/schema.json)|
+|`en-US`<br>[biomejs/biome.json](https://abgox.github.io/schema/biomejs/en-US/biome.json '点击获取未压缩版本')<br>[biomejs/biome-min.json](https://abgox.github.io/schema/biomejs/en-US/biome-min.json '点击获取压缩版本')|[https://raw.githubusercontent.com/biomejs/biome/main/packages/%40biomejs/biome/configuration_schema.json](https://raw.githubusercontent.com/biomejs/biome/main/packages/%40biomejs/biome/configuration_schema.json) <img src="https://img.shields.io/badge/update-yellow" />|
 |`zh-CN`<br>[eslint/eslintrc.json](https://abgox.github.io/schema/eslint/zh-CN/eslintrc.json '点击获取未压缩版本')<br>[eslint/eslintrc-min.json](https://abgox.github.io/schema/eslint/zh-CN/eslintrc-min.json '点击获取压缩版本')|
 |`en-US`<br>[eslint/eslintrc.json](https://abgox.github.io/schema/eslint/en-US/eslintrc.json '点击获取未压缩版本')<br>[eslint/eslintrc-min.json](https://abgox.github.io/schema/eslint/en-US/eslintrc-min.json '点击获取压缩版本')|[https://json.schemastore.org/eslintrc.json](https://json.schemastore.org/eslintrc.json)|
 |`zh-CN`<br>[prettier/prettierrc.json](https://abgox.github.io/schema/prettier/zh-CN/prettierrc.json '点击获取未压缩版本')<br>[prettier/prettierrc-min.json](https://abgox.github.io/schema/prettier/zh-CN/prettierrc-min.json '点击获取压缩版本')|

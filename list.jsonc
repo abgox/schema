@@ -1,6 +1,6 @@
 {
   "biomejs/biome.json": {
-    "from": "https://biomejs.dev/schemas/1.8.3/schema.json",
+    "from": "https://raw.githubusercontent.com/biomejs/biome/main/packages/%40biomejs/biome/configuration_schema.json",
     "to": "https://abgox.github.io/schema/biomejs/en-US/biome.json"
   },
   "eslint/eslintrc.json": {
