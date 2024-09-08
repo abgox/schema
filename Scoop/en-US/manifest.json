@@ -1,25 +1,42 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "required": ["version", "description", "homepage", "license"],
+  "required": [
+    "version",
+    "description",
+    "homepage",
+    "license"
+  ],
   "dependentRequired": {
-    "url": ["hash"],
-    "autoupdate": ["checkver"]
+    "url": [
+      "hash"
+    ],
+    "autoupdate": [
+      "checkver"
+    ]
   },
   "definitions": {
     "bool": {
       "type": "boolean",
       "title": "Type: boolean",
-      "examples": [true, false]
+      "examples": [
+        true,
+        false
+      ]
     },
     "str": {
       "type": "string",
       "title": "Type: string",
-      "examples": [""]
+      "examples": [
+        ""
+      ]
     },
     "arr_str": {
       "title": "Type: string or array",
-      "examples": ["", []],
+      "examples": [
+        "",
+        []
+      ],
       "oneOf": [
         {
           "type": "array",
@@ -55,7 +72,9 @@
       "oneOf": [
         {
           "type": "object",
-          "required": ["identifier"],
+          "required": [
+            "identifier"
+          ],
           "examples": [
             {
               "identifier": "",
@@ -114,7 +133,10 @@
       }
     },
     "architecture_install": {
-      "required": ["url", "hash"],
+      "required": [
+        "url",
+        "hash"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/architecture"
@@ -129,7 +151,9 @@
       ]
     },
     "architecture_autoupdate": {
-      "required": ["url"],
+      "required": [
+        "url"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/architecture"
@@ -146,7 +170,9 @@
     "get_hash": {
       "title": "Type: object",
       "description": "An object that defines how hashes are obtained.\nObject Available attributes: url,regex/find,mode,jp/jsonpath,xpath",
-      "required": ["url"],
+      "required": [
+        "url"
+      ],
       "type": "object",
       "properties": {
         "url": {
@@ -208,13 +234,34 @@
       "description": "A string or array of strings of programs (executables or scripts) to make available on the user's path.\nA two-dimensional array can be used to create an alias shim, which uses a different name to the real executable and (optionally) passes arguments to the executable.\nThe two-dimensional array should contain up to three strings: program name, alias, and parameters(optional).",
       "examples": [
         "",
-        ["", ""],
-        ["", ["", ""]],
         [
-          ["", ""],
-          ["", ""]
+          "",
+          ""
         ],
-        [["", "", ""]]
+        [
+          "",
+          [
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
       ],
       "anyOf": [
         {
@@ -255,7 +302,9 @@
           "regex": ""
         },
         {
-          "script": [""],
+          "script": [
+            ""
+          ],
           "regex": ""
         }
       ],
@@ -322,16 +371,24 @@
           "file": ""
         },
         {
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""],
-          "args": [""]
+          "script": [
+            ""
+          ],
+          "args": [
+            ""
+          ]
         }
       ],
       "properties": {
@@ -365,16 +422,24 @@
           "file": ""
         },
         {
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""],
-          "args": [""]
+          "script": [
+            ""
+          ],
+          "args": [
+            ""
+          ]
         }
       ],
       "properties": {
@@ -417,18 +482,38 @@
       "title": "Type: array(two-dimensional)",
       "description": "Specifies the shortcut values to make available in the startmenu.\nThe two-dimensional array contains four values:\n1.Path to target file [required]\n2.Name of the shortcut(supports subdirectories: <AppsSubDir>\\<AppShortcut>) [required]\n3.Start parameters [optional]\n4.Path to icon file [optional]",
       "examples": [
-        [["", ""]],
         [
-          ["", ""],
-          ["", ""]
+          [
+            "",
+            ""
+          ]
         ],
-        [["", "", "", ""]]
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
       ],
       "items": {
         "type": "array",
         "items": {
           "type": "string",
-          "examples": [""]
+          "examples": [
+            ""
+          ]
         },
         "minItems": 2,
         "maxItems": 4
@@ -450,14 +535,27 @@
       "patternProperties": {
         "": {
           "type": "string",
-          "examples": [""]
+          "examples": [
+            ""
+          ]
         }
       },
       "minProperties": 1
     },
     "persist": {
       "description": "A string or array (string array or two-dimensional array) of directories and files to persist inside the data directory for the app.",
-      "examples": ["", [""], [["", ""]]],
+      "examples": [
+        "",
+        [
+          ""
+        ],
+        [
+          [
+            "",
+            ""
+          ]
+        ]
+      ],
       "oneOf": [
         {
           "type": "array",
@@ -479,7 +577,9 @@
     },
     "psmodule": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "examples": [
         {
           "name": ""
@@ -503,7 +603,9 @@
           "$ref": "#/definitions/str"
         },
         {
-          "examples": ["0.0.0"]
+          "examples": [
+            "0.0.0"
+          ]
         }
       ]
     },

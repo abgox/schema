@@ -2,16 +2,24 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "description": "PSCompletions 模块补全数据文件的 JSON Schema",
   "type": "object",
-  "required": ["info"],
+  "required": [
+    "info"
+  ],
   "anyOf": [
     {
-      "required": ["root"]
+      "required": [
+        "root"
+      ]
     },
     {
-      "required": ["options"]
+      "required": [
+        "options"
+      ]
     },
     {
-      "required": ["common_options"]
+      "required": [
+        "common_options"
+      ]
     }
   ],
   "definitions": {
@@ -33,7 +41,9 @@
     },
     "root_item": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "$ref": "#/definitions/string",
@@ -49,17 +59,29 @@
             {
               "$ref": "#/definitions/array",
               "description": "它必须是一个数组",
-              "enum": [[]]
+              "enum": [
+                []
+              ]
             },
             {
               "$ref": "#/definitions/array",
               "description": "当使用 hooks 去动态生成一些补全项时，需要指定 SpaceTab",
-              "enum": [["SpaceTab"]]
+              "enum": [
+                [
+                  "SpaceTab"
+                ]
+              ]
             },
             {
               "$ref": "#/definitions/array",
               "description": "你也可以使用 PowerShell 语法，需要 使用 {{ }} 包裹",
-              "enum": [["{{", "if($true){ 'SpaceTab' }", "}}"]]
+              "enum": [
+                [
+                  "{{",
+                  "if($true){ 'SpaceTab' }",
+                  "}}"
+                ]
+              ]
             },
             {
               "$ref": "#/definitions/array",
@@ -68,7 +90,9 @@
                 "oneOf": [
                   {
                     "description": "指定 SpaceTab",
-                    "enum": ["SpaceTab"]
+                    "enum": [
+                      "SpaceTab"
+                    ]
                   },
                   {}
                 ]
@@ -99,7 +123,9 @@
     },
     "options_item": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "$ref": "#/definitions/string",
@@ -115,17 +141,32 @@
             {
               "$ref": "#/definitions/array",
               "description": "它必须是一个数组",
-              "enum": [[]]
+              "enum": [
+                []
+              ]
             },
             {
               "$ref": "#/definitions/array",
               "description": "指定符号",
-              "enum": [["WriteSpaceTab"], ["SpaceTab"]]
+              "enum": [
+                [
+                  "WriteSpaceTab"
+                ],
+                [
+                  "SpaceTab"
+                ]
+              ]
             },
             {
               "$ref": "#/definitions/array",
               "description": "你也可以使用 PowerShell 语法，需要 使用 {{ }} 包裹",
-              "enum": [["{{", "if($true){'WriteSpaceTab'}", "}}"]]
+              "enum": [
+                [
+                  "{{",
+                  "if($true){'WriteSpaceTab'}",
+                  "}}"
+                ]
+              ]
             },
             {
               "$ref": "#/definitions/array",
@@ -134,11 +175,15 @@
                 "anyOf": [
                   {
                     "description": "指定 WriteSpaceTab",
-                    "enum": ["WriteSpaceTab"]
+                    "enum": [
+                      "WriteSpaceTab"
+                    ]
                   },
                   {
                     "description": "指定 SpaceTab",
-                    "enum": ["SpaceTab"]
+                    "enum": [
+                      "SpaceTab"
+                    ]
                   },
                   {}
                 ]
@@ -187,12 +232,17 @@
       "description": "一些补全的信息\n这些信息可以在此 json 文件任何地方使用 {{ $info.xxx }} 进行访问",
       "type": "object",
       "minProperties": 1,
-      "required": ["completion_info"],
+      "required": [
+        "completion_info"
+      ],
       "properties": {
         "completion_info": {
           "type": "object",
           "description": "补全的一些相关信息",
-          "required": ["url", "description"],
+          "required": [
+            "url",
+            "description"
+          ],
           "properties": {
             "url": {
               "$ref": "#/definitions/string",
@@ -212,7 +262,11 @@
       "description": "定义一些特别的配置项",
       "items": {
         "type": "object",
-        "required": ["name", "value", "tip"],
+        "required": [
+          "name",
+          "value",
+          "tip"
+        ],
         "properties": {
           "name": {
             "$ref": "#/definitions/string",

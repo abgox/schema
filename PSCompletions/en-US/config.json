@@ -1,7 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "required": ["language"],
+  "required": [
+    "language"
+  ],
   "definitions": {
     "string": {
       "type": "string",
@@ -24,7 +26,13 @@
     "language": {
       "$ref": "#/definitions/array",
       "description": "Available languages\nIf the language you want to specify is not an valid value, please submit an issue.",
-      "examples": [[], ["en-US", "zh-CN"]],
+      "examples": [
+        [],
+        [
+          "en-US",
+          "zh-CN"
+        ]
+      ],
       "items": {
         "type": "string",
         "enum": [

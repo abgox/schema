@@ -9,11 +9,15 @@
           "default": "always",
           "oneOf": [
             {
-              "enum": ["always"],
+              "enum": [
+                "always"
+              ],
               "description": "总是包含括号。示例：`(x) => x`"
             },
             {
-              "enum": ["avoid"],
+              "enum": [
+                "avoid"
+              ],
               "description": "尽可能省略括号。示例：`x => x`"
             }
           ]
@@ -38,11 +42,15 @@
           "default": "auto",
           "oneOf": [
             {
-              "enum": ["auto"],
+              "enum": [
+                "auto"
+              ],
               "description": "如果 Prettier 能够自动识别，则格式化嵌入的代码。"
             },
             {
-              "enum": ["off"],
+              "enum": [
+                "off"
+              ],
               "description": "永远不要自动格式化嵌入的代码。"
             }
           ]
@@ -52,19 +60,27 @@
           "default": "lf",
           "oneOf": [
             {
-              "enum": ["lf"],
+              "enum": [
+                "lf"
+              ],
               "description": "仅换行符（\\n），在 Linux、macOS 以及 git 仓库内常见。"
             },
             {
-              "enum": ["crlf"],
+              "enum": [
+                "crlf"
+              ],
               "description": "回车符 + 换行符（\\r\\n），在 Windows 上常见。"
             },
             {
-              "enum": ["cr"],
+              "enum": [
+                "cr"
+              ],
               "description": "仅回车符（\\r），极少使用。"
             },
             {
-              "enum": ["auto"],
+              "enum": [
+                "auto"
+              ],
               "description": "保持现有行尾字符。\n（文件内存在混合值时，通过查看第一行后使用的内容进行规范化）"
             }
           ]
@@ -83,15 +99,21 @@
           "default": "css",
           "oneOf": [
             {
-              "enum": ["css"],
+              "enum": [
+                "css"
+              ],
               "description": "遵循 CSS 显示属性的默认值。"
             },
             {
-              "enum": ["strict"],
+              "enum": [
+                "strict"
+              ],
               "description": "空白符视为敏感。"
             },
             {
-              "enum": ["ignore"],
+              "enum": [
+                "ignore"
+              ],
               "description": "空白符视为不敏感。"
             }
           ]
@@ -110,99 +132,147 @@
           "description": "使用哪个解析器。",
           "anyOf": [
             {
-              "enum": ["flow"],
+              "enum": [
+                "flow"
+              ],
               "description": "Flow"
             },
             {
-              "enum": ["babel"],
+              "enum": [
+                "babel"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["babel-flow"],
+              "enum": [
+                "babel-flow"
+              ],
               "description": "Flow"
             },
             {
-              "enum": ["babel-ts"],
+              "enum": [
+                "babel-ts"
+              ],
               "description": "TypeScript"
             },
             {
-              "enum": ["typescript"],
+              "enum": [
+                "typescript"
+              ],
               "description": "TypeScript"
             },
             {
-              "enum": ["acorn"],
+              "enum": [
+                "acorn"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["espree"],
+              "enum": [
+                "espree"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["meriyah"],
+              "enum": [
+                "meriyah"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["css"],
+              "enum": [
+                "css"
+              ],
               "description": "CSS"
             },
             {
-              "enum": ["less"],
+              "enum": [
+                "less"
+              ],
               "description": "Less"
             },
             {
-              "enum": ["scss"],
+              "enum": [
+                "scss"
+              ],
               "description": "SCSS"
             },
             {
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "description": "JSON"
             },
             {
-              "enum": ["json5"],
+              "enum": [
+                "json5"
+              ],
               "description": "JSON5"
             },
             {
-              "enum": ["jsonc"],
+              "enum": [
+                "jsonc"
+              ],
               "description": "可以带有注释的 JSON"
             },
             {
-              "enum": ["json-stringify"],
+              "enum": [
+                "json-stringify"
+              ],
               "description": "JSON.stringify"
             },
             {
-              "enum": ["graphql"],
+              "enum": [
+                "graphql"
+              ],
               "description": "GraphQL"
             },
             {
-              "enum": ["markdown"],
+              "enum": [
+                "markdown"
+              ],
               "description": "Markdown"
             },
             {
-              "enum": ["mdx"],
+              "enum": [
+                "mdx"
+              ],
               "description": "MDX"
             },
             {
-              "enum": ["vue"],
+              "enum": [
+                "vue"
+              ],
               "description": "Vue"
             },
             {
-              "enum": ["yaml"],
+              "enum": [
+                "yaml"
+              ],
               "description": "YAML"
             },
             {
-              "enum": ["glimmer"],
+              "enum": [
+                "glimmer"
+              ],
               "description": "Ember / Handlebars"
             },
             {
-              "enum": ["html"],
+              "enum": [
+                "html"
+              ],
               "description": "HTML"
             },
             {
-              "enum": ["angular"],
+              "enum": [
+                "angular"
+              ],
               "description": "Angular"
             },
             {
-              "enum": ["lwc"],
+              "enum": [
+                "lwc"
+              ],
               "description": "Lightning Web 组件"
             },
             {
@@ -229,15 +299,21 @@
           "default": "preserve",
           "oneOf": [
             {
-              "enum": ["always"],
+              "enum": [
+                "always"
+              ],
               "description": "如果文本段落超过打印宽度，则换行。"
             },
             {
-              "enum": ["never"],
+              "enum": [
+                "never"
+              ],
               "description": "不换行长文本段落。"
             },
             {
-              "enum": ["preserve"],
+              "enum": [
+                "preserve"
+              ],
               "description": "保持长文本段落不变。"
             }
           ]
@@ -247,15 +323,21 @@
           "default": "as-needed",
           "oneOf": [
             {
-              "enum": ["as-needed"],
+              "enum": [
+                "as-needed"
+              ],
               "description": "仅在需要时为对象属性添加引号。"
             },
             {
-              "enum": ["consistent"],
+              "enum": [
+                "consistent"
+              ],
               "description": "如果对象中至少一个属性需要引号，则所有属性都加引号。"
             },
             {
-              "enum": ["preserve"],
+              "enum": [
+                "preserve"
+              ],
               "description": "保留对象属性中使用引号的输入形式。"
             }
           ]
@@ -300,15 +382,21 @@
           "default": "all",
           "oneOf": [
             {
-              "enum": ["all"],
+              "enum": [
+                "all"
+              ],
               "description": "尽可能在所有情况下打印尾随逗号（包括函数参数）。"
             },
             {
-              "enum": ["es5"],
+              "enum": [
+                "es5"
+              ],
               "description": "在 ES5 中有效的情况下打印尾随逗号（对象、数组等）。"
             },
             {
-              "enum": ["none"],
+              "enum": [
+                "none"
+              ],
               "description": "不打印尾随逗号。"
             }
           ]
@@ -333,7 +421,9 @@
           "description": "提供一组模式以覆盖 prettier 配置。",
           "items": {
             "type": "object",
-            "required": ["files"],
+            "required": [
+              "files"
+            ],
             "properties": {
               "files": {
                 "description": "包含在此覆盖中的文件。",

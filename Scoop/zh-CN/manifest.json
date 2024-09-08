@@ -1,25 +1,42 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
-  "required": ["version", "description", "homepage", "license"],
+  "required": [
+    "version",
+    "description",
+    "homepage",
+    "license"
+  ],
   "dependentRequired": {
-    "url": ["hash"],
-    "autoupdate": ["checkver"]
+    "url": [
+      "hash"
+    ],
+    "autoupdate": [
+      "checkver"
+    ]
   },
   "definitions": {
     "bool": {
       "type": "boolean",
       "title": "类型: 布尔值",
-      "examples": [true, false]
+      "examples": [
+        true,
+        false
+      ]
     },
     "str": {
       "type": "string",
       "title": "类型: 字符串",
-      "examples": [""]
+      "examples": [
+        ""
+      ]
     },
     "arr_str": {
       "title": "类型: 字符串或数组",
-      "examples": ["", []],
+      "examples": [
+        "",
+        []
+      ],
       "oneOf": [
         {
           "type": "array",
@@ -55,7 +72,9 @@
       "oneOf": [
         {
           "type": "object",
-          "required": ["identifier"],
+          "required": [
+            "identifier"
+          ],
           "examples": [
             {
               "identifier": "",
@@ -114,7 +133,10 @@
       }
     },
     "architecture_install": {
-      "required": ["url", "hash"],
+      "required": [
+        "url",
+        "hash"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/architecture"
@@ -129,7 +151,9 @@
       ]
     },
     "architecture_autoupdate": {
-      "required": ["url"],
+      "required": [
+        "url"
+      ],
       "allOf": [
         {
           "$ref": "#/definitions/architecture"
@@ -147,7 +171,9 @@
       "type": "object",
       "title": "类型: 对象",
       "description": "一个对象，定义哈希的获取\n对象可用属性: url,regex/find,mode,jp/jsonpath,xpath",
-      "required": ["url"],
+      "required": [
+        "url"
+      ],
       "properties": {
         "url": {
           "description": "用于下载RDF/JSON文件或提取哈希的URL模板",
@@ -208,13 +234,34 @@
       "description": "一个程序(可执行文件或脚本)的字符串或字符串数组，可在用户路径上使用。\n可以通过一个二维数组来创建一个别名 shim，它使用与真实的可执行文件不同的名称，并(可选地)将参数传递给可执行文件。\n二维数组应该包含最多三个字符串：程序名,别名,参数(可选)",
       "examples": [
         "",
-        ["", ""],
-        ["", ["", ""]],
         [
-          ["", ""],
-          ["", ""]
+          "",
+          ""
         ],
-        [["", "", ""]]
+        [
+          "",
+          [
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
       ],
       "anyOf": [
         {
@@ -256,7 +303,9 @@
           "regex": ""
         },
         {
-          "script": [""],
+          "script": [
+            ""
+          ],
           "regex": ""
         }
       ],
@@ -323,16 +372,24 @@
           "file": ""
         },
         {
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""],
-          "args": [""]
+          "script": [
+            ""
+          ],
+          "args": [
+            ""
+          ]
         }
       ],
       "properties": {
@@ -366,16 +423,24 @@
           "file": ""
         },
         {
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""]
+          "script": [
+            ""
+          ]
         },
         {
           "file": "",
-          "script": [""],
-          "args": [""]
+          "script": [
+            ""
+          ],
+          "args": [
+            ""
+          ]
         }
       ],
       "properties": {
@@ -418,18 +483,38 @@
       "title": "类型: 二维数组",
       "description": "指定要在开始菜单中可用的快捷方式值。\n二维数组中包含四个值：\n1.目标文件的路径(必需值)\n2.快捷方式的名称(支持子目录:<AppsSubDir>\\<AppShortcut>，必需值)\n3.启动参数(可选值)\n4.图标文件的路径(可选值)",
       "examples": [
-        [["", ""]],
         [
-          ["", ""],
-          ["", ""]
+          [
+            "",
+            ""
+          ]
         ],
-        [["", "", "", ""]]
+        [
+          [
+            "",
+            ""
+          ],
+          [
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
       ],
       "items": {
         "type": "array",
         "items": {
           "type": "string",
-          "examples": [""]
+          "examples": [
+            ""
+          ]
         },
         "minItems": 2,
         "maxItems": 4
@@ -451,14 +536,27 @@
       "patternProperties": {
         "": {
           "type": "string",
-          "examples": [""]
+          "examples": [
+            ""
+          ]
         }
       },
       "minProperties": 1
     },
     "persist": {
       "description": "目录和文件的字符串或数组(字符串数组或二维数组)，用于在应用程序的数据目录中持久化。",
-      "examples": ["", [""], [["", ""]]],
+      "examples": [
+        "",
+        [
+          ""
+        ],
+        [
+          [
+            "",
+            ""
+          ]
+        ]
+      ],
       "oneOf": [
         {
           "type": "array",
@@ -480,7 +578,9 @@
     },
     "psmodule": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "examples": [
         {
           "name": ""
@@ -504,7 +604,9 @@
           "$ref": "#/definitions/str"
         },
         {
-          "examples": ["0.0.0"]
+          "examples": [
+            "0.0.0"
+          ]
         }
       ]
     },
@@ -790,12 +892,16 @@
             },
             "32bit": {
               "description": "32位架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts",
-              "required": ["url"],
+              "required": [
+                "url"
+              ],
               "$ref": "#/definitions/architecture_autoupdate"
             },
             "arm64": {
               "description": "arm64架构\n对象可用属性: url,hash,bin,extract_dir,installer,uninstaller,pre_install,post_install,shortcuts",
-              "required": ["url"],
+              "required": [
+                "url"
+              ],
               "$ref": "#/definitions/architecture_autoupdate"
             }
           }

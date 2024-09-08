@@ -10,11 +10,15 @@
           "default": "always",
           "oneOf": [
             {
-              "enum": ["always"],
+              "enum": [
+                "always"
+              ],
               "description": "Always include parens. Example: `(x) => x`"
             },
             {
-              "enum": ["avoid"],
+              "enum": [
+                "avoid"
+              ],
               "description": "Omit parens when possible. Example: `x => x`"
             }
           ]
@@ -39,11 +43,15 @@
           "default": "auto",
           "oneOf": [
             {
-              "enum": ["auto"],
+              "enum": [
+                "auto"
+              ],
               "description": "Format embedded code if Prettier can automatically identify it."
             },
             {
-              "enum": ["off"],
+              "enum": [
+                "off"
+              ],
               "description": "Never automatically format embedded code."
             }
           ]
@@ -53,19 +61,27 @@
           "default": "lf",
           "oneOf": [
             {
-              "enum": ["lf"],
+              "enum": [
+                "lf"
+              ],
               "description": "Line Feed only (\\n), common on Linux and macOS as well as inside git repos"
             },
             {
-              "enum": ["crlf"],
+              "enum": [
+                "crlf"
+              ],
               "description": "Carriage Return + Line Feed characters (\\r\\n), common on Windows"
             },
             {
-              "enum": ["cr"],
+              "enum": [
+                "cr"
+              ],
               "description": "Carriage Return character only (\\r), used very rarely"
             },
             {
-              "enum": ["auto"],
+              "enum": [
+                "auto"
+              ],
               "description": "Maintain existing\n(mixed values within one file are normalised by looking at what's used after the first line)"
             }
           ]
@@ -84,15 +100,21 @@
           "default": "css",
           "oneOf": [
             {
-              "enum": ["css"],
+              "enum": [
+                "css"
+              ],
               "description": "Respect the default value of CSS display property."
             },
             {
-              "enum": ["strict"],
+              "enum": [
+                "strict"
+              ],
               "description": "Whitespaces are considered sensitive."
             },
             {
-              "enum": ["ignore"],
+              "enum": [
+                "ignore"
+              ],
               "description": "Whitespaces are considered insensitive."
             }
           ]
@@ -111,99 +133,147 @@
           "description": "Which parser to use.",
           "anyOf": [
             {
-              "enum": ["flow"],
+              "enum": [
+                "flow"
+              ],
               "description": "Flow"
             },
             {
-              "enum": ["babel"],
+              "enum": [
+                "babel"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["babel-flow"],
+              "enum": [
+                "babel-flow"
+              ],
               "description": "Flow"
             },
             {
-              "enum": ["babel-ts"],
+              "enum": [
+                "babel-ts"
+              ],
               "description": "TypeScript"
             },
             {
-              "enum": ["typescript"],
+              "enum": [
+                "typescript"
+              ],
               "description": "TypeScript"
             },
             {
-              "enum": ["acorn"],
+              "enum": [
+                "acorn"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["espree"],
+              "enum": [
+                "espree"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["meriyah"],
+              "enum": [
+                "meriyah"
+              ],
               "description": "JavaScript"
             },
             {
-              "enum": ["css"],
+              "enum": [
+                "css"
+              ],
               "description": "CSS"
             },
             {
-              "enum": ["less"],
+              "enum": [
+                "less"
+              ],
               "description": "Less"
             },
             {
-              "enum": ["scss"],
+              "enum": [
+                "scss"
+              ],
               "description": "SCSS"
             },
             {
-              "enum": ["json"],
+              "enum": [
+                "json"
+              ],
               "description": "JSON"
             },
             {
-              "enum": ["json5"],
+              "enum": [
+                "json5"
+              ],
               "description": "JSON5"
             },
             {
-              "enum": ["jsonc"],
+              "enum": [
+                "jsonc"
+              ],
               "description": "JSON with Comments"
             },
             {
-              "enum": ["json-stringify"],
+              "enum": [
+                "json-stringify"
+              ],
               "description": "JSON.stringify"
             },
             {
-              "enum": ["graphql"],
+              "enum": [
+                "graphql"
+              ],
               "description": "GraphQL"
             },
             {
-              "enum": ["markdown"],
+              "enum": [
+                "markdown"
+              ],
               "description": "Markdown"
             },
             {
-              "enum": ["mdx"],
+              "enum": [
+                "mdx"
+              ],
               "description": "MDX"
             },
             {
-              "enum": ["vue"],
+              "enum": [
+                "vue"
+              ],
               "description": "Vue"
             },
             {
-              "enum": ["yaml"],
+              "enum": [
+                "yaml"
+              ],
               "description": "YAML"
             },
             {
-              "enum": ["glimmer"],
+              "enum": [
+                "glimmer"
+              ],
               "description": "Ember / Handlebars"
             },
             {
-              "enum": ["html"],
+              "enum": [
+                "html"
+              ],
               "description": "HTML"
             },
             {
-              "enum": ["angular"],
+              "enum": [
+                "angular"
+              ],
               "description": "Angular"
             },
             {
-              "enum": ["lwc"],
+              "enum": [
+                "lwc"
+              ],
               "description": "Lightning Web Components"
             },
             {
@@ -230,15 +300,21 @@
           "default": "preserve",
           "oneOf": [
             {
-              "enum": ["always"],
+              "enum": [
+                "always"
+              ],
               "description": "Wrap prose if it exceeds the print width."
             },
             {
-              "enum": ["never"],
+              "enum": [
+                "never"
+              ],
               "description": "Do not wrap prose."
             },
             {
-              "enum": ["preserve"],
+              "enum": [
+                "preserve"
+              ],
               "description": "Wrap prose as-is."
             }
           ]
@@ -248,15 +324,21 @@
           "default": "as-needed",
           "oneOf": [
             {
-              "enum": ["as-needed"],
+              "enum": [
+                "as-needed"
+              ],
               "description": "Only add quotes around object properties where required."
             },
             {
-              "enum": ["consistent"],
+              "enum": [
+                "consistent"
+              ],
               "description": "If at least one property in an object requires quotes, quote all properties."
             },
             {
-              "enum": ["preserve"],
+              "enum": [
+                "preserve"
+              ],
               "description": "Respect the input use of quotes in object properties."
             }
           ]
@@ -301,15 +383,21 @@
           "default": "all",
           "oneOf": [
             {
-              "enum": ["all"],
+              "enum": [
+                "all"
+              ],
               "description": "Trailing commas wherever possible (including function arguments)."
             },
             {
-              "enum": ["es5"],
+              "enum": [
+                "es5"
+              ],
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)"
             },
             {
-              "enum": ["none"],
+              "enum": [
+                "none"
+              ],
               "description": "No trailing commas."
             }
           ]
@@ -334,7 +422,9 @@
           "description": "Provide a list of patterns to override prettier configuration.",
           "items": {
             "type": "object",
-            "required": ["files"],
+            "required": [
+              "files"
+            ],
             "properties": {
               "files": {
                 "description": "Include these files in this override.",

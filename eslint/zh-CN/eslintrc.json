@@ -21,15 +21,21 @@
           "type": "integer",
           "oneOf": [
             {
-              "enum": [0],
+              "enum": [
+                0
+              ],
               "description": "关闭规则"
             },
             {
-              "enum": [1],
+              "enum": [
+                1
+              ],
               "description": "打开规则作为警告（不影响退出代码）"
             },
             {
-              "enum": [2],
+              "enum": [
+                2
+              ],
               "description": "打开规则作为错误（触发时退出代码为 1）"
             }
           ],
@@ -41,16 +47,21 @@
           "type": "string",
           "oneOf": [
             {
-              "enum": ["off"],
+              "enum": [
+                "off"
+              ],
               "description": "关闭规则"
             },
-
             {
-              "enum": ["warn"],
+              "enum": [
+                "warn"
+              ],
               "description": "打开规则作为警告（不影响退出代码）"
             },
             {
-              "enum": ["error"],
+              "enum": [
+                "error"
+              ],
               "description": "将规则打开为错误（触发时退出代码为 1）"
             }
           ]
@@ -982,7 +993,6 @@
           "$ref": "#/definitions/rule",
           "description": "强制在一元操作符前后使用一致的空格"
         },
-
         "switch-colon-spacing": {
           "$ref": "#/definitions/rule",
           "description": "强制在 switch 的冒号左右有空格"
@@ -1388,7 +1398,11 @@
         "oneOf": [
           {
             "type": "string",
-            "enum": ["readonly", "writable", "off"]
+            "enum": [
+              "readonly",
+              "writable",
+              "off"
+            ]
           },
           {
             "description": "值 false|\"readable\" 和 true|\"writeable\" 已被弃用，它们分别等同于 \"readonly\" 和 \"writable\"。",
@@ -1445,7 +1459,11 @@
           "description": "设置为 3, 5 (默认), 6, 7, 8, 9, 10, 11, 12, 13, 14, 或 15 来指定您要使用的 ECMAScript 语法版本。您还可以设置为 2015 (等同于 6), 2016 (等同于 7), 2017 (等同于 8), 2018 (等同于 9), 2019 (等同于 10), 2020 (等同于 11), 2021 (等同于 12), 2022 (等同于 13), 2023 (等同于 14), 或 2024 (等同于 15) 使用基于年份的命名。您还可以设置为 \"latest\" 来使用最新支持的版本。"
         },
         "sourceType": {
-          "enum": ["script", "module", "commonjs"],
+          "enum": [
+            "script",
+            "module",
+            "commonjs"
+          ],
           "default": "script",
           "description": "如果您的代码是 ECMAScript 模块，请设置为 \"script\" (默认), \"commonjs\", 或 \"module\"。"
         }
@@ -1565,7 +1583,9 @@
           }
         },
         "additionalProperties": false,
-        "required": ["files"]
+        "required": [
+          "files"
+        ]
       }
     }
   },
