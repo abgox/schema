@@ -133,10 +133,6 @@
       }
     },
     "architecture_install": {
-      "required": [
-        "url",
-        "hash"
-      ],
       "allOf": [
         {
           "$ref": "#/definitions/architecture"
