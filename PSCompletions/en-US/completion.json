@@ -105,14 +105,16 @@
           "description": "Completion tip"
         },
         "next": {
-          "$ref": "#/definitions/array",
+          "type": "array",
+          "uniqueItems": true,
           "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key",
           "items": {
             "$ref": "#/definitions/root_item"
           }
         },
         "options": {
-          "$ref": "#/definitions/array",
+          "type": "array",
+          "uniqueItems": true,
           "description": "Available option completion",
           "items": {
             "$ref": "#/definitions/options_item"
@@ -196,7 +198,8 @@
           "description": "Completion tip"
         },
         "next": {
-          "$ref": "#/definitions/array",
+          "type": "array",
+          "uniqueItems": true,
           "description": "Next command completion, it's used to define the completion that can be obtained after entering the command by pressing the Tab key.\nIf next is added, WriteSpaceTab is automatically added to the symbol of the current.",
           "items": {
             "$ref": "#/definitions/root_item"

@@ -105,14 +105,16 @@
           "description": "补全提示信息"
         },
         "next": {
-          "$ref": "#/definitions/array",
+          "type": "array",
+          "uniqueItems": true,
           "description": "下一个命令补全, 这用来定义输入命令后按下 Tab 键后可以获取到的补全",
           "items": {
             "$ref": "#/definitions/root_item"
           }
         },
         "options": {
-          "$ref": "#/definitions/array",
+          "type": "array",
+          "uniqueItems": true,
           "description": "可用的选项类补全",
           "items": {
             "$ref": "#/definitions/options_item"
@@ -196,7 +198,8 @@
           "description": "补全提示信息"
         },
         "next": {
-          "$ref": "#/definitions/array",
+          "type": "array",
+          "uniqueItems": true,
           "description": "下一个命令补全, 这用来定义输入命令后按下 Tab 键后可以获取到的补全\n如果添加了 next, 会给当前命令的 symbol 自动添加 WriteSpaceTab",
           "items": {
             "$ref": "#/definitions/root_item"
