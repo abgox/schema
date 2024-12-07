@@ -10,6 +10,14 @@
 
 ## How to use
 
+> [!NOTE]
+>
+> `https://abgox.github.io/schema`
+>
+> `https://raw.githubusercontent.com/abgox/schema/main`
+>
+> `https://gitee.com/abgox/PSCompletions/raw/main`
+
 1. Add the `$schema` attribute to the json file. (Not recommended)
 
 ```json
