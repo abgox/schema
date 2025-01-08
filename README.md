@@ -16,7 +16,7 @@
 >
 > `https://raw.githubusercontent.com/abgox/schema/main`
 >
-> `https://gitee.com/abgox/PSCompletions/raw/main`
+> `https://gitee.com/abgox/schema/raw/main`
 
 1. Add the `$schema` attribute to the json file. (Not recommended)
 

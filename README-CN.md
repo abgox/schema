@@ -16,7 +16,7 @@
 >
 > `https://raw.githubusercontent.com/abgox/schema/main`
 >
-> `https://gitee.com/abgox/PSCompletions/raw/main`
+> `https://gitee.com/abgox/schema/raw/main`
 
 1. 直接在 json 文件中添加 `$schema` 属性(不推荐)
 
