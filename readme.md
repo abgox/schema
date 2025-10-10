@@ -25,34 +25,31 @@
 
 ---
 
-
 ## Introduce
 
-Some json schemas maintained by [abgox](https://abgox.com) to provide better json prompts and validation.
+Some json schemas with better json prompts and validation.
 
 ## How to use
 
-1. Add the `$schema` attribute to the json file. (Not recommended)
+- Add the `$schema` attribute to the json file. (Not recommended)
 
-```json
-"$schema": "https://schema.abgox.com/scoop-manifest.en-US.json",
-```
+  ```json
+  "$schema": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+  ```
 
-2. vscode `settings.json`
+- vscode `settings.json`
 
-- [Invalid schema (vscode issue)](https://github.com/microsoft/vscode/issues/219855)
+  > [Invalid schema (vscode issue)](https://github.com/microsoft/vscode/issues/219855)
 
-```json
-  "json.schemas": [
-    {
-      "url": "https://schema.abgox.com/scoop-manifest.en-US.json",
-      "fileMatch": [
-          "bucket/**/*.json"
-      ]
-    }
-  ]
-```
+  ```json
+    "json.schemas": [
+      {
+        "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+        "fileMatch": [
+            "bucket/**/*.json"
+        ]
+      }
+    ]
+  ```
 
-3. WebStorm
-   - Add it yourself in Settings
-   - `Settings` => `Languages & Frameworks` => `Schemas and DTDS`=>`JSON Schema Mappings`
+- JetBrains IDE: `Settings` => `Languages & Frameworks` => `Schemas and DTDS`=>`JSON Schema Mappings`

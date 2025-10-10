@@ -25,34 +25,31 @@
 
 ---
 
-
 ## 介绍
 
-由 [abgox](https://abgox.com) 维护的一些 json schema，以提供更好的 json 提示与验证
+一些 json schema，提供更好的 json 提示和校验
 
 ## 如何使用
 
-1. 直接在 json 文件中添加 `$schema` 属性(不推荐)
+- 直接在 json 文件中添加 `$schema` 属性(不推荐)
 
-```json
-"$schema": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-```
+  ```json
+  "$schema": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+  ```
 
-2. vscode `settings.json`
+- vscode `settings.json`
 
-- [schema 未生效(vscode issue)](https://github.com/microsoft/vscode/issues/219855)
+  > [schema 未生效(vscode issue)](https://github.com/microsoft/vscode/issues/219855)
 
-```json
-  "json.schemas": [
-    {
-      "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-      "fileMatch": [
-          "bucket/**/*.json"
-      ]
-    }
-  ]
-```
+  ```json
+    "json.schemas": [
+      {
+        "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+        "fileMatch": [
+            "bucket/**/*.json"
+        ]
+      }
+    ]
+  ```
 
-3. WebStorm
-   - 自行在设置中添加
-   - 步骤：`设置` => `语言与框架` => `架构和 DTD` => `JSON 架构映射`
+- JetBrains IDE: `设置` => `语言与框架` => `架构和 DTD` => `JSON 架构映射`
