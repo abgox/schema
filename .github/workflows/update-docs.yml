@@ -9,16 +9,12 @@ on:
 jobs:
   update-docs:
     runs-on: windows-latest
-    env:
-      REPO: ${{ github.repository }}
-      USER_NAME: "abgox"
-      USER_EMAIL: "abgohxf@outlook.com"
     steps:
       - name: Configure Git
         shell: pwsh
         run: |
-          git config --global user.name $env:USER_NAME
-          git config --global user.email $env:USER_EMAIL
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Update
         shell: pwsh
