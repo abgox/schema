@@ -896,9 +896,6 @@
     "notes": {
       "$ref": "#/definitions/notes"
     },
-    "notes-cn": {
-      "$ref": "#/definitions/notes-cn"
-    },
     "url": {
       "$ref": "#/definitions/url"
     },
@@ -999,9 +996,6 @@
         },
         "notes": {
           "$ref": "#/definitions/notes"
-        },
-        "notes-cn": {
-          "$ref": "#/definitions/notes-cn"
         },
         "url": {
           "$ref": "#/definitions/url"
