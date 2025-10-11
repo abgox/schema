@@ -25,21 +25,29 @@
 
 ---
 
+<p align="center">
+  <strong>Star ⭐️ or <a href="https://abgox.com/donate">Donate 💰</a> if you like it!</strong>
+</p>
+
 ## Introduce
 
 Some json schemas with better json prompts and validation.
 
 ## How to use
 
-- Add the `$schema` attribute to the json file. (Not recommended)
+> [!Tip]
+>
+> Take [scoop-manifest.zh-CN.json](./schemas/scoop-manifest.zh-CN.json) as an example.
+
+- Define in the json file.
 
   ```json
   "$schema": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
   ```
 
-- vscode `settings.json`
+- Define in the [settings.json](https://code.visualstudio.com/docs/configure/settings) of vscode.
 
-  > [Invalid schema (vscode issue)](https://github.com/microsoft/vscode/issues/219855)
+  > The schema defined in [settings.json](https://code.visualstudio.com/docs/configure/settings) has lower priority than the schema provided by the extension, please refer to [the issue](https://github.com/microsoft/vscode/issues/219855).
 
   ```json
     "json.schemas": [
