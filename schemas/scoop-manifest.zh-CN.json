@@ -522,6 +522,17 @@
             },
             "allOf": [
               {
+                "items": [
+                  {
+                    "description": "persist 的原始文件或目录"
+                  },
+                  {
+                    "description": "persist 的目标位置，支持子目录: `aaa\\bbb`",
+                    "markdownDescription": "persist 的目标位置，支持子目录: `aaa\\bbb`"
+                  }
+                ]
+              },
+              {
                 "if": {
                   "minItems": 1,
                   "maxItems": 1
