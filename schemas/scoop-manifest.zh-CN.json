@@ -1331,6 +1331,132 @@
           }
         }
       ]
+    },
+    {
+      "$comment": "确保 architecture 和 autoupdate 中的 architecture 相对应",
+      "if": {
+        "required": ["autoupdate"],
+        "properties": {
+          "autoupdate": {
+            "required": ["architecture"]
+          }
+        }
+      },
+      "then": {
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "autoupdate": {
+                  "properties": {
+                    "architecture": {
+                      "required": ["64bit"]
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "architecture": {
+                  "required": ["64bit"]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "architecture": {
+                  "if": {
+                    "required": ["64bit"]
+                  },
+                  "then": {
+                    "properties": {
+                      "64bit": {
+                        "not": true,
+                        "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "autoupdate": {
+                  "properties": {
+                    "architecture": {
+                      "required": ["32bit"]
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "architecture": {
+                  "required": ["32bit"]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "architecture": {
+                  "if": {
+                    "required": ["32bit"]
+                  },
+                  "then": {
+                    "properties": {
+                      "32bit": {
+                        "not": true,
+                        "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "autoupdate": {
+                  "properties": {
+                    "architecture": {
+                      "required": ["arm64"]
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "architecture": {
+                  "required": ["arm64"]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "architecture": {
+                  "if": {
+                    "required": ["arm64"]
+                  },
+                  "then": {
+                    "properties": {
+                      "arm64": {
+                        "not": true,
+                        "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
     }
   ]
 }
