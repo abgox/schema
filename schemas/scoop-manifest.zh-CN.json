@@ -11,68 +11,99 @@
     },
     "str": {
       "type": "string",
-      "examples": [""],
       "minLength": 1
     },
     "string_or_string_array": {
-      "examples": ["", []],
       "type": ["string", "array"],
       "items": {
-        "type": "string",
-        "minLength": 1
+        "$ref": "#/definitions/str"
       },
       "minLength": 1,
       "minItems": 1
     },
     "license_field": {
-      "enum": [
-        "Unknown",
-        "Freeware",
-        "Proprietary",
-        "Public Domain",
-        "Shareware"
-      ],
-      "markdownEnumDescriptions": [
-        "使用 `Unknown`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示无法确定许可证(unable to determine the license)",
-        "使用 `Freeware`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个免费软件(free to use forever)",
-        "使用 `Proprietary`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个付费软件(must pay to use)",
-        "使用 `Public Domain`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个属于公有领域的软件(Public Domain)",
-        "使用 `Shareware`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个免费试用软件，试用结束后必须付费才能继续使用(free to try, must pay eventually)"
+      "anyOf": [
+        {
+          "const": "Unknown",
+          "markdownDescription": "使用 `Unknown`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示无法确定许可证(unable to determine the license)"
+        },
+        {
+          "const": "Freeware",
+          "markdownDescription": "使用 `Freeware`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个免费软件(free to use forever)"
+        },
+        {
+          "const": "Proprietary",
+          "markdownDescription": "使用 `Proprietary`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个付费软件(must pay to use)"
+        },
+        {
+          "const": "Public Domain",
+          "markdownDescription": "使用 `Public Domain`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个属于公有领域的软件(Public Domain)"
+        },
+        {
+          "const": "Shareware",
+          "markdownDescription": "使用 `Shareware`，这是 [Scoop 官方定义的字段](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties)，表示这是一个免费试用软件，试用结束后必须付费才能继续使用(free to try, must pay eventually)"
+        }
       ]
     },
     "license_identifier": {
       "$comment": "在此处添加已知的许可证，以便验证器可以提供更好的错误信息",
-      "enum": [
-        "MIT",
-        "Unlicense",
-        "Apache-2.0",
-        "MPL-2.0",
-        "GPL-2.0",
-        "GPL-3.0-only",
-        "AGPL-3.0-only",
-        "LGPL-3.0-only",
-        "MS-PL",
-        "OFL-1.1",
-        "EPL-2.0",
-        "ISC",
-        "BSD-2-Clause",
-        "BSD-3-Clause"
-      ],
-      "markdownEnumDescriptions": [
-        "使用 The MIT License ([基于 OSI 标准模板](https://opensource.org/license/MIT))",
-        "使用 The Unlicense ([基于 OSI 标准模板](https://opensource.org/licenses/unlicense))",
-        "使用 Apache License, Version 2.0 ([基于 OSI 标准模板](https://opensource.org/licenses/Apache-2.0))",
-        "使用 Mozilla Public License 2.0 ([基于 OSI 标准模板](https://opensource.org/licenses/MPL-2.0))",
-        "使用 GNU General Public License version 2 ([基于 OSI 标准模板](https://opensource.org/licenses/GPL-2.0))",
-        "使用 GNU General Public License version 3 ([基于 OSI 标准模板](https://opensource.org/licenses/GPL-3.0))",
-        "使用 GNU Affero General Public License version 3 ([基于 OSI 标准模板](https://opensource.org/licenses/AGPL-3.0))",
-        "使用 GNU Lesser General Public License version 3 ([基于 OSI 标准模板](https://opensource.org/licenses/LGPL-3.0))",
-        "使用 Microsoft Public License ([基于 OSI 标准模板](https://opensource.org/licenses/MS-PL))",
-        "使用 SIL Open Font License v1.1 ([基于 OSI 标准模板](https://opensource.org/licenses/OFL-1.1))",
-        "使用 Eclipse Public License 2.0 ([基于 OSI 标准模板](https://opensource.org/licenses/EPL-2.0))",
-        "使用 ISC License ([基于 OSI 标准模板](https://opensource.org/licenses/ISC))",
-        "使用 The 2-Clause BSD License ([基于 OSI 标准模板](https://opensource.org/licenses/BSD-2-Clause))",
-        "使用 The 3-Clause BSD License ([基于 OSI 标准模板](https://opensource.org/licenses/BSD-3-Clause))\n- 它也被称为\n   - The BSD 3-Clause \"New\" or \"Revised\" License\n  - The “New BSD License” or “Modified BSD License”"
+      "anyOf": [
+        {
+          "const": "MIT",
+          "markdownDescription": "使用 The MIT License ([基于 OSI 标准模板](https://opensource.org/license/MIT))"
+        },
+        {
+          "const": "Unlicense",
+          "markdownDescription": "使用 The Unlicense ([基于 OSI 标准模板](https://opensource.org/licenses/unlicense))"
+        },
+        {
+          "const": "Apache-2.0",
+          "markdownDescription": "使用 Apache License, Version 2.0 ([基于 OSI 标准模板](https://opensource.org/licenses/Apache-2.0))"
+        },
+        {
+          "const": "MPL-2.0",
+          "markdownDescription": "使用 Mozilla Public License 2.0 ([基于 OSI 标准模板](https://opensource.org/licenses/MPL-2.0))"
+        },
+        {
+          "const": "GPL-2.0",
+          "markdownDescription": "使用 GNU General Public License version 2 ([基于 OSI 标准模板](https://opensource.org/licenses/GPL-2.0))"
+        },
+        {
+          "const": "GPL-3.0-only",
+          "markdownDescription": "使用 GNU General Public License version 3 ([基于 OSI 标准模板](https://opensource.org/licenses/GPL-3.0))"
+        },
+        {
+          "const": "AGPL-3.0-only",
+          "markdownDescription": "使用 GNU Affero General Public License version 3 ([基于 OSI 标准模板](https://opensource.org/licenses/AGPL-3.0))"
+        },
+        {
+          "const": "LGPL-3.0-only",
+          "markdownDescription": "使用 GNU Lesser General Public License version 3 ([基于 OSI 标准模板](https://opensource.org/licenses/LGPL-3.0))"
+        },
+        {
+          "const": "MS-PL",
+          "markdownDescription": "使用 Microsoft Public License ([基于 OSI 标准模板](https://opensource.org/licenses/MS-PL))"
+        },
+        {
+          "const": "OFL-1.1",
+          "markdownDescription": "使用 SIL Open Font License v1.1 ([基于 OSI 标准模板](https://opensource.org/licenses/OFL-1.1))"
+        },
+        {
+          "const": "EPL-2.0",
+          "markdownDescription": "使用 Eclipse Public License 2.0 ([基于 OSI 标准模板](https://opensource.org/licenses/EPL-2.0))"
+        },
+        {
+          "const": "ISC",
+          "markdownDescription": "使用 ISC License ([基于 OSI 标准模板](https://opensource.org/licenses/ISC))"
+        },
+        {
+          "const": "BSD-2-Clause",
+          "markdownDescription": "使用 The 2-Clause BSD License ([基于 OSI 标准模板](https://opensource.org/licenses/BSD-2-Clause))"
+        },
+        {
+          "const": "BSD-3-Clause",
+          "markdownDescription": "使用 The 3-Clause BSD License ([基于 OSI 标准模板](https://opensource.org/licenses/BSD-3-Clause))\n- 它的其他名称\n   - The BSD 3-Clause \"New\" or \"Revised\" License\n  - The \"New BSD License\" or \"Modified BSD License\""
+        }
       ]
     },
     "license": {
@@ -99,12 +130,9 @@
             "title": "许可证标识符",
             "markdownDescription": "- 软件的许可证标识符\n- 如果没有许可证的相关说明，且符合 `Freeware`、`Proprietary`、`Public Domain`、`Shareware`、`Unknown` 之一，可以使用它们\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://opensource.org/license\n- https://spdx.org/licenses",
             "description": "- 软件的许可证标识符\n- 如果没有许可证的相关说明，且符合 Freeware、Proprietary、Public Domain、Shareware、Unknown 之一，可以使用它们\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://opensource.org/license\n- https://spdx.org/licenses",
-            "type": "string",
-            "$comment": "这里写 examples 只是为了 vscode 能触发补全菜单，不需要和下方的 enum 对应",
-            "examples": ["", "MIT", "Apache-2.0"],
+            "$ref": "#/definitions/str",
             "anyOf": [
               {
-                "type": "string",
                 "minLength": 1
               },
               {
@@ -116,30 +144,74 @@
             ]
           },
           "url": {
-            "type": "string",
+            "examples": [""],
+            "allOf": [
+              {
+                "$ref": "#/definitions/str"
+              },
+              {
+                "$ref": "#/definitions/url_validation"
+              }
+            ],
             "title": "许可证 URL",
-            "markdownDescription": "软件许可证的 URL 地址。",
-            "description": "软件许可证的 URL 地址。",
-            "pattern": "^https?://",
-            "errorMessage": "url 必须是一个有效的 http/https URL"
+            "description": "软件许可证的 URL 地址。"
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["identifier"]
+          },
+          "then": {
+            "if": {
+              "properties": {
+                "identifier": {
+                  "pattern": "^(Freeware|Proprietary|Public Domain|Shareware|Unknown)$"
+                }
+              }
+            },
+            "then": {
+              "not": {
+                "required": ["identifier"],
+                "not": {
+                  "required": ["url"]
+                }
+              },
+              "errorMessage": "license 使用对象，且 identifier 是 Freeware、Proprietary、Public Domain、Shareware、Unknown 其中一个，此时必须提供 url，否则请使用字符串而非对象"
+            }
+          }
+        }
+      ]
     },
     "notes": {
       "title": "软件提示信息",
       "description": "安装软件之后的英文提示信息。",
       "$ref": "#/definitions/string_or_string_array"
     },
+    "url_validation": {
+      "pattern": "^https?://",
+      "errorMessage": "必须是一个有效的 http/https URL"
+    },
     "url": {
       "title": "软件下载地址",
       "markdownDescription": "- 要下载的文件的 URL\n- 如果有多个 URL，可以使用数组，例如:\n```json\n  \"url\": [\n      \"http://example.com/file1.zip\",\n      \"http://example.com/file2.zip\"\n  ]\n  ```\n- 如果需要更改下载 URL 的文件名，可以在 URL 结尾加上 `#/dl.7z`，例如:\n```json\n  \"url\": \"http://example.org/program.exe#/dl.7z\"\n  ```\n- Scoop 将下载 program.exe ，但将其保存为 dl.7z ，然后将使用 7-Zip 自动提取\n    - 它通常用于 Scoop 清单中，以绕过可能具有不良副作用的可执行安装程序，如注册表更改，放置在安装目录外的文件或管理员提升提示",
       "description": "- 要下载的文件的 URL\n- 如果有多个 URL，可以使用数组\n- 如果需要更改下载 URL 的文件名，可以在 URL 结尾加上 #/dl.7z 这样的字段\n- 如：\"http://example.org/program.exe\" => \"http://example.org/program.exe#/dl.7z\"\n- Scoop 将下载 program.exe ，但将其保存为 dl.7z ，然后将使用 7-Zip 自动提取\n- 此技术通常用于 Scoop 清单中，以绕过可能具有不良副作用的可执行安装程序，如注册表更改，放置在安装目录外的文件或管理员提升提示",
-      "examples": ["", []],
       "type": ["string", "array"],
+      "$ref": "#/definitions/url_validation",
       "minLength": 1,
       "minItems": 1,
-      "uniqueItems": true
+      "uniqueItems": true,
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/str"
+          },
+          {
+            "$ref": "#/definitions/url_validation"
+          }
+        ]
+      }
     },
     "hash": {
       "title": "软件安装包的 hash 值",
@@ -149,12 +221,26 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "type": "string",
+        "$ref": "#/definitions/str",
         "pattern": "^([a-fA-F0-9]{64}|(sha1|sha256|sha512|md5):([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{128}))$",
         "errorMessage": "当前的 hash 值格式错误，请参考 https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#optional-properties"
       },
       "pattern": "^([a-fA-F0-9]{64}|(sha1|sha256|sha512|md5):([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{128}))$",
       "errorMessage": "当前的 hash 值格式错误，请参考 https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#optional-properties"
+    },
+    "architecture_example": {
+      "examples": [
+        {
+          "64bit": {
+            "url": "",
+            "hash": ""
+          },
+          "arm64": {
+            "url": "",
+            "hash": ""
+          }
+        }
+      ]
     },
     "architecture_property": {
       "examples": [{}],
@@ -166,7 +252,7 @@
           "$ref": "#/definitions/checkver"
         },
         "env_add_path": {
-          "$comment": "此属性官方规范中未说明，但实际可用",
+          "$comment": "此属性官方文档中未说明，但实际可用",
           "$ref": "#/definitions/env_add_path"
         },
         "extract_dir": {
@@ -197,53 +283,12 @@
       "minProperties": 1,
       "additionalProperties": false
     },
-    "architecture_examples": {
-      "examples": [
-        {},
-        {
-          "64bit": {
-            "url": "",
-            "hash": ""
-          }
-        },
-        {
-          "32bit": {
-            "url": "",
-            "hash": ""
-          }
-        },
-        {
-          "64bit": {
-            "url": "",
-            "hash": ""
-          },
-          "32bit": {
-            "url": "",
-            "hash": ""
-          }
-        },
-        {
-          "64bit": {
-            "url": "",
-            "hash": ""
-          },
-          "32bit": {
-            "url": "",
-            "hash": ""
-          },
-          "arm64": {
-            "url": "",
-            "hash": ""
-          }
-        }
-      ]
-    },
     "architecture": {
       "title": "架构信息",
       "description": "程序的架构信息。\n架构可以用来包装差异。",
       "type": "object",
+      "$ref": "#/definitions/architecture_example",
       "if": {
-        "type": "object",
         "anyOf": [
           {
             "required": ["64bit"]
@@ -261,7 +306,6 @@
         "errorMessage": "architecture 中至少包含 64bit、32bit 或 arm64 其中一个"
       },
       "additionalProperties": false,
-      "$ref": "#/definitions/architecture_examples",
       "properties": {
         "64bit": {
           "description": "64位架构",
@@ -300,7 +344,7 @@
       "uniqueItems": true,
       "oneOf": [
         {
-          "type": "string",
+          "$ref": "#/definitions/str",
           "if": {
             "pattern": "\\$dir"
           },
@@ -312,8 +356,7 @@
         {
           "type": "array",
           "items": {
-            "type": "string",
-            "minLength": 1,
+            "$ref": "#/definitions/str",
             "if": {
               "pattern": "\\$dir"
             },
@@ -346,7 +389,7 @@
       }
     },
     "psmodule": {
-      "title": "安装 PowerShell 模块",
+      "title": "PowerShell 模块",
       "description": "作为 PowerShell 模块安装在 ~/scoop/modules 中",
       "type": "object",
       "required": ["name"],
@@ -373,8 +416,7 @@
           {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1
+              "$ref": "#/definitions/str"
             },
             "allOf": [
               {
@@ -414,7 +456,7 @@
             "maxItems": 3
           },
           {
-            "type": "string"
+            "$ref": "#/definitions/str"
           }
         ]
       },
@@ -435,9 +477,7 @@
       "items": {
         "type": "array",
         "items": {
-          "type": "string",
-          "minLength": 1,
-          "examples": [""]
+          "$ref": "#/definitions/str"
         },
         "allOf": [
           {
@@ -494,8 +534,7 @@
           {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1
+              "$ref": "#/definitions/str"
             },
             "allOf": [
               {
@@ -533,7 +572,7 @@
             "maxItems": 3
           },
           {
-            "type": "string"
+            "$ref": "#/definitions/str"
           }
         ]
       },
@@ -623,6 +662,7 @@
       "markdownDescription": "- 应用维护者和开发者可以使用 bin/checkver 工具来检查应用的更新版本\n- 字符串：在主页上查找版本的 RegEx\n- 对象：更丰富的配置",
       "type": ["string", "object"],
       "examples": ["", "github", {}],
+      "minLength": 1,
       "oneOf": [
         {
           "type": "object",
@@ -648,11 +688,11 @@
               }
             },
             "re": {
-              "description": "re 是 regex 的别名\n查找版本的 RegEx(正则表达式)",
+              "description": "re 是 regex 的别名\n查找版本的 RegEx (正则表达式)",
               "$ref": "#/definitions/str"
             },
             "regex": {
-              "description": "查找版本的 RegEx(正则表达式)",
+              "description": "查找版本的 RegEx (正则表达式)",
               "$ref": "#/definitions/str"
             },
             "jsonpath": {
@@ -677,10 +717,8 @@
               "anyOf": [
                 {},
                 {
-                  "enum": ["${1}.${2}.${3}.${4}${5}${6}"],
-                  "markdownEnumDescriptions": [
-                    "将匹配值替换为 `${1}.${2}.${3}.${4}${5}${6}`，其中 `${1}` 表示第一个匹配组，`${2}` 表示第二个匹配组，以此类推。"
-                  ]
+                  "const": "${1}.${2}.${3}.${4}${5}${6}",
+                  "markdownDescription": "将匹配值替换为 `${1}.${2}.${3}.${4}${5}${6}`，其中 `${1}` 表示第一个匹配组，`${2}` 表示第二个匹配组，以此类推。"
                 }
               ]
             },
@@ -700,24 +738,110 @@
           "minProperties": 1
         },
         {
-          "type": "string",
+          "$ref": "#/definitions/str",
           "anyOf": [
+            {},
             {
-              "type": "string"
-            },
-            {
-              "enum": ["github"],
-              "markdownEnumDescriptions": [
-                "如果 homepage 是 github 仓库主页，就可以直接使用 \"github\" 字符串作为 checkver 配置"
-              ]
+              "const": "github",
+              "markdownDescription": "如果 homepage 是 github 仓库主页，就可以直接使用 \"github\" 字符串作为 checkver 配置"
             }
           ]
         }
       ]
     },
+    "autoupdate_url": {
+      "title": "软件的下载地址",
+      "markdownDescription": "- 它通常是动态的，会包含一些版本变量，如: `$version` 等\n- 例如: `https://github.com/owner/repo/releases/download/v$version/xxx.exe`",
+      "type": ["string", "array"],
+      "examples": ["", []],
+      "minLength": 1,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/str"
+      }
+    },
+    "autoupdate_hash": {
+      "description": "定义 hash 的获取",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "url": {
+          "description": "用于下载 RDF/JSON 文件或提取 hash 的 URL 模板",
+          "$ref": "#/definitions/str"
+        },
+        "regex": {
+          "description": "别名：find\nRegEx 表达式来提取 hash",
+          "$ref": "#/definitions/str"
+        },
+        "find": {
+          "description": "别名：regex\nRegEx 表达式来提取 hash",
+          "$ref": "#/definitions/str"
+        },
+        "mode": {
+          "title": "获取 hash 的模式",
+          "oneOf": [
+            {
+              "const": "github",
+              "markdownDescription": "获取 Github 自动生成的 hash，详情查看 [Github blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
+            },
+            {
+              "const": "extract",
+              "markdownDescription": "通过 RegEx 从纯文本文件或网页中提取(默认，可省略)"
+            },
+            {
+              "const": "json",
+              "markdownDescription": "通过 JSONPath 从 JSON 文件中提取"
+            },
+            {
+              "const": "xpath",
+              "markdownDescription": "通过 XML 文件提取"
+            },
+            {
+              "const": "rdf",
+              "markdownDescription": "从 RDF 文件中提取"
+            },
+            {
+              "const": "metalink",
+              "markdownDescription": "从 Metalink 的头文件或 .meta4 文件中提取"
+            },
+            {
+              "const": "fosshub",
+              "markdownDescription": "为 FossHub 预定义"
+            },
+            {
+              "const": "sourceforge",
+              "markdownDescription": "为 SourceForge 预定义"
+            },
+            {
+              "const": "download",
+              "markdownDescription": "下载应用程序文件并在本地对其进行散列(回退)"
+            }
+          ]
+        },
+        "jp": {
+          "description": "别名：jsonpath\nJSONPath 表达式提取 hash",
+          "$ref": "#/definitions/str"
+        },
+        "jsonpath": {
+          "description": "别名：jp\nJSONPath 表达式提取 hash",
+          "$ref": "#/definitions/str"
+        },
+        "xpath": {
+          "description": "XPath 表达式来提取 hash 值",
+          "$ref": "#/definitions/str"
+        }
+      }
+    },
     "autoupdate_architecture": {
       "required": ["url"],
       "properties": {
+        "url": {
+          "$ref": "#/definitions/autoupdate_url"
+        },
+        "hash": {
+          "$ref": "#/definitions/autoupdate_hash"
+        },
         "bin": {
           "$ref": "#/definitions/bin"
         },
@@ -730,9 +854,6 @@
         },
         "extract_dir": {
           "$ref": "#/definitions/extract_dir"
-        },
-        "hash": {
-          "$ref": "#/definitions/autoupdate_hash"
         },
         "installer": {
           "$ref": "#/definitions/installer"
@@ -748,69 +869,10 @@
         },
         "uninstaller": {
           "$ref": "#/definitions/uninstaller"
-        },
-        "url": {
-          "$ref": "#/definitions/url"
         }
       },
       "minProperties": 1,
       "additionalProperties": false
-    },
-    "autoupdate_hash": {
-      "description": "定义 hash 的获取",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "url": {
-          "description": "用于下载RDF/JSON文件或提取 hash 的URL模板",
-          "$ref": "#/definitions/str"
-        },
-        "regex": {
-          "description": "别名：find\nRegEx表达式来提取 hash",
-          "$ref": "#/definitions/str"
-        },
-        "find": {
-          "description": "别名：regex\nRegEx表达式来提取 hash",
-          "$ref": "#/definitions/str"
-        },
-        "mode": {
-          "title": "获取 hash 的模式",
-          "enum": [
-            "github",
-            "extract",
-            "json",
-            "xpath",
-            "rdf",
-            "metalink",
-            "fosshub",
-            "sourceforge",
-            "download"
-          ],
-          "markdownEnumDescriptions": [
-            "获取 Github 自动生成的 hash，详情查看 [Github blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)",
-            "通过 RegEx 从纯文本文件或网页中提取(默认，可省略)",
-            "通过 JSONPath 从 JSON 文件中提取",
-            "通过 XML 文件提取",
-            "从 RDF 文件中提取",
-            "从 Metalink 的头文件或 .meta4 文件中提取",
-            "为 FossHub 预定义",
-            "为 SourceForge 预定义",
-            "下载应用程序文件并在本地对其进行散列(回退)"
-          ]
-        },
-        "jp": {
-          "description": "别名：jsonpath\nJSONPath表达式提取 hash",
-          "$ref": "#/definitions/str"
-        },
-        "jsonpath": {
-          "description": "别名：jp\nJSONPath表达式提取 hash",
-          "$ref": "#/definitions/str"
-        },
-        "xpath": {
-          "description": "XPath表达式来提取 hash 值",
-          "$ref": "#/definitions/str"
-        }
-      }
     }
   },
   "properties": {
@@ -822,15 +884,13 @@
     "version": {
       "title": "软件版本",
       "description": "此应用清单安装的应用程序的版本",
-      "type": "string",
-      "examples": ["", "0.0.0"],
+      "$ref": "#/definitions/str",
+      "examples": ["0.0.0"],
       "anyOf": [
+        {},
         {
-          "minLength": 1
-        },
-        {
-          "enum": ["0.0.0"],
-          "markdownEnumDescriptions": ["当前版本为 0.0.0"]
+          "const": "0.0.0",
+          "markdownDescription": "当前版本为 0.0.0"
         }
       ]
     },
@@ -845,9 +905,15 @@
       "title": "软件主页",
       "markdownDescription": "软件的主页或仓库地址",
       "description": "软件的主页或仓库地址",
-      "type": "string",
-      "pattern": "^https?://",
-      "errorMessage": "homepage 必须是一个有效的 http/https URL",
+      "examples": [""],
+      "allOf": [
+        {
+          "$ref": "#/definitions/str"
+        },
+        {
+          "$ref": "#/definitions/url_validation"
+        }
+      ],
       "$comment": "在 Scoop 的应用清单版本检查中，官网根域名以 '/' 结尾，可以避免一些访问错误",
       "if": {
         "pattern": "^https?://[^/]+$"
@@ -991,7 +1057,7 @@
           "$ref": "#/definitions/notes"
         },
         "url": {
-          "$ref": "#/definitions/url"
+          "$ref": "#/definitions/autoupdate_url"
         },
         "hash": {
           "$ref": "#/definitions/autoupdate_hash"
@@ -1032,159 +1098,45 @@
       }
     }
   },
-  "allOf": [
-    {
-      "$comment": "如果定义了 checkver，就必须定义 autoupdate",
-      "allOf": [
-        {
-          "if": {
-            "required": ["checkver"]
-          },
-          "then": {
-            "if": {
-              "required": ["autoupdate"]
-            },
-            "else": {
-              "properties": {
-                "checkver": {
-                  "not": true,
-                  "errorMessage": "如果定义了 checkver，就必须定义 autoupdate"
-                }
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "required": ["autoupdate"]
-          },
-          "then": {
+  "if": {
+    "required": ["version", "description", "homepage", "license"]
+  },
+  "then": {
+    "allOf": [
+      {
+        "$comment": "如果定义了 checkver，就必须定义 autoupdate",
+        "allOf": [
+          {
             "if": {
               "required": ["checkver"]
             },
-            "else": {
-              "properties": {
-                "autoupdate": {
-                  "not": true,
-                  "errorMessage": "如果定义了 autoupdate，就必须定义 checkver"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "$comment": "如果 url 是 github releases 链接，则需要指定 hash 模式为 github",
-      "properties": {
-        "autoupdate": {
-          "type": "object",
-          "if": {
-            "properties": {
-              "architecture": {
-                "type": "object",
-                "patternProperties": {
-                  "^(64bit|arm64|32bit)$": {
-                    "properties": {
-                      "url": {
-                        "oneOf": [
-                          {
-                            "type": "string",
-                            "pattern": "^https://github\\.com/.+?/releases/download/"
-                          },
-                          {
-                            "type": "array",
-                            "items": {
-                              "type": "string",
-                              "pattern": "^https://github\\.com/.+?/releases/download/"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "then": {
-            "required": ["hash"],
-            "properties": {
-              "hash": {
-                "required": ["mode"],
+            "then": {
+              "if": {
+                "required": ["autoupdate"]
+              },
+              "else": {
                 "properties": {
-                  "mode": {
-                    "const": "github"
+                  "checkver": {
+                    "not": true,
+                    "errorMessage": "如果定义了 checkver，就必须定义 autoupdate"
                   }
                 }
               }
             }
-          }
-        }
-      }
-    },
-    {
-      "$comment": "如果存在 license，但不存在 url 或 architecture 就触发警告",
-      "if": {
-        "required": ["license"],
-        "not": {
-          "anyOf": [
-            {
-              "required": ["url"]
-            },
-            {
-              "required": ["architecture"]
-            }
-          ]
-        }
-      },
-      "then": {
-        "not": {
-          "anyOf": [
-            {
-              "not": {
-                "required": ["url"]
-              }
-            },
-            {
-              "not": {
-                "required": ["architecture"]
-              }
-            }
-          ]
-        },
-        "errorMessage": "缺少 url 或 architecture 属性"
-      }
-    },
-    {
-      "$comment": "如果存在 url，则需要 hash，且不能在 architecture 中继续定义 url",
-      "if": {
-        "required": ["url"]
-      },
-      "then": {
-        "allOf": [
-          {
-            "required": ["hash"]
           },
           {
-            "properties": {
-              "architecture": {
-                "patternProperties": {
-                  "^(64bit|32bit|arm64)$": {
-                    "allOf": [
-                      {
-                        "not": {
-                          "required": ["url"]
-                        },
-                        "errorMessage": "architecture 中的 url 和顶层的 url 冲突，你只能选择其中一种方式"
-                      },
-                      {
-                        "not": {
-                          "required": ["hash"]
-                        },
-                        "errorMessage": "当存在顶层 url 时，禁止定义 architecture 中的 hash"
-                      }
-                    ]
+            "if": {
+              "required": ["autoupdate"]
+            },
+            "then": {
+              "if": {
+                "required": ["checkver"]
+              },
+              "else": {
+                "properties": {
+                  "autoupdate": {
+                    "not": true,
+                    "errorMessage": "如果定义了 autoupdate，就必须定义 checkver"
                   }
                 }
               }
@@ -1192,13 +1144,153 @@
           }
         ]
       },
-      "else": {
+      {
+        "$comment": "如果 url 是 github releases 链接，则需要指定 hash 模式为 github",
+        "properties": {
+          "autoupdate": {
+            "type": "object",
+            "if": {
+              "oneOf": [
+                {
+                  "required": ["url"],
+                  "properties": {
+                    "url": {
+                      "$ref": "#/definitions/str",
+                      "pattern": "^https://github\\.com/.+?/releases/download/"
+                    }
+                  }
+                },
+                {
+                  "required": ["architecture"],
+                  "properties": {
+                    "architecture": {
+                      "type": "object",
+                      "anyOf": [
+                        {
+                          "required": ["64bit"]
+                        },
+                        {
+                          "required": ["32bit"]
+                        },
+                        {
+                          "required": ["arm64"]
+                        }
+                      ],
+                      "patternProperties": {
+                        "^(64bit|arm64|32bit)$": {
+                          "required": ["url"],
+                          "properties": {
+                            "url": {
+                              "oneOf": [
+                                {
+                                  "$ref": "#/definitions/str",
+                                  "pattern": "^https://github\\.com/.+?/releases/download/"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "$ref": "#/definitions/str",
+                                    "pattern": "^https://github\\.com/.+?/releases/download/"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "then": {
+              "required": ["hash"],
+              "properties": {
+                "hash": {
+                  "required": ["mode"],
+                  "properties": {
+                    "mode": {
+                      "const": "github"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "$comment": "如果存在 license，但不存在 url 或 architecture 就触发警告",
         "if": {
-          "required": ["architecture"]
+          "not": {
+            "anyOf": [
+              {
+                "required": ["url"]
+              },
+              {
+                "required": ["architecture"]
+              }
+            ]
+          }
         },
         "then": {
+          "not": {
+            "anyOf": [
+              {
+                "not": {
+                  "required": ["url"]
+                }
+              },
+              {
+                "not": {
+                  "required": ["architecture"]
+                }
+              }
+            ]
+          },
+          "errorMessage": "缺少 url 或 architecture 属性"
+        }
+      },
+      {
+        "$comment": "如果存在 url，则需要 hash，且不能在 architecture 中继续定义 url",
+        "if": {
+          "required": ["url"]
+        },
+        "then": {
+          "allOf": [
+            {
+              "required": ["hash"]
+            },
+            {
+              "properties": {
+                "architecture": {
+                  "patternProperties": {
+                    "^(64bit|32bit|arm64)$": {
+                      "allOf": [
+                        {
+                          "not": {
+                            "required": ["url"]
+                          },
+                          "errorMessage": "architecture 中的 url 和顶层的 url 冲突，你只能选择其中一种方式"
+                        },
+                        {
+                          "not": {
+                            "required": ["hash"]
+                          },
+                          "errorMessage": "当存在顶层 url 时，禁止定义 architecture 中的 hash"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "else": {
           "properties": {
             "architecture": {
+              "$ref": "#/definitions/architecture_example",
               "patternProperties": {
                 "^(64bit|32bit|arm64)$": {
                   "required": ["url"]
@@ -1206,248 +1298,111 @@
               }
             }
           }
-        },
-        "else": {
-          "if": {
-            "required": ["license"]
-          },
-          "then": {
-            "errorMessages": "缺少属性 url 或 architecture"
-          }
-        }
-      }
-    },
-    {
-      "$comment": "如果存在 url，当 url 是字符串时，hash 必须是字符串，当 url 是数组时，hash 必须是数组",
-      "allOf": [
-        {
-          "if": {
-            "required": ["url"]
-          },
-          "then": {
-            "if": {
-              "properties": {
-                "url": {
-                  "type": "string"
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "hash": {
-                  "type": "string",
-                  "minLength": 1,
-                  "errorMessage": "当 url 是字符串 (string) 时，hash 也必须是一个字符串 (string)"
-                }
-              }
-            },
-            "else": {
-              "properties": {
-                "hash": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/hash"
-                  },
-                  "examples": [[]],
-                  "minItems": 1,
-                  "errorMessage": "当 url 是数组 (array) 时，hash 也必须是一个数组 (array)"
-                }
-              }
-            }
-          },
-          "else": {
-            "allOf": [
-              {
-                "properties": {
-                  "hash": {
-                    "not": true,
-                    "errorMessage": "当不存在 url 时，禁止定义 hash"
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "if": {
-            "required": ["architecture"]
-          },
-          "then": {
-            "if": {
-              "properties": {
-                "architecture": {
-                  "patternProperties": {
-                    "^(64bit|32bit|arm64)$": {
-                      "properties": {
-                        "url": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "architecture": {
-                  "patternProperties": {
-                    "^(64bit|32bit|arm64)$": {
-                      "required": ["hash"],
-                      "properties": {
-                        "hash": {
-                          "type": "string",
-                          "minLength": 1,
-                          "errorMessage": "当 architecture 中的 url 是字符串 (string) 时，architecture 中的 hash 也必须是一个字符串 (string)"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "else": {
-              "properties": {
-                "architecture": {
-                  "patternProperties": {
-                    "^(64bit|32bit|arm64)$": {
-                      "required": ["hash"],
-                      "properties": {
-                        "hash": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "minLength": 1
-                          },
-                          "minItems": 1,
-                          "errorMessage": "当 architecture 中的 url 是数组 (array) 时，architecture 中的 hash 也必须是一个数组 (array)"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "$comment": "确保 architecture 和 autoupdate 中的 architecture 相对应",
-      "if": {
-        "required": ["autoupdate"],
-        "properties": {
-          "autoupdate": {
-            "required": ["architecture"]
-          }
         }
       },
-      "then": {
+      {
+        "$comment": "如果存在 url，当 url 是字符串时，hash 必须是字符串，当 url 是数组时，hash 必须是数组",
         "allOf": [
           {
             "if": {
-              "properties": {
-                "autoupdate": {
-                  "properties": {
-                    "architecture": {
-                      "required": ["64bit"]
-                    }
-                  }
-                }
-              }
+              "required": ["url"]
             },
             "then": {
-              "properties": {
-                "architecture": {
-                  "required": ["64bit"]
+              "if": {
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "hash": {
+                    "$ref": "#/definitions/str",
+                    "errorMessage": "当 url 是字符串 (string) 时，hash 也必须是一个字符串 (string)"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "hash": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/hash"
+                    },
+                    "examples": [[]],
+                    "minItems": 1,
+                    "errorMessage": "当 url 是数组 (array) 时，hash 也必须是一个数组 (array)"
+                  }
                 }
               }
             },
             "else": {
-              "properties": {
-                "architecture": {
-                  "if": {
-                    "required": ["64bit"]
-                  },
-                  "then": {
-                    "properties": {
-                      "64bit": {
-                        "not": true,
-                        "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
-                      }
+              "allOf": [
+                {
+                  "properties": {
+                    "hash": {
+                      "not": true,
+                      "errorMessage": "当不存在 url 时，禁止定义 hash"
                     }
                   }
                 }
-              }
+              ]
             }
           },
           {
             "if": {
-              "properties": {
-                "autoupdate": {
-                  "properties": {
-                    "architecture": {
-                      "required": ["32bit"]
-                    }
-                  }
-                }
-              }
+              "required": ["architecture"]
             },
             "then": {
-              "properties": {
-                "architecture": {
-                  "required": ["32bit"]
-                }
-              }
-            },
-            "else": {
-              "properties": {
-                "architecture": {
-                  "if": {
-                    "required": ["32bit"]
-                  },
-                  "then": {
-                    "properties": {
-                      "32bit": {
-                        "not": true,
-                        "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+              "if": {
+                "properties": {
+                  "architecture": {
+                    "patternProperties": {
+                      "^(64bit|32bit|arm64)$": {
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        }
                       }
                     }
                   }
                 }
-              }
-            }
-          },
-          {
-            "if": {
-              "properties": {
-                "autoupdate": {
-                  "properties": {
-                    "architecture": {
-                      "required": ["arm64"]
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "patternProperties": {
+                      "^(64bit|32bit|arm64)$": {
+                        "required": ["hash"],
+                        "properties": {
+                          "hash": {
+                            "$ref": "#/definitions/str",
+                            "errorMessage": "当 architecture 中的 url 是字符串 (string) 时，architecture 中的 hash 也必须是一个字符串 (string)"
+                          }
+                        }
+                      }
                     }
                   }
                 }
-              }
-            },
-            "then": {
-              "properties": {
-                "architecture": {
-                  "required": ["arm64"]
-                }
-              }
-            },
-            "else": {
-              "properties": {
-                "architecture": {
-                  "if": {
-                    "required": ["arm64"]
-                  },
-                  "then": {
-                    "properties": {
-                      "arm64": {
-                        "not": true,
-                        "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "patternProperties": {
+                      "^(64bit|32bit|arm64)$": {
+                        "required": ["hash"],
+                        "properties": {
+                          "hash": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/str"
+                            },
+                            "minItems": 1,
+                            "errorMessage": "当 architecture 中的 url 是数组 (array) 时，architecture 中的 hash 也必须是一个数组 (array)"
+                          }
+                        }
                       }
                     }
                   }
@@ -1456,7 +1411,133 @@
             }
           }
         ]
+      },
+      {
+        "$comment": "确保 architecture 和 autoupdate 中的 architecture 相对应",
+        "if": {
+          "required": ["autoupdate"],
+          "properties": {
+            "autoupdate": {
+              "required": ["architecture"]
+            }
+          }
+        },
+        "then": {
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "autoupdate": {
+                    "properties": {
+                      "architecture": {
+                        "required": ["64bit"]
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "required": ["64bit"]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "if": {
+                      "required": ["64bit"]
+                    },
+                    "then": {
+                      "properties": {
+                        "64bit": {
+                          "not": true,
+                          "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "autoupdate": {
+                    "properties": {
+                      "architecture": {
+                        "required": ["32bit"]
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "required": ["32bit"]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "if": {
+                      "required": ["32bit"]
+                    },
+                    "then": {
+                      "properties": {
+                        "32bit": {
+                          "not": true,
+                          "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "autoupdate": {
+                    "properties": {
+                      "architecture": {
+                        "required": ["arm64"]
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "required": ["arm64"]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "if": {
+                      "required": ["arm64"]
+                    },
+                    "then": {
+                      "properties": {
+                        "arm64": {
+                          "not": true,
+                          "errorMessage": "autoupdate 中的 architecture 没有定义对应的架构"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
-    }
-  ]
+    ]
+  }
 }
