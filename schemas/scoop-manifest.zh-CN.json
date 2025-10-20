@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
   "title": "Schema for Scoop manifest",
   "type": "object",
   "required": ["version", "description", "homepage", "license"],
@@ -891,6 +892,10 @@
         {
           "const": "0.0.0",
           "markdownDescription": "当前版本为 0.0.0"
+        },
+        {
+          "const": "nightly",
+          "markdownDescription": "当前版本为 nightly"
         }
       ]
     },
