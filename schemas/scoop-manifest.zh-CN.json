@@ -104,6 +104,10 @@
         {
           "const": "BSD-3-Clause",
           "markdownDescription": "使用 The 3-Clause BSD License ([基于 OSI 标准模板](https://opensource.org/licenses/BSD-3-Clause))\n- 它的其他名称\n   - The BSD 3-Clause \"New\" or \"Revised\" License\n  - The \"New BSD License\" or \"Modified BSD License\""
+        },
+        {
+          "const": "EUPL-1.2",
+          "markdownDescription": "使用 European Union Public Licence, version 1.2 ([基于 OSI 标准模板](https://opensource.org/license/eupl-1-2))"
         }
       ]
     },
@@ -246,6 +250,13 @@
     "architecture_property": {
       "examples": [{}],
       "properties": {
+        "url": {
+          "examples": ["", []],
+          "$ref": "#/definitions/url"
+        },
+        "hash": {
+          "$ref": "#/definitions/hash"
+        },
         "bin": {
           "$ref": "#/definitions/bin"
         },
@@ -258,9 +269,6 @@
         },
         "extract_dir": {
           "$ref": "#/definitions/extract_dir"
-        },
-        "hash": {
-          "$ref": "#/definitions/hash"
         },
         "installer": {
           "$ref": "#/definitions/installer"
@@ -276,9 +284,6 @@
         },
         "uninstaller": {
           "$ref": "#/definitions/uninstaller"
-        },
-        "url": {
-          "$ref": "#/definitions/url"
         }
       },
       "minProperties": 1,
