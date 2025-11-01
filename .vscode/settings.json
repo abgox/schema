@@ -2,5 +2,9 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "filename-lint.enabled": true,
-  "filename-lint.excludePatterns": ["**/schemas/*.json", "readme.*.md"]
+  "filename-lint.excludePatterns": [
+    "**/schemas/*.json",
+    "readme.*.md",
+    "schema-list.*.md"
+  ]
 }
