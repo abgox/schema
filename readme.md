@@ -1,6 +1,7 @@
 <p align="center">
-    <h1 align="center">✨schema ✨</h1>
+    <h1 align="center">✨<a href="https://schema.abgox.com">schema</a> ✨</h1>
 </p>
+
 <p align="center">
     <a href="readme.zh-CN.md">简体中文</a> |
     <a href="readme.md">English</a> |
@@ -31,7 +32,7 @@
 
 ## Introduce
 
-Some json schemas with better json prompts and validation.
+Some JSON Schema with better json prompts, validation, and multilingual support.
 
 ## How to use
 
@@ -47,7 +48,29 @@ Some json schemas with better json prompts and validation.
 
 - Define in the [settings.json](https://code.visualstudio.com/docs/configure/settings) of vscode.
 
-  > The schema defined in [settings.json](https://code.visualstudio.com/docs/configure/settings) has lower priority than the schema provided by the extension, please refer to [the issue](https://github.com/microsoft/vscode/issues/219855).
+  - Install the [json-schema-plus](https://json-schema-plus.abgox.com) extension, it provides multilingual dynamic schema matching for JSON Schema.
+  - Configure `json-schema-plus.schemas`
+
+  ```json
+    "json-schema-plus.schemas": [
+      {
+        "fileMatch": ["bucket/**/*.json"],
+        "urls": [
+          {
+            "language": "zh",
+            "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+          },
+        ],
+        "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
+      }
+    ]
+  ```
+
+  <details>
+
+  <summary>Use the built-in 'json.schemas' configuration</summary>
+
+  > The `json.schemas` defined in [settings.json](https://code.visualstudio.com/docs/configure/settings) has lower priority than the schema provided by the extension, please refer to [the issue](https://github.com/microsoft/vscode/issues/219855).
 
   ```json
     "json.schemas": [
@@ -60,4 +83,15 @@ Some json schemas with better json prompts and validation.
     ]
   ```
 
+  </details>
+
 - JetBrains IDE: `Settings` => `Languages & Frameworks` => `Schemas and DTDS`=>`JSON Schema Mappings`
+
+## Schema List
+
+> [!Tip]
+>
+> Check on the official website: https://schema.abgox.com/schema-list
+
+- [English](./schema-list.md)
+- [简体中文](./schema-list.zh-CN.md)

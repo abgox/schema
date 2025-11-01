@@ -1,6 +1,7 @@
 <p align="center">
-    <h1 align="center">✨schema ✨</h1>
+    <h1 align="center">✨<a href="https://schema.abgox.com">schema</a> ✨</h1>
 </p>
+
 <p align="center">
     <a href="readme.md">English</a> |
     <a href="readme.zh-CN.md">简体中文</a> |
@@ -31,7 +32,7 @@
 
 ## 介绍
 
-一些 json schema，提供更好的 json 提示和校验
+一些 JSON Schema，提供更好的 json 提示和校验，同时支持多语言。
 
 ## 如何使用
 
@@ -47,7 +48,29 @@
 
 - 在 vscode 的 [settings.json](https://code.visualstudio.com/docs/configure/settings) 中定义
 
-  > [settings.json](https://code.visualstudio.com/docs/configure/settings) 中定义的 schema 优先级低于扩展提供的 schema，参考 [issue](https://github.com/microsoft/vscode/issues/219855)
+  - 安装 [json-schema-plus](https://json-schema-plus.abgox.com) 扩展，它为 JSON Schema 提供了多语言的动态架构匹配
+  - 配置 `json-schema-plus.schemas`
+
+  ```json
+    "json-schema-plus.schemas": [
+      {
+        "fileMatch": ["bucket/**/*.json"],
+        "urls": [
+          {
+            "language": "zh",
+            "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+          },
+        ],
+        "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
+      }
+    ]
+  ```
+
+  <details>
+
+  <summary>使用内置的 json.schemas 配置</summary>
+
+  > [settings.json](https://code.visualstudio.com/docs/configure/settings) 中定义的 `json.schemas` 优先级低于扩展提供的 schema，参考 [issue](https://github.com/microsoft/vscode/issues/219855)
 
   ```json
     "json.schemas": [
@@ -60,4 +83,15 @@
     ]
   ```
 
+  </details>
+
 - JetBrains IDE: `设置` => `语言与框架` => `架构和 DTD` => `JSON 架构映射`
+
+### Schema List
+
+> [!Tip]
+>
+> 在 [官网](https://schema.abgox.com) 中查看: https://schema.abgox.com/schema-list
+
+- [简体中文](./schema-list.zh-CN.md)
+- [English](./schema-list.md)
