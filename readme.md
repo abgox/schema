@@ -38,12 +38,12 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
 
 > [!Tip]
 >
-> Take [scoop-manifest.zh-CN.json](./schemas/scoop-manifest.zh-CN.json) as an example.
+> Take [scoop-manifest.en-US.json](./schemas/scoop-manifest.en-US.json) as an example.
 
 - Define in the json file.
 
   ```json
-  "$schema": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+  "$schema": "https://schema.abgox.com/scoop-manifest.en-US.json",
   ```
 
 - Define in the [settings.json](https://code.visualstudio.com/docs/configure/settings) of vscode.
