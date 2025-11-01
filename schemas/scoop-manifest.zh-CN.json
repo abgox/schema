@@ -208,7 +208,7 @@
         "properties": {
           "identifier": {
             "title": "许可证标识符",
-            "markdownDescription": "- 软件的许可证标识符\n- 如果没有许可证的相关说明，且符合 `Freeware`、`Proprietary`、`Public Domain`、`Shareware`、`Unknown` 之一，可以使用它们\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
+            "markdownDescription": "- 软件的许可证标识符\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
             "$ref": "#/definitions/str",
             "anyOf": [
               {
@@ -236,27 +236,7 @@
             "markdownDescription": "- 软件许可证的 URL 地址。"
           }
         }
-      },
-      "allOf": [
-        {
-          "if": {
-            "required": ["identifier"],
-            "properties": {
-              "identifier": {
-                "pattern": "^(Freeware|Proprietary|Public Domain|Shareware|Unknown)$"
-              }
-            }
-          },
-          "then": {
-            "not": {
-              "not": {
-                "required": ["url"]
-              }
-            },
-            "errorMessage": "license 使用对象，且 identifier 是 Freeware、Proprietary、Public Domain、Shareware、Unknown 其中一个，此时必须提供 url，否则请使用字符串而非对象"
-          }
-        }
-      ]
+      }
     },
     "notes": {
       "title": "软件提示信息",
