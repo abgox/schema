@@ -1,1697 +1,1533 @@
 {
-    "$comment": "Please use vscode; otherwise, markdownDescription may not work.",
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-    "title": "Schema for Scoop manifest",
-    "type": "object",
-    "required": [
-        "version",
-        "description",
-        "homepage",
-        "license"
-    ],
-    "definitions": {
-        "bool": {
-            "type": "boolean",
-            "examples": [
-                true
+  "$comment": "Please use vscode; otherwise, markdownDescription may not work.",
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+  "title": "Schema for Scoop manifest",
+  "type": "object",
+  "required": ["version", "description", "homepage", "license"],
+  "definitions": {
+    "bool": {
+      "type": "boolean",
+      "examples": [true]
+    },
+    "str": {
+      "type": "string",
+      "minLength": 1
+    },
+    "string_or_string_array": {
+      "type": ["string", "array"],
+      "items": {
+        "$ref": "#/definitions/str"
+      },
+      "minLength": 1,
+      "minItems": 1
+    },
+    "license_field": {
+      "anyOf": [
+        {
+          "const": "Unknown",
+          "markdownDescription": "- Use `Unknown`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the license cannot be determined."
+        },
+        {
+          "const": "Freeware",
+          "markdownDescription": "- Use `Freeware`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to use forever."
+        },
+        {
+          "const": "Proprietary",
+          "markdownDescription": "- Use `Proprietary`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is a paid software(must pay to use)"
+        },
+        {
+          "const": "Public Domain",
+          "markdownDescription": "- Use `Public Domain`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software belongs to the public domain."
+        },
+        {
+          "const": "Shareware",
+          "markdownDescription": "- Use `Shareware`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to try, but must pay eventually."
+        }
+      ]
+    },
+    "license_identifier": {
+      "$comment": "Add known licenses here to provide better error messages for the validator",
+      "anyOf": [
+        {
+          "const": "MIT",
+          "markdownDescription": "- MIT License\n- https://spdx.org/licenses/MIT.html"
+        },
+        {
+          "const": "Apache-2.0",
+          "markdownDescription": "- Apache License 2.0\n- https://spdx.org/licenses/Apache-2.0.html"
+        },
+        {
+          "const": "BSD-3-Clause",
+          "markdownDescription": "- BSD 3-Clause \"New\" or \"Revised\" License\n- https://spdx.org/licenses/BSD-3-Clause.html"
+        },
+        {
+          "const": "BSD-2-Clause",
+          "markdownDescription": "- BSD 2-Clause \"Simplified\" License\n- https://spdx.org/licenses/BSD-2-Clause.html"
+        },
+        {
+          "const": "ISC",
+          "markdownDescription": "- ISC License\n- https://spdx.org/licenses/ISC.html"
+        },
+        {
+          "const": "Unlicense",
+          "markdownDescription": "- The Unlicense\n- https://spdx.org/licenses/Unlicense.html"
+        },
+        {
+          "const": "CC0-1.0",
+          "markdownDescription": "- Creative Commons Zero v1.0 Universal\n- https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+          "const": "GPL-2.0-only",
+          "markdownDescription": "- GNU General Public License v2.0 only\n- https://spdx.org/licenses/GPL-2.0-only.html"
+        },
+        {
+          "const": "GPL-2.0-or-l-or-later",
+          "markdownDescription": "- GNU General Public License v2.0 or later\n- https://spdx.org/licenses/GPL-2.0-or-later.html"
+        },
+        {
+          "const": "GPL-3.0-only",
+          "markdownDescription": "- GNU General Public License v3.0 only\n- https://spdx.org/licenses/GPL-3.0-only.html"
+        },
+        {
+          "const": "GPL-3.0-or-later",
+          "markdownDescription": "- GNU General Public License v3.0 or later\n- https://spdx.org/licenses/GPL-3.0-or-later.html"
+        },
+        {
+          "const": "AGPL-3.0-only",
+          "markdownDescription": "- GNU Affero General Public License v3.0 only\n- https://spdx.org/licenses/AGPL-3.0-only.html"
+        },
+        {
+          "const": "LGPL-2.1-only",
+          "markdownDescription": "- GNU Library General Public License v2.1 only\n- https://spdx.org/licenses/LGPL-2.1-only.html"
+        },
+        {
+          "const": "LGPL-3.0-only",
+          "markdownDescription": "- GNU Lesser General Public License v3.0 only\n- https://spdx.org/licenses/LGPL-3.0-only.html"
+        },
+        {
+          "const": "MPL-2.0",
+          "markdownDescription": "- Mozilla Public License 2.0\n- https://spdx.org/licenses/MPL-2.0.html"
+        },
+        {
+          "const": "EPL-1.0",
+          "markdownDescription": "- Eclipse Public License 1.0\n- https://spdx.org/licenses/EPL-1.0.html"
+        },
+        {
+          "const": "EPL-2.0",
+          "markdownDescription": "- Eclipse Public License 2.0\n- https://spdx.org/licenses/EPL-2.0.html"
+        },
+        {
+          "const": "CDDL-1.0",
+          "markdownDescription": "- Common Development and Distribution License 1.0\n- https://spdx.org/licenses/CDDL-1.0.html"
+        },
+        {
+          "const": "BSL-1.0",
+          "markdownDescription": "- Boost Software License 1.0\n- https://spdx.org/licenses/BSL-1.0.html"
+        },
+        {
+          "const": "MS-PL",
+          "markdownDescription": "- Microsoft Public License\n- https://spdx.org/licenses/MS-PL.html"
+        },
+        {
+          "const": "MS-RL",
+          "markdownDescription": "- Microsoft Reciprocal License\n- https://spdx.org/licenses/MS-RL.html"
+        },
+        {
+          "const": "EUPL-1.2",
+          "markdownDescription": "- European Union Public License 1.2\n- https://spdx.org/licenses/EUPL-1.2.html"
+        },
+        {
+          "const": "CC-BY-4.0",
+          "markdownDescription": "- Creative Commons Attribution 4.0 International\n- https://spdx.org/licenses/CC-BY-4.0.html"
+        },
+        {
+          "const": "CC-BY-SA-4.0",
+          "markdownDescription": "- Creative Commons Attribution Share Alike 4.0 International\n- https://spdx.org/licenses/CC-BY-SA-4.0.html"
+        },
+        {
+          "const": "CC-BY-NC-4.0",
+          "markdownDescription": "- Creative Commons Attribution Non Commercial 4.0 International\n- https://spdx.org/licenses/CC-BY-NC-4.0.html"
+        },
+        {
+          "const": "OFL-1.1",
+          "markdownDescription": "- SIL Open Font License 1.1\n- https://spdx.org/licenses/OFL-1.1.html"
+        },
+        {
+          "const": "OFL-1.1-no-RFN",
+          "markdownDescription": "- SIL Open Font License 1.1 with no Reserved Font Name\n- https://spdx.org/licenses/OFL-1.1-no-RFN.html"
+        },
+        {
+          "const": "Artistic-2.0",
+          "markdownDescription": "- Artistic License 2.0\n- https://spdx.org/licenses/Artistic-2.0.html"
+        },
+        {
+          "const": "Zlib",
+          "markdownDescription": "- zlib License\n- https://spdx.org/licenses/Zlib.html"
+        },
+        {
+          "const": "Python-2.0",
+          "markdownDescription": "- Python License 2.0\n- https://spdx.org/licenses/Python-2.0.html"
+        },
+        {
+          "const": "NCSA",
+          "markdownDescription": "- University of Illinois/NCSA Open Source License\n- https://spdx.org/licenses/NCSA.html"
+        },
+        {
+          "const": "ICU",
+          "markdownDescription": "- ICU License\n- https://spdx.org/licenses/ICU.html"
+        },
+        {
+          "const": "IPA",
+          "markdownDescription": "- IPA Font License\n- https://spdx.org/licenses/IPA.html"
+        },
+        {
+          "const": "WTFPL",
+          "markdownDescription": "- Do What The F*ck You Want To Public License\n- https://spdx.org/licenses/WTFPL.html"
+        }
+      ]
+    },
+    "license": {
+      "title": "Software License",
+      "markdownDescription": "- Specify the license or type field of the software\n- If different files have different licenses, separate the licenses with a comma `,`\n- If the entire application is dual-licensed, use `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
+      "type": ["string", "object"],
+      "examples": [{}],
+      "minLength": 1,
+      "anyOf": [
+        {},
+        {
+          "$ref": "#/definitions/license_field"
+        }
+      ],
+      "if": {
+        "type": "object"
+      },
+      "then": {
+        "required": ["identifier"],
+        "additionalProperties": false,
+        "properties": {
+          "identifier": {
+            "title": "License Identifier",
+            "markdownDescription": "- Specify the license of the software\n- If different files have different licenses, separate the licenses with a comma `,`\n- If the entire application is dual-licensed, use `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
+            "$ref": "#/definitions/str",
+            "anyOf": [
+              {
+                "minLength": 1
+              },
+              {
+                "$ref": "#/definitions/license_field"
+              },
+              {
+                "$ref": "#/definitions/license_identifier"
+              }
             ]
-        },
-        "str": {
-            "type": "string",
-            "minLength": 1
-        },
-        "string_or_string_array": {
-            "type": [
-                "string",
-                "array"
-            ],
-            "items": {
+          },
+          "url": {
+            "examples": [""],
+            "allOf": [
+              {
                 "$ref": "#/definitions/str"
-            },
-            "minLength": 1,
-            "minItems": 1
-        },
-        "license_field": {
-            "anyOf": [
-                {
-                    "const": "Unknown",
-                    "markdownDescription": "- Use `Unknown`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the license cannot be determined."
-                },
-                {
-                    "const": "Freeware",
-                    "markdownDescription": "- Use `Freeware`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to use forever."
-                },
-                {
-                    "const": "Proprietary",
-                    "markdownDescription": "- Use `Proprietary`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software must pay to use."
-                },
-                {
-                    "const": "Public Domain",
-                    "markdownDescription": "- Use `Public Domain`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software belongs to the public domain."
-                },
-                {
-                    "const": "Shareware",
-                    "markdownDescription": "- Use `Shareware`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to try, but must pay eventually."
-                }
-            ]
-        },
-        "license_identifier": {
-            "$comment": "Add known licenses here to provide better error messages for the validator.",
-            "anyOf": [
-                {
-                    "const": "MIT",
-                    "markdownDescription": "- MIT License\n- https://spdx.org/licenses/MIT.html"
-                },
-                {
-                    "const": "Apache-2.0",
-                    "markdownDescription": "- Apache License 2.0\n- https://spdx.org/licenses/Apache-2.0.html"
-                },
-                {
-                    "const": "BSD-3-Clause",
-                    "markdownDescription": "- BSD 3-Clause \"New\" or \"Revised\" License\n- https://spdx.org/licenses/BSD-3-Clause.html"
-                },
-                {
-                    "const": "BSD-2-Clause",
-                    "markdownDescription": "- BSD 2-Clause \"Simplified\" License\n- https://spdx.org/licenses/BSD-2-Clause.html"
-                },
-                {
-                    "const": "ISC",
-                    "markdownDescription": "- ISC License\n- https://spdx.org/licenses/ISC.html"
-                },
-                {
-                    "const": "Unlicense",
-                    "markdownDescription": "- The Unlicense\n- https://spdx.org/licenses/Unlicense.html"
-                },
-                {
-                    "const": "CC0-1.0",
-                    "markdownDescription": "- Creative Commons Zero v1.0 Universal\n- https://spdx.org/licenses/CC0-1.0.html"
-                },
-                {
-                    "const": "GPL-2.0-only",
-                    "markdownDescription": "- GNU General Public License v2.0 only\n- https://spdx.org/licenses/GPL-2.0-only.html"
-                },
-                {
-                    "const": "GPL-2.0-or-l-or-later",
-                    "markdownDescription": "- GNU General Public License v2.0 or later\n- https://spdx.org/licenses/GPL-2.0-or-later.html"
-                },
-                {
-                    "const": "GPL-3.0-only",
-                    "markdownDescription": "- GNU General Public License v3.0 only\n- https://spdx.org/licenses/GPL-3.0-only.html"
-                },
-                {
-                    "const": "GPL-3.0-or-later",
-                    "markdownDescription": "- GNU General Public License v3.0 or later\n- https://spdx.org/licenses/GPL-3.0-or-later.html"
-                },
-                {
-                    "const": "AGPL-3.0-only",
-                    "markdownDescription": "- GNU Affero General Public License v3.0 only\n- https://spdx.org/licenses/AGPL-3.0-only.html"
-                },
-                {
-                    "const": "LGPL-2.1-only",
-                    "markdownDescription": "- GNU Library General Public License v2.1 only\n- https://spdx.org/licenses/LGPL-2.1-only.html"
-                },
-                {
-                    "const": "LGPL-3.0-only",
-                    "markdownDescription": "- GNU Lesser General Public License v3.0 only\n- https://spdx.org/licenses/LGPL-3.0-only.html"
-                },
-                {
-                    "const": "MPL-2.0",
-                    "markdownDescription": "- Mozilla Public License 2.0\n- https://spdx.org/licenses/MPL-2.0.html"
-                },
-                {
-                    "const": "EPL-1.0",
-                    "markdownDescription": "- Eclipse Public License 1.0\n- https://spdx.org/licenses/EPL-1.0.html"
-                },
-                {
-                    "const": "EPL-2.0",
-                    "markdownDescription": "- Eclipse Public License 2.0\n- https://spdx.org/licenses/EPL-2.0.html"
-                },
-                {
-                    "const": "CDDL-1.0",
-                    "markdownDescription": "- Common Development and Distribution License 1.0\n- https://spdx.org/licenses/CDDL-1.0.html"
-                },
-                {
-                    "const": "BSL-1.0",
-                    "markdownDescription": "- Boost Software License 1.0\n- https://spdx.org/licenses/BSL-1.0.html"
-                },
-                {
-                    "const": "MS-PL",
-                    "markdownDescription": "- Microsoft Public License\n- https://spdx.org/licenses/MS-PL.html"
-                },
-                {
-                    "const": "MS-RL",
-                    "markdownDescription": "- Microsoft Reciprocal License\n- https://spdx.org/licenses/MS-RL.html"
-                },
-                {
-                    "const": "EUPL-1.2",
-                    "markdownDescription": "- European Union Public License 1.2\n- https://spdx.org/licenses/EUPL-1.2.html"
-                },
-                {
-                    "const": "CC-BY-4.0",
-                    "markdownDescription": "- Creative Commons Attribution 4.0 International\n- https://spdx.org/licenses/CC-BY-4.0.html"
-                },
-                {
-                    "const": "CC-BY-SA-4.0",
-                    "markdownDescription": "- Creative Commons Attribution Share Alike 4.0 International\n- https://spdx.org/licenses/CC-BY-SA-4.0.html"
-                },
-                {
-                    "const": "CC-BY-NC-4.0",
-                    "markdownDescription": "- Creative Commons Attribution Non Commercial 4.0 International\n- https://spdx.org/licenses/CC-BY-NC-4.0.html"
-                },
-                {
-                    "const": "OFL-1.1",
-                    "markdownDescription": "- SIL Open Font License 1.1\n- https://spdx.org/licenses/OFL-1.1.html"
-                },
-                {
-                    "const": "OFL-1.1-no-RFN",
-                    "markdownDescription": "- SIL Open Font License 1.1 with no Reserved Font Name\n- https://spdx.org/licenses/OFL-1.1-no-RFN.html"
-                },
-                {
-                    "const": "Artistic-2.0",
-                    "markdownDescription": "- Artistic License 2.0\n- https://spdx.org/licenses/Artistic-2.0.html"
-                },
-                {
-                    "const": "Zlib",
-                    "markdownDescription": "- zlib License\n- https://spdx.org/licenses/Zlib.html"
-                },
-                {
-                    "const": "Python-2.0",
-                    "markdownDescription": "- Python License 2.0\n- https://spdx.org/licenses/Python-2.0.html"
-                },
-                {
-                    "const": "NCSA",
-                    "markdownDescription": "- University of Illinois/NCSA Open Source License\n- https://spdx.org/licenses/NCSA.html"
-                },
-                {
-                    "const": "ICU",
-                    "markdownDescription": "- ICU License\n- https://spdx.org/licenses/ICU.html"
-                },
-                {
-                    "const": "IPA",
-                    "markdownDescription": "- IPA Font License\n- https://spdx.org/licenses/IPA.html"
-                },
-                {
-                    "const": "WTFPL",
-                    "markdownDescription": "- Do What The F*ck You Want To Public License\n- https://spdx.org/licenses/WTFPL.html"
-                }
-            ]
-        },
-        "license": {
-            "title": "Software License",
-            "markdownDescription": "- Specify the license or type field of the designated software\n- If different files have different licenses, separate the licenses with a comma `,`\n- If the entire application is dual-licensed, use `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
-            "type": [
-                "string",
-                "object"
+              },
+              {
+                "$ref": "#/definitions/url_validation"
+              }
             ],
-            "examples": [
-                {}
-            ],
-            "minLength": 1,
-            "anyOf": [
-                {},
-                {
-                    "$ref": "#/definitions/license_field"
-                }
-            ],
-            "if": {
-                "type": "object"
-            },
-            "then": {
-                "required": [
-                    "identifier"
-                ],
-                "additionalProperties": false,
-                "properties": {
-                    "identifier": {
-                        "title": "License Identifier",
-                        "markdownDescription": "- License identifier of the software\n- If different files have different licenses, separate the licenses with a comma `,`\n- If the entire application is dual-licensed, use `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
-                        "$ref": "#/definitions/str",
-                        "anyOf": [
-                            {
-                                "minLength": 1
-                            },
-                            {
-                                "$ref": "#/definitions/license_field"
-                            },
-                            {
-                                "$ref": "#/definitions/license_identifier"
-                            }
-                        ]
-                    },
-                    "url": {
-                        "examples": [
-                            ""
-                        ],
-                        "allOf": [
-                            {
-                                "$ref": "#/definitions/str"
-                            },
-                            {
-                                "$ref": "#/definitions/url_validation"
-                            }
-                        ],
-                        "title": "License URL",
-                        "markdownDescription": "- URL address of the software license."
-                    }
-                }
-            }
-        },
-        "notes": {
-            "title": "Software Notes",
-            "markdownDescription": "- English notes displayed after software installation.",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "url_validation": {
-            "pattern": "^https?://",
-            "errorMessage": "Must be a valid http/https URL"
-        },
+            "title": "License URL",
+            "markdownDescription": "- Specify the URL of the software license."
+          }
+        }
+      }
+    },
+    "notes": {
+      "title": "Notes",
+      "markdownDescription": "- English notes after installing the software.",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "url_validation": {
+      "pattern": "^https?://",
+      "errorMessage": "It must be a valid http/https URL"
+    },
+    "url": {
+      "title": "Download URL",
+      "markdownDescription": "- The URL of the file to be downloaded\n- If there are multiple URLs, an array can be used.\n```json\n  \"url\": [\n      \"http://example.com/file1.zip\",\n      \"http://example.com/file2.zip\"\n  ]\n  ```\n- If you need to change the file name of the download URL, you can add `#/dl.7z` at the end of the URL. For example:\n```json\n  \"url\": \"http://example.org/program.exe#/dl.7z\"\n  ```\n- Scoop will download program.exe, but save it as dl.7z, and then automatically extract it using 7-Zip.",
+      "examples": [
+        "https://github.com/abgox/abyss/releases/download/empty/empty"
+      ],
+      "type": ["string", "array"],
+      "$ref": "#/definitions/url_validation",
+      "minLength": 1,
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/str"
+          },
+          {
+            "$ref": "#/definitions/url_validation"
+          }
+        ],
+        "examples": [
+          "https://github.com/abgox/abyss/releases/download/empty/empty"
+        ]
+      }
+    },
+    "hash": {
+      "title": "Hash of the download file",
+      "markdownDescription": "- The hash of the downloaded file.\n- The default is `SHA256`.\n- You can also use `SHA512`, `SHA1`, or `MD5` by prefixing the string with `sha512:`, `sha1:`, or `md5:`, respectively.",
+      "examples": [
+        "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
+      ],
+      "type": ["string", "array"],
+      "minLength": 1,
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/definitions/str",
+        "examples": [
+          "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
+        ],
+        "pattern": "^([a-fA-F0-9]{64}|(sha1|sha256|sha512|md5):([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{128}))$",
+        "errorMessage": "It must be a valid hash"
+      },
+      "pattern": "^([a-fA-F0-9]{64}|(sha1|sha256|sha512|md5):([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{128}))$",
+      "errorMessage": "It must be a valid hash"
+    },
+    "architecture_example": {
+      "examples": [
+        {
+          "64bit": {
+            "url": "https://github.com/abgox/abyss/releases/download/empty/empty",
+            "hash": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
+          },
+          "arm64": {
+            "url": "https://github.com/abgox/abyss/releases/download/empty/empty",
+            "hash": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
+          }
+        }
+      ]
+    },
+    "architecture_property": {
+      "examples": [{}],
+      "properties": {
         "url": {
-            "title": "Software Download URL",
-            "markdownDescription": "- URL of the file to be downloaded\n- If there are multiple URLs, an array can be used\n```json\n  \"url\": [\n      \"http://example.com/file1.zip\",\n      \"http://example.com/file2.zip\"\n  ]\n  ```\n- If you need to change the downloaded filename, append `#/dl.7z` to the end of the URL, for example:\n```json\n  \"url\": \"http://example.org/program.exe#/dl.7z\"\n  ```\n- Scoop will download program.exe but save it as dl.7z, then automatically extract it with 7-Zip\n    - This is commonly used in Scoop manifests to bypass executable installers that may have undesirable side effects, such as registry changes, files placed outside the installation directory, or administrator elevation prompts",
-            "examples": [
-                "https://github.com/abgox/abyss/releases/download/empty/empty"
-            ],
-            "type": [
-                "string",
-                "array"
-            ],
-            "$ref": "#/definitions/url_validation",
-            "minLength": 1,
-            "minItems": 1,
-            "uniqueItems": true,
-            "items": {
-                "allOf": [
-                    {
-                        "$ref": "#/definitions/str"
-                    },
-                    {
-                        "$ref": "#/definitions/url_validation"
-                    }
-                ],
-                "examples": [
-                    "https://github.com/abgox/abyss/releases/download/empty/empty"
-                ]
-            }
+          "examples": ["", []],
+          "$ref": "#/definitions/url"
         },
         "hash": {
-            "title": "Software Installation Package Hash Value",
-            "markdownDescription": "- The default hash algorithm is `SHA256`\n- You can use `SHA512`, `SHA1`, or `MD5` by prefixing the string with `sha512:`, `sha1:`, or `md5:`, respectively",
-            "examples": [
-                "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
-            ],
-            "type": [
-                "string",
-                "array"
-            ],
-            "minLength": 1,
-            "minItems": 1,
-            "uniqueItems": true,
-            "items": {
-                "$ref": "#/definitions/str",
-                "examples": [
-                    "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
-                ],
-                "pattern": "^([a-fA-F0-9]{64}|(sha1|sha256|sha512|md5):([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{128}))$",
-                "errorMessage": "Not a valid hash"
-            },
-            "pattern": "^([a-fA-F0-9]{64}|(sha1|sha256|sha512|md5):([a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{128}))$",
-            "errorMessage": "Not a valid hash"
+          "$ref": "#/definitions/hash"
         },
-        "architecture_example": {
-            "examples": [
-                {
-                    "64bit": {
-                        "url": "https://github.com/abgox/abyss/releases/download/empty/empty",
-                        "hash": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
-                    },
-                    "arm64": {
-                        "url": "https://github.com/abgox/abyss/releases/download/empty/empty",
-                        "hash": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
-                    }
-                }
-            ]
+        "bin": {
+          "$ref": "#/definitions/bin"
         },
-        "architecture_property": {
-            "examples": [
-                {}
-            ],
-            "properties": {
-                "url": {
-                    "examples": [
-                        "",
-                        []
-                    ],
-                    "$ref": "#/definitions/url"
-                },
-                "hash": {
-                    "$ref": "#/definitions/hash"
-                },
-                "bin": {
-                    "$ref": "#/definitions/bin"
-                },
-                "checkver": {
-                    "$ref": "#/definitions/checkver"
-                },
-                "env_add_path": {
-                    "$comment": "This attribute is not described in the official documentation, but it is actually usable.",
-                    "$ref": "#/definitions/env_add_path"
-                },
-                "extract_dir": {
-                    "$ref": "#/definitions/extract_dir"
-                },
-                "installer": {
-                    "$ref": "#/definitions/installer"
-                },
-                "pre_install": {
-                    "$ref": "#/definitions/pre_install"
-                },
-                "post_install": {
-                    "$ref": "#/definitions/post_install"
-                },
-                "shortcuts": {
-                    "$ref": "#/definitions/shortcuts"
-                },
-                "uninstaller": {
-                    "$ref": "#/definitions/uninstaller"
-                }
-            },
-            "minProperties": 1,
-            "additionalProperties": false
+        "checkver": {
+          "$ref": "#/definitions/checkver"
         },
-        "architecture": {
-            "title": "Architecture information",
-            "markdownDescription": "- Architecture information for the program\n- Architectures can be used to wrap differences between different versions of the program",
-            "type": "object",
-            "$ref": "#/definitions/architecture_example",
+        "env_add_path": {
+          "$comment": "This property is not officially documented, but it is actually available",
+          "$ref": "#/definitions/env_add_path"
+        },
+        "extract_dir": {
+          "$ref": "#/definitions/extract_dir"
+        },
+        "installer": {
+          "$ref": "#/definitions/installer"
+        },
+        "pre_install": {
+          "$ref": "#/definitions/pre_install"
+        },
+        "post_install": {
+          "$ref": "#/definitions/post_install"
+        },
+        "shortcuts": {
+          "$ref": "#/definitions/shortcuts"
+        },
+        "uninstaller": {
+          "$ref": "#/definitions/uninstaller"
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "architecture": {
+      "title": "Architecture information",
+      "markdownDescription": "- The architecture information of the program.\n- Architecture can be used to wrap differences",
+      "type": "object",
+      "$ref": "#/definitions/architecture_example",
+      "if": {
+        "anyOf": [
+          {
+            "required": ["64bit"]
+          },
+          {
+            "required": ["32bit"]
+          },
+          {
+            "required": ["arm64"]
+          }
+        ]
+      },
+      "else": {
+        "not": true,
+        "errorMessage": "At least one of 64bit, 32bit, or arm64 must be defined in the architecture."
+      },
+      "additionalProperties": false,
+      "properties": {
+        "64bit": {
+          "markdownDescription": "- 64bit architecture",
+          "$ref": "#/definitions/architecture_property"
+        },
+        "32bit": {
+          "markdownDescription": "- 32bit architecture",
+          "$ref": "#/definitions/architecture_property"
+        },
+        "arm64": {
+          "markdownDescription": "- arm64 architecture",
+          "$ref": "#/definitions/architecture_property"
+        }
+      }
+    },
+    "extract_dir": {
+      "title": "Extract specified directory only",
+      "markdownDescription": "- If the value of the url property points to a compressed package, Scoop will extract all content by default.\n  - Compressed package types: `.zip`/`.7z`/`.tar`/`.gz`/`.lzma`/`.lzh`\n- If the `extract_dir` property is defined, Scoop will only extract the specified directory defined in `extract_dir`.",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "extract_to": {
+      "title": "Extract content to specified directory",
+      "markdownDescription": "- If the value of the url property points to a compressed package, Scoop will extract all content to the directory defined by `extract_to`\n  - Compressed package types: `.zip`/`.7z`/`.tar`/`.gz`/`.lzma`/`.lzh`\n- If url is an array with multiple compressed packages, `extract_to` should also be an array with the same order as url",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "env_add_path": {
+      "title": "Add the specified directory to the PATH environment variable",
+      "markdownDescription": "- Add the specified directory to the PATH environment variable (current user)\n- If the `--global` or `-g` parameter is used during installation, the directory will be added to the PATH environment variable (system level)",
+      "type": ["string", "array"],
+      "examples": ["", []],
+      "minLength": 1,
+      "minItems": 1,
+      "uniqueItems": true,
+      "oneOf": [
+        {
+          "$ref": "#/definitions/str",
+          "if": {
+            "pattern": "\\$dir"
+          },
+          "then": {
+            "not": true,
+            "errorMessage": "Cannot use $dir, please use . instead"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/str",
             "if": {
-                "anyOf": [
-                    {
-                        "required": [
-                            "64bit"
-                        ]
-                    },
-                    {
-                        "required": [
-                            "32bit"
-                        ]
-                    },
-                    {
-                        "required": [
-                            "arm64"
-                        ]
-                    }
+              "pattern": "\\$dir"
+            },
+            "then": {
+              "not": true,
+              "errorMessage": "Cannot use $dir, please use . instead"
+            }
+          }
+        }
+      ]
+    },
+    "env_set": {
+      "title": "Set environment variables",
+      "markdownDescription": "- Set one or more environment variables (current user)\n- If the `--global` or `-g` parameter is used during installation, the variables will be set in the system environment variables (system level)",
+      "type": "object",
+      "examples": [{}],
+      "if": {
+        "type": "object"
+      },
+      "then": {
+        "patternProperties": {
+          "^.+$": {
+            "$ref": "#/definitions/string_or_string_array",
+            "examples": ["", []]
+          }
+        },
+        "minProperties": 1,
+        "additionalProperties": false,
+        "errorMessage": "Property names cannot be empty strings"
+      }
+    },
+    "psmodule": {
+      "title": "PowerShell module",
+      "markdownDescription": "- Install as PowerShell module in `$scoopdir/modules`",
+      "type": "object",
+      "required": ["name"],
+      "examples": [
+        {
+          "name": ""
+        }
+      ],
+      "properties": {
+        "name": {
+          "title": "Module name",
+          "markdownDescription": "- The name of the module, which should match at least one file in the extract directory for PowerShell to recognize it as a module",
+          "$ref": "#/definitions/str"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bin": {
+      "type": ["string", "array"],
+      "items": {
+        "type": ["string", "array"],
+        "minLength": 1,
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/str"
+            },
+            "allOf": [
+              {
+                "items": [
+                  {
+                    "markdownDescription": "- Required: program name"
+                  },
+                  {
+                    "markdownDescription": "- Required: alias (shim)"
+                  },
+                  {
+                    "markdownDescription": "- Optional: parameters"
+                  }
                 ]
+              },
+              {
+                "if": {
+                  "minItems": 1,
+                  "maxItems": 1
+                },
+                "then": {
+                  "not": true,
+                  "errorMessage": "Missing second required value: alias (shim)"
+                }
+              },
+              {
+                "if": {
+                  "maxItems": 0
+                },
+                "then": {
+                  "not": true,
+                  "errorMessage": "Missing two required values: program name, alias (shim)"
+                }
+              }
+            ],
+            "minItems": 1,
+            "maxItems": 3
+          },
+          {
+            "$ref": "#/definitions/str"
+          }
+        ]
+      },
+      "minLength": 1,
+      "minItems": 1,
+      "uniqueItems": true,
+      "examples": ["", [], [[]]],
+      "title": "Program (executable or script) string or string array",
+      "markdownDescription": "- A string or array of strings representing programs (executables or scripts) to be made available on the user's PATH\n- A two-dimensional array can be used to create an alias shim that uses a different name from the real executable and optionally passes arguments to it\n- The inner array must contain at most three strings: program name, alias, arguments (optional)\n- Example 1: Scoop will create a shim named `a`, so you can run a.exe by typing `a`\n```json\n  \"bin\": \"a.exe\"\n  ```\n- Example 2: Same as Example 1, but Scoop creates two shims: `a` and `b`\n```json\n  \"bin\": [\"a.exe\", \"b.exe\"]\n  ```\n- Example 3: Same as Example 2, but the shims are named `ax` and `bx`\n```json\n  \"bin\": [\n    [\"a.exe\", \"ax\"], \n    [\"b.exe\", \"bx\"]\n  ]\n  ```\n- Example 4: Same as Example 3, but running the shims will automatically pass `--config $dir/config.json`\n```json\n  \"bin\": [\n    [\"a.exe\", \"ax\", \"--config $dir/config.json\"], \n    [\"b.exe\", \"bx\", \"--config $dir/config.json\"]\n  ]\n  ```"
+    },
+    "shortcuts": {
+      "type": "array",
+      "title": "Some shortcuts added to the Start menu",
+      "markdownDescription": "- Specifies shortcuts to be added to the Start menu, placed in the `Scoop Apps` folder\n- Each array can contain up to four values:\n    1. Required: path to the target file\n    2. Required: name of the shortcut; subdirectories are supported: `aaa\\bbb`\n    3. Optional: launch arguments\n    4. Optional: path to the icon file",
+      "examples": [[[]]],
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/str"
+        },
+        "allOf": [
+          {
+            "items": [
+              {
+                "markdownDescription": "- Required: path to the target file"
+              },
+              {
+                "markdownDescription": "- Required: name of the shortcut; subdirectories are supported: `aaa\\bbb`"
+              },
+              {
+                "markdownDescription": "- Optional: launch arguments"
+              },
+              {
+                "markdownDescription": "- Optional: path to the icon file"
+              }
+            ]
+          },
+          {
+            "if": {
+              "minItems": 1,
+              "maxItems": 1
+            },
+            "then": {
+              "not": true,
+              "errorMessage": "Missing second required value: shortcut name"
+            }
+          },
+          {
+            "if": {
+              "maxItems": 0
+            },
+            "then": {
+              "not": true,
+              "errorMessage": "Missing two required values: target file path, shortcut name"
+            }
+          }
+        ],
+        "minItems": 1,
+        "maxItems": 4
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "persist": {
+      "title": "Persisted data",
+      "markdownDescription": "- Scoop will persist the specified directories and files.\n- Note: Scoop creates directory junctions by default; if you need file-level linking, create the file first in your install script.\n- Example 1: Directory junction: `$dir\\data` => `$persist_dir\\data`\n```json\n  \"persist\": \"data\"\n  ```\n- Example 2: Same as Ex.1 but multiple items\n```json\n  \"persist\": [\"data\", \"config.json\"]\n  ```\n- Example 3: Same as Ex.2 but with custom target names\n```json\n  \"persist\": [\n    [\"app\\\\data\", \"userData\"], \n    [\"app\\\\config.json\", \"config.json\"]\n  ]\n  ```",
+      "type": ["string", "array"],
+      "items": {
+        "type": ["string", "array"],
+        "minLength": 1,
+        "anyOf": [
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/str"
+            },
+            "allOf": [
+              {
+                "items": [
+                  {
+                    "markdownDescription": "- Original file or directory to persist"
+                  },
+                  {
+                    "markdownDescription": "- Target location for the persisted data, supports subdirectories: `aaa\\bbb`"
+                  }
+                ]
+              },
+              {
+                "if": {
+                  "minItems": 1,
+                  "maxItems": 1
+                },
+                "then": {
+                  "not": true,
+                  "errorMessage": "Missing second required value: target location for the persisted data"
+                }
+              },
+              {
+                "if": {
+                  "maxItems": 0
+                },
+                "then": {
+                  "not": true,
+                  "errorMessage": "Missing two required values: original file or directory to persist, target location for the persisted data"
+                }
+              }
+            ],
+            "minItems": 1,
+            "maxItems": 3
+          },
+          {
+            "$ref": "#/definitions/str"
+          }
+        ]
+      },
+      "minLength": 1,
+      "minItems": 1,
+      "uniqueItems": true,
+      "examples": ["", [], [[]]]
+    },
+    "pre_install": {
+      "title": "Pre-install script",
+      "markdownDescription": "- Commands to be executed before installing the application\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: Currently running subcommand, such as uninstall/update/install\n    - $fname: Downloaded file name (may be multiple files, needs to be treated as an array unless you are sure url is not an array)\n    - $global: If the value is $true, it is installed globally\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop directory",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "installer": {
+      "title": "Installer configuration",
+      "markdownDescription": "- Configuration for running non-MSI installers\n- Called during scoop install and scoop update\n- Execution order: `pre_install` -> `installer` -> `post_install`",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "examples": [{}],
+      "properties": {
+        "file": {
+          "markdownDescription": "- Executable file for the installer\n- Defaults to the last downloaded URL if not specified\n- Required if specified in uninstaller",
+          "$ref": "#/definitions/str"
+        },
+        "script": {
+          "markdownDescription": "- Execute as an installer instead of a file\n- Available variables in the script:\n    - $fname: downloaded file(s) (may be an array; treat as array unless you are sure url is not an array)\n    - $manifest: validated manifest reference\n    - $architecture: 64bit/32bit/arm64\n    - $dir: installation directory",
+          "$ref": "#/definitions/string_or_string_array"
+        },
+        "args": {
+          "type": "array",
+          "markdownDescription": "- Array of arguments to pass to the installer\n- Optional property",
+          "items": {
+            "$ref": "#/definitions/str"
+          },
+          "minItems": 1
+        },
+        "keep": {
+          "markdownDescription": "- Set to true if the installer should be kept after running (e.g., for future uninstallation)\n- If omitted or set to any other value, the installer will be deleted after running",
+          "$ref": "#/definitions/bool"
+        }
+      }
+    },
+    "post_install": {
+      "title": "Post-install script",
+      "markdownDescription": "- Commands executed after the application is installed\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Note: At this point, Scoop has already completed persist, so if you need to create files for persist, do it before this (in pre_install)\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, e.g. 64bit/32bit/arm64\n    - $cmd: Current running subcommand, e.g. uninstall/update/install\n    - $fname: Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)\n    - $cfg: Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: If value is $true, then it's a global installation\n    - $manifest: Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, e.g. 1.2.3\n    - $dir: Application installation directory (current directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, e.g. D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop installation directory",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "pre_uninstall": {
+      "title": "Pre-uninstall script",
+      "markdownDescription": "- Execute commands before uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: Currently running subcommand, such as uninstall/update/install\n    - $global: If the value is $true, it is globally installed\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Directory where Scoop is located",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "uninstaller": {
+      "title": "Uninstaller configuration",
+      "markdownDescription": "- Configuration for running non-MSI uninstallers\n- Called during scoop uninstall and scoop update\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "examples": [{}],
+      "properties": {
+        "file": {
+          "markdownDescription": "- Uninstall the program executable file",
+          "$ref": "#/definitions/str"
+        },
+        "script": {
+          "markdownDescription": "- Execute as an uninstaller rather than a file\n- Variables available in the script: \n    - $fname: downloaded file (there may be multiple files, which need to be handled as an array unless you are sure the url is not an array)\n    - $manifest: verified manifest reference\n    - $architecture: 64bit/32bit/arm64\n    - $dir: installation directory",
+          "$ref": "#/definitions/string_or_string_array"
+        },
+        "args": {
+          "type": "array",
+          "markdownDescription": "- Array of arguments to pass to the uninstaller\n- Optional property",
+          "items": {
+            "$ref": "#/definitions/str"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "post_uninstall": {
+      "title": "Post-uninstall script",
+      "markdownDescription": "- Used to execute commands after uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \\\"$(appdir otherapp)\\\\current\\\\otherapp.exe\\\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: The currently running subcommand, such as uninstall/update/install\n    - $cfg: Scoop configuration (PowerShell object), such as {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: If the value is $true, it is installed globally\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: The version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: The name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop directory",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "checkver": {
+      "title": "Version check configuration",
+      "markdownDescription": "- Application maintainers and developers can use the bin/checkver tool to check for updates to the application\n- String: RegEx to find the version on the homepage\n- Object: More rich configuration",
+      "type": ["string", "object"],
+      "examples": ["", "github", {}],
+      "minLength": 1,
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "markdownDescription": "- URL of the page where the version is located",
+              "$ref": "#/definitions/str"
+            },
+            "github": {
+              "markdownDescription": "- GitHub repository of the application",
+              "$ref": "#/definitions/str",
+              "if": {
+                "type": "string"
+              },
+              "then": {
+                "minLength": 1,
+                "pattern": "^https?://github\\.com/[^/]+/[^/]+/?$",
+                "not": {
+                  "pattern": "\\.git(\\/|$)"
+                },
+                "errorMessage": "GitHub repository format error, such as: https://github.com/abgox/abyss"
+              }
+            },
+            "re": {
+              "markdownDescription": "- re is an alias for regex\n- RegEx to find the version on the homepage",
+              "$ref": "#/definitions/str"
+            },
+            "regex": {
+              "markdownDescription": "- RegEx to find the version on the homepage",
+              "$ref": "#/definitions/str"
+            },
+            "jsonpath": {
+              "markdownDescription": "- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.",
+              "$ref": "#/definitions/str"
+            },
+            "jp": {
+              "markdownDescription": "- jp is an alias for jsonpath\n- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.",
+              "$ref": "#/definitions/str"
+            },
+            "xpath": {
+              "markdownDescription": "- XPath expression to find the version on the homepage",
+              "$ref": "#/definitions/str"
+            },
+            "reverse": {
+              "markdownDescription": "- If set to true, it matches the last occurrence (default is the first occurrence)",
+              "$ref": "#/definitions/bool"
+            },
+            "replace": {
+              "markdownDescription": "- Replace the matched value with the computed value",
+              "$ref": "#/definitions/str",
+              "anyOf": [
+                {},
+                {
+                  "const": "${1}.${2}.${3}.${4}${5}${6}",
+                  "markdownDescription": "- Replace the matched value with `${1}.${2}.${3}.${4}${5}${6}`, where `${1}` represents the first match group, `${2}` represents the second match group, and so on."
+                }
+              ]
+            },
+            "useragent": {
+              "markdownDescription": "- User-Agent used to fetch the webpage content",
+              "$ref": "#/definitions/str"
+            },
+            "script": {
+              "markdownDescription": "- PowerShell script to track multiple links",
+              "$ref": "#/definitions/string_or_string_array"
+            },
+            "sourceforge": {
+              "markdownDescription": "- SourceForge project version check configuration",
+              "$ref": "#/definitions/str"
+            }
+          },
+          "minProperties": 1
+        },
+        {
+          "$ref": "#/definitions/str",
+          "anyOf": [
+            {},
+            {
+              "const": "github",
+              "markdownDescription": "- If the homepage is a GitHub repository homepage, you can use the \"github\" string as the checkver configuration"
+            }
+          ]
+        }
+      ]
+    },
+    "autoupdate_url": {
+      "title": "Software download URL",
+      "markdownDescription": "- It is usually dynamic and includes version variables such as: `$version`\n- For example: `https://github.com/owner/repo/releases/download/v$version/xxx.exe`",
+      "type": ["string", "array"],
+      "examples": ["", []],
+      "minLength": 1,
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/str"
+      }
+    },
+    "autoupdate_hash": {
+      "markdownDescription": "- Define how to get the hash for the software download",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "url": {
+          "markdownDescription": "- URL template to download the RDF/JSON file or extract the hash",
+          "$ref": "#/definitions/str"
+        },
+        "regex": {
+          "markdownDescription": "- Alias: find\nRegEx expression to extract the hash",
+          "$ref": "#/definitions/str"
+        },
+        "find": {
+          "markdownDescription": "- Alias: regex\nRegEx expression to extract the hash",
+          "$ref": "#/definitions/str"
+        },
+        "mode": {
+          "title": "Hash retrieval mode",
+          "oneOf": [
+            {
+              "const": "github",
+              "markdownDescription": "- Get the hash generated by GitHub automatically, for more details, please refer to [GitHub blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
+            },
+            {
+              "const": "extract",
+              "markdownDescription": "- Extract the hash from a plain text file or web page using RegEx (default, can be omitted)"
+            },
+            {
+              "const": "json",
+              "markdownDescription": "- Extract the hash from a JSON file using JSONPath"
+            },
+            {
+              "const": "xpath",
+              "markdownDescription": "- Extract the hash from an XML file using XPath"
+            },
+            {
+              "const": "rdf",
+              "markdownDescription": "- Extract the hash from an RDF file"
+            },
+            {
+              "const": "metalink",
+              "markdownDescription": "- Extract the hash from a Metalink header file or .meta4 file"
+            },
+            {
+              "const": "fosshub",
+              "markdownDescription": "- Predefined for FossHub"
+            },
+            {
+              "const": "sourceforge",
+              "markdownDescription": "- Predefined for SourceForge"
+            },
+            {
+              "const": "download",
+              "markdownDescription": "- Download the application file and hash it locally (fallback)"
+            }
+          ]
+        },
+        "jp": {
+          "markdownDescription": "- Alias: jsonpath\nJSONPath expression to extract the hash",
+          "$ref": "#/definitions/str"
+        },
+        "jsonpath": {
+          "markdownDescription": "- Alias: jp\nJSONPath expression to extract the hash",
+          "$ref": "#/definitions/str"
+        },
+        "xpath": {
+          "markdownDescription": "- XPath expression to extract the hash value",
+          "$ref": "#/definitions/str"
+        }
+      }
+    },
+    "autoupdate_architecture": {
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "$ref": "#/definitions/autoupdate_url"
+        },
+        "hash": {
+          "$ref": "#/definitions/autoupdate_hash"
+        },
+        "bin": {
+          "$ref": "#/definitions/bin"
+        },
+        "checkver": {
+          "$ref": "#/definitions/checkver"
+        },
+        "env_add_path": {
+          "$comment": "This property is not officially documented, but it is actually available",
+          "$ref": "#/definitions/env_add_path"
+        },
+        "extract_dir": {
+          "$ref": "#/definitions/extract_dir"
+        },
+        "installer": {
+          "$ref": "#/definitions/installer"
+        },
+        "pre_install": {
+          "$ref": "#/definitions/pre_install"
+        },
+        "post_install": {
+          "$ref": "#/definitions/post_install"
+        },
+        "shortcuts": {
+          "$ref": "#/definitions/shortcuts"
+        },
+        "uninstaller": {
+          "$ref": "#/definitions/uninstaller"
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "##": {
+      "title": "Comment",
+      "markdownDescription": "- Comment for readers or maintainers of this manifest.",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "version": {
+      "title": "Version",
+      "markdownDescription": "- Version number of the software.",
+      "$ref": "#/definitions/str",
+      "examples": ["0.0.0"],
+      "anyOf": [
+        {},
+        {
+          "const": "0.0.0",
+          "markdownDescription": "- Current version is 0.0.0"
+        },
+        {
+          "const": "nightly",
+          "markdownDescription": "- Current version is nightly"
+        }
+      ]
+    },
+    "description": {
+      "title": "App Description",
+      "markdownDescription": "- A brief description of the software.",
+      "type": "string",
+      "minLength": 1
+    },
+    "homepage": {
+      "title": "Homepage",
+      "markdownDescription": "- Homepage or repository URL of the app",
+      "examples": [""],
+      "allOf": [
+        {
+          "$ref": "#/definitions/str"
+        },
+        {
+          "$ref": "#/definitions/url_validation"
+        }
+      ],
+      "if": {
+        "pattern": "^https?://[^/]+$"
+      },
+      "then": {
+        "not": true,
+        "errorMessage": "If it is the root domain of the official website, please end with '/'"
+      }
+    },
+    "license": {
+      "$ref": "#/definitions/license"
+    },
+    "depends": {
+      "title": "Dependencies",
+      "markdownDescription": "- Dependencies of the app\n- Missing dependencies will be automatically installed before the app is installed\n- If a dependency is optional, please use the `suggest` property",
+      "$ref": "#/definitions/string_or_string_array"
+    },
+    "suggest": {
+      "title": "Suggested Dependencies",
+      "markdownDescription": "- Suggested dependencies of the app\n- If any of the suggested dependencies are already installed, the feature will be considered as **implemented**, and the user will not see any suggestions",
+      "type": "object",
+      "if": {
+        "type": "object"
+      },
+      "then": {
+        "patternProperties": {
+          "^.+$": {
+            "markdownDescription": "- If any of the suggested dependencies are already installed, the feature will be considered as **implemented**, and the user will not see any suggestions\n- If it is an array, it means that if any of the dependencies in the array are installed, the feature will be considered as **implemented**",
+            "$ref": "#/definitions/string_or_string_array"
+          }
+        },
+        "minProperties": 1,
+        "additionalProperties": false,
+        "errorMessage": "It must be an object with non-empty string keys"
+      }
+    },
+    "notes": {
+      "$ref": "#/definitions/notes"
+    },
+    "url": {
+      "$ref": "#/definitions/url"
+    },
+    "hash": {
+      "$ref": "#/definitions/hash"
+    },
+    "architecture": {
+      "$ref": "#/definitions/architecture"
+    },
+    "extract_dir": {
+      "$ref": "#/definitions/extract_dir"
+    },
+    "extract_to": {
+      "$ref": "#/definitions/extract_to"
+    },
+    "env_add_path": {
+      "$ref": "#/definitions/env_add_path"
+    },
+    "env_set": {
+      "$ref": "#/definitions/env_set"
+    },
+    "innosetup": {
+      "markdownDescription": "- If the installer is based on `InnoSetup`, set it to `true`",
+      "$ref": "#/definitions/bool"
+    },
+    "psmodule": {
+      "$ref": "#/definitions/psmodule"
+    },
+    "bin": {
+      "$ref": "#/definitions/bin"
+    },
+    "shortcuts": {
+      "$ref": "#/definitions/shortcuts"
+    },
+    "persist": {
+      "$ref": "#/definitions/persist"
+    },
+    "pre_install": {
+      "$ref": "#/definitions/pre_install"
+    },
+    "installer": {
+      "$ref": "#/definitions/installer"
+    },
+    "post_install": {
+      "$ref": "#/definitions/post_install"
+    },
+    "pre_uninstall": {
+      "$ref": "#/definitions/pre_uninstall"
+    },
+    "uninstaller": {
+      "$ref": "#/definitions/uninstaller"
+    },
+    "post_uninstall": {
+      "$ref": "#/definitions/post_uninstall"
+    },
+    "checkver": {
+      "$ref": "#/definitions/checkver"
+    },
+    "autoupdate": {
+      "title": "Auto Update",
+      "markdownDescription": "- It will automatically update the manifest via [Github Actions](https://github.com/abgox/abyss/blob/main/.github/workflows/excavator.yml)\n - Scoop can install specific versions using `scoop install AppName@1.2.3`\n - The prerequisite is that `url` in the `autoupdate` of the manifest can only contain the following [version variables](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifest-Autoupdate#version-variables)\n    - `$version`\n    - `$majorVersion`,`$minorVersion`,`$patchVersion`,`$buildVersion`,`$preReleaseVersion`\n    - `$dotVersion`,`$dashVersion`,`$underscoreVersion`,`$cleanVersion`\n    - `$matchHead`,`$matchTail`",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "examples": [
+        {
+          "url": ""
+        },
+        {
+          "architecture": {
+            "64bit": {
+              "url": ""
+            }
+          }
+        }
+      ],
+      "properties": {
+        "architecture": {
+          "type": "object",
+          "title": "Auto Update Architecture",
+          "markdownDescription": "- Define the architecture for auto update\n- Architecture can be used to wrap differences",
+          "properties": {
+            "64bit": {
+              "markdownDescription": "- 64bit architecture",
+              "$ref": "#/definitions/autoupdate_architecture"
+            },
+            "32bit": {
+              "markdownDescription": "- 32bit architecture",
+              "$ref": "#/definitions/autoupdate_architecture"
+            },
+            "arm64": {
+              "markdownDescription": "- arm64 architecture",
+              "$ref": "#/definitions/autoupdate_architecture"
+            }
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "notes": {
+          "$ref": "#/definitions/notes"
+        },
+        "url": {
+          "$ref": "#/definitions/autoupdate_url"
+        },
+        "hash": {
+          "$ref": "#/definitions/autoupdate_hash"
+        },
+        "bin": {
+          "$ref": "#/definitions/bin"
+        },
+        "extract_dir": {
+          "$ref": "#/definitions/extract_dir"
+        },
+        "extract_to": {
+          "$ref": "#/definitions/extract_to"
+        },
+        "env_add_path": {
+          "$ref": "#/definitions/env_add_path"
+        },
+        "env_set": {
+          "$ref": "#/definitions/env_set"
+        },
+        "installer": {
+          "$ref": "#/definitions/installer"
+        },
+        "license": {
+          "$ref": "#/definitions/license"
+        },
+        "persist": {
+          "$ref": "#/definitions/persist"
+        },
+        "post_install": {
+          "$ref": "#/definitions/post_install"
+        },
+        "psmodule": {
+          "$ref": "#/definitions/psmodule"
+        },
+        "shortcuts": {
+          "$ref": "#/definitions/shortcuts"
+        }
+      }
+    }
+  },
+  "if": {
+    "required": ["version", "description", "homepage", "license"]
+  },
+  "then": {
+    "allOf": [
+      {
+        "$comment": "If 'checkver' is set, 'autoupdate' must be set.",
+        "allOf": [
+          {
+            "if": {
+              "required": ["checkver"]
+            },
+            "then": {
+              "if": {
+                "required": ["autoupdate"]
+              },
+              "else": {
+                "properties": {
+                  "checkver": {
+                    "not": true,
+                    "errorMessage": "If 'checkver' is set, 'autoupdate' must be set."
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": ["autoupdate"]
+            },
+            "then": {
+              "if": {
+                "required": ["checkver"]
+              },
+              "else": {
+                "properties": {
+                  "autoupdate": {
+                    "not": true,
+                    "errorMessage": "If 'autoupdate' is set, 'checkver' must be set."
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "$comment": "If 'license' is set but 'url' or 'architecture' is not set, a warning is triggered.",
+        "if": {
+          "not": {
+            "anyOf": [
+              {
+                "required": ["url"]
+              },
+              {
+                "required": ["architecture"]
+              }
+            ]
+          }
+        },
+        "then": {
+          "not": {
+            "anyOf": [
+              {
+                "not": {
+                  "required": ["url"]
+                }
+              },
+              {
+                "not": {
+                  "required": ["architecture"]
+                }
+              }
+            ]
+          },
+          "errorMessage": "Missing property 'url' or 'architecture'"
+        }
+      },
+      {
+        "$comment": "If 'url' is set, 'hash' must be set, and 'url' in 'architecture' cannot be set.",
+        "if": {
+          "required": ["url"]
+        },
+        "then": {
+          "allOf": [
+            {
+              "required": ["hash"],
+              "properties": {
+                "hash": {
+                  "examples": [
+                    "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "architecture": {
+                  "patternProperties": {
+                    "^(64bit|32bit|arm64)$": {
+                      "allOf": [
+                        {
+                          "not": {
+                            "required": ["url"]
+                          },
+                          "errorMessage": "Property 'url' in 'architecture' conflicts with the top-level 'url'. You can only choose one way."
+                        },
+                        {
+                          "not": {
+                            "required": ["hash"]
+                          },
+                          "errorMessage": "When the top-level 'url' is set, 'hash' in 'architecture' cannot be set."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "else": {
+          "properties": {
+            "architecture": {
+              "$ref": "#/definitions/architecture_example",
+              "patternProperties": {
+                "^(64bit|32bit|arm64)$": {
+                  "required": ["url"]
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "$comment": "If 'url' is set, when 'url' is a string, 'hash' must be a string, and when 'url' is an array, 'hash' must be an array.",
+        "allOf": [
+          {
+            "if": {
+              "required": ["url"]
+            },
+            "then": {
+              "if": {
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "hash": {
+                    "$ref": "#/definitions/str",
+                    "errorMessage": "When 'url' is a string, 'hash' must be a string."
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "hash": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/hash"
+                    },
+                    "examples": [[]],
+                    "minItems": 1,
+                    "errorMessage": "When 'url' is an array, 'hash' must be an array."
+                  }
+                }
+              }
             },
             "else": {
-                "not": true,
-                "errorMessage": "The architecture must include at least one of 64bit, 32bit, or arm64."
-            },
-            "additionalProperties": false,
-            "properties": {
-                "64bit": {
-                    "markdownDescription": "- 64bit architecture",
-                    "$ref": "#/definitions/architecture_property"
-                },
-                "32bit": {
-                    "markdownDescription": "- 32bit architecture",
-                    "$ref": "#/definitions/architecture_property"
-                },
-                "arm64": {
-                    "markdownDescription": "- arm64 architecture",
-                    "$ref": "#/definitions/architecture_property"
-                }
-            }
-        },
-        "extract_dir": {
-            "title": "Extract only the specified directory",
-            "markdownDescription": "- If the value of the url property points to a compressed package, Scoop will extract all content by default\n    - Compressed package types: `.zip`/`.7z`/`.tar`/`.gz`/`.lzma`/`.lzh`\n- If the extract_dir property is defined, Scoop will only extract the specified directory defined by extract_dir",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "extract_to": {
-            "title": "Extract content to the specified directory",
-            "markdownDescription": "- If the value of the url property points to a compressed package, Scoop will extract all content to the directory defined by extract_to\n  - Compressed package types: `.zip`/`.7z`/`.tar`/`.gz`/`.lzma`/`.lzh`\n- If url is an array with multiple compressed packages, extract_to should also be an array with the same order as url",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "env_add_path": {
-            "title": "Add the specified directory to the PATH environment variable",
-            "markdownDescription": "- Add the specified directory to the PATH environment variable (current user)\n- If the `--global` or `-g` parameter is used during installation, the directory will be added to the PATH environment variable (system level)",
-            "type": [
-                "string",
-                "array"
-            ],
-            "examples": [
-                "",
-                []
-            ],
-            "minLength": 1,
-            "minItems": 1,
-            "uniqueItems": true,
-            "oneOf": [
+              "allOf": [
                 {
-                    "$ref": "#/definitions/str",
+                  "properties": {
+                    "hash": {
+                      "not": true,
+                      "errorMessage": "When the top-level 'url' is not set, the top-level 'hash' cannot be set."
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": ["architecture"]
+            },
+            "then": {
+              "if": {
+                "properties": {
+                  "architecture": {
+                    "patternProperties": {
+                      "^(64bit|32bit|arm64)$": {
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "patternProperties": {
+                      "^(64bit|32bit|arm64)$": {
+                        "required": ["hash"],
+                        "properties": {
+                          "hash": {
+                            "$ref": "#/definitions/str",
+                            "errorMessage": "When 'url' in 'architecture' is a string, 'hash' in 'architecture' must be a string."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "patternProperties": {
+                      "^(64bit|32bit|arm64)$": {
+                        "required": ["hash"],
+                        "properties": {
+                          "hash": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/str"
+                            },
+                            "minItems": 1,
+                            "errorMessage": "When 'url' in 'architecture' is an array, 'hash' in 'architecture' must be an array."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "$comment": "Ensure that the 'architecture' and 'autoupdate.architecture' are consistent.",
+        "if": {
+          "required": ["autoupdate"],
+          "properties": {
+            "autoupdate": {
+              "required": ["architecture"]
+            }
+          }
+        },
+        "then": {
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "autoupdate": {
+                    "properties": {
+                      "architecture": {
+                        "required": ["64bit"]
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "required": ["64bit"]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
                     "if": {
-                        "pattern": "\\$dir"
+                      "required": ["64bit"]
                     },
                     "then": {
-                        "not": true,
-                        "errorMessage": "Cannot use $dir, please use . instead"
-                    }
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/str",
-                        "if": {
-                            "pattern": "\\$dir"
-                        },
-                        "then": {
-                            "not": true,
-                            "errorMessage": "Cannot use $dir, please use . instead"
-                        }
-                    }
-                }
-            ]
-        },
-        "env_set": {
-            "title": "Set environment variables",
-            "markdownDescription": "- Set one or more environment variables for the current user\n- If the `--global` or `-g` parameter is used during installation, the variables will be set in the system environment variables (system level)",
-            "type": "object",
-            "examples": [
-                {}
-            ],
-            "if": {
-                "type": "object"
-            },
-            "then": {
-                "patternProperties": {
-                    "^.+$": {
-                        "$ref": "#/definitions/string_or_string_array",
-                        "examples": [
-                            "",
-                            []
-                        ]
-                    }
-                },
-                "minProperties": 1,
-                "additionalProperties": false,
-                "errorMessage": "Property names cannot be empty strings"
-            }
-        },
-        "psmodule": {
-            "title": "PowerShell module",
-            "markdownDescription": "- Install as a PowerShell module in ~/scoop/modules",
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "examples": [
-                {
-                    "name": ""
-                }
-            ],
-            "properties": {
-                "name": {
-                    "title": "Module name",
-                    "markdownDescription": "- The name of the module, which should match at least one file in the extract directory for PowerShell to recognize it as a module",
-                    "$ref": "#/definitions/str"
-                }
-            },
-            "additionalProperties": false
-        },
-        "bin": {
-            "type": [
-                "string",
-                "array"
-            ],
-            "items": {
-                "type": [
-                    "string",
-                    "array"
-                ],
-                "minLength": 1,
-                "anyOf": [
-                    {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/str"
-                        },
-                        "allOf": [
-                            {
-                                "items": [
-                                    {
-                                        "markdownDescription": "- The name of the program"
-                                    },
-                                    {
-                                        "markdownDescription": "- shim alias"
-                                    },
-                                    {
-                                        "markdownDescription": "- Parameters, which are optional"
-                                    }
-                                ]
-                            },
-                            {
-                                "if": {
-                                    "minItems": 1,
-                                    "maxItems": 1
-                                },
-                                "then": {
-                                    "not": true,
-                                    "errorMessage": "Missing second required value: alias"
-                                }
-                            },
-                            {
-                                "if": {
-                                    "maxItems": 0
-                                },
-                                "then": {
-                                    "not": true,
-                                    "errorMessage": "Missing two required values: program name, alias"
-                                }
-                            }
-                        ],
-                        "minItems": 1,
-                        "maxItems": 3
-                    },
-                    {
-                        "$ref": "#/definitions/str"
-                    }
-                ]
-            },
-            "minLength": 1,
-            "minItems": 1,
-            "uniqueItems": true,
-            "examples": [
-                "",
-                [],
-                [
-                    []
-                ]
-            ],
-            "title": "Program (executable or script) string or string array",
-            "markdownDescription": "- A string or array of strings representing programs (executables or scripts) to be made available on the user's PATH\n- A two-dimensional array can be used to create an alias shim that uses a different name from the real executable and optionally passes arguments to it\n- The inner array must contain at most three strings: program name, alias, arguments (optional)\n- Example 1: Scoop will create a shim named `a`, so you can run a.exe by typing `a`\n```json\n  \"bin\": \"a.exe\"\n  ```\n- Example 2: Same as Example 1, but Scoop creates two shims: `a` and `b`\n```json\n  \"bin\": [\"a.exe\", \"b.exe\"]\n  ```\n- Example 3: Same as Example 2, but the shims are named `ax` and `bx`\n```json\n  \"bin\": [\n    [\"a.exe\", \"ax\"], \n    [\"b.exe\", \"bx\"]\n  ]\n  ```\n- Example 4: Same as Example 3, but running the shims will automatically pass `--config $dir/config.json`\n```json\n  \"bin\": [\n    [\"a.exe\", \"ax\", \"--config $dir/config.json\"], \n    [\"b.exe\", \"bx\", \"--config $dir/config.json\"]\n  ]\n  ```"
-        },
-        "shortcuts": {
-            "type": "array",
-            "title": "Some shortcuts added to the Start menu",
-            "markdownDescription": "- Specifies shortcuts to be added to the Start menu, placed in the `Scoop Apps` folder\n- Each array can contain up to four values:\n    1. Required: path to the target file\n    2. Required: name of the shortcut; subdirectories are supported: `aaa\\bbb`\n    3. Optional: launch arguments\n    4. Optional: path to the icon file",
-            "examples": [
-                [
-                    []
-                ]
-            ],
-            "items": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/definitions/str"
-                },
-                "allOf": [
-                    {
-                        "items": [
-                            {
-                                "markdownDescription": "- Required: path to the target file"
-                            },
-                            {
-                                "markdownDescription": "- Required: name of the shortcut; subdirectories are supported: `aaa\\bbb`"
-                            },
-                            {
-                                "markdownDescription": "- Optional: launch arguments"
-                            },
-                            {
-                                "markdownDescription": "- Optional: path to the icon file"
-                            }
-                        ]
-                    },
-                    {
-                        "if": {
-                            "minItems": 1,
-                            "maxItems": 1
-                        },
-                        "then": {
-                            "not": true,
-                            "errorMessage": "Missing second required value: shortcut name"
-                        }
-                    },
-                    {
-                        "if": {
-                            "maxItems": 0
-                        },
-                        "then": {
-                            "not": true,
-                            "errorMessage": "Missing two required values: target file path, shortcut name"
-                        }
-                    }
-                ],
-                "minItems": 1,
-                "maxItems": 4
-            },
-            "minItems": 1,
-            "uniqueItems": true
-        },
-        "persist": {
-            "title": "Persisted data",
-            "markdownDescription": "- Scoop will persist the specified directories and files.\n- Note: Scoop creates directory junctions by default; if you need file-level linking, create the file first in your install script.\n- Example 1: Directory junction: `$dir\\data` => `$persist_dir\\data`\n```json\n  \"persist\": \"data\"\n  ```\n- Example 2: Same as Ex.1 but multiple items\n```json\n  \"persist\": [\"data\", \"config.json\"]\n  ```\n- Example 3: Same as Ex.2 but with custom target names\n```json\n  \"persist\": [\n    [\"app\\\\data\", \"userData\"], \n    [\"app\\\\config.json\", \"config.json\"]\n  ]\n  ```",
-            "type": [
-                "string",
-                "array"
-            ],
-            "items": {
-                "type": [
-                    "string",
-                    "array"
-                ],
-                "minLength": 1,
-                "anyOf": [
-                    {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/str"
-                        },
-                        "allOf": [
-                            {
-                                "items": [
-                                    {
-                                        "markdownDescription": "- Original file or directory to persist"
-                                    },
-                                    {
-                                        "markdownDescription": "- Target location for the persisted data, supports subdirectories: `aaa\\bbb`"
-                                    }
-                                ]
-                            },
-                            {
-                                "if": {
-                                    "minItems": 1,
-                                    "maxItems": 1
-                                },
-                                "then": {
-                                    "not": true,
-                                    "errorMessage": "Missing second required value: target location for the persisted data"
-                                }
-                            },
-                            {
-                                "if": {
-                                    "maxItems": 0
-                                },
-                                "then": {
-                                    "not": true,
-                                    "errorMessage": "Missing two required values: original file or directory to persist, target location for the persisted data"
-                                }
-                            }
-                        ],
-                        "minItems": 1,
-                        "maxItems": 3
-                    },
-                    {
-                        "$ref": "#/definitions/str"
-                    }
-                ]
-            },
-            "minLength": 1,
-            "minItems": 1,
-            "uniqueItems": true,
-            "examples": [
-                "",
-                [],
-                [
-                    []
-                ]
-            ]
-        },
-        "pre_install": {
-            "title": "Pre-install script",
-            "markdownDescription": "- Commands to be executed before installing the application\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: Currently running subcommand, such as uninstall/update/install\n    - $fname: Downloaded file name (may be multiple files, needs to be treated as an array unless you are sure url is not an array)\n    - $global: If the value is $true, it is installed globally\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop directory",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "installer": {
-            "title": "Installer configuration",
-            "markdownDescription": "- Configuration for running non-MSI installers\n- Called during scoop install and scoop update\n- Execution order: `pre_install` -> `installer` -> `post_install`",
-            "type": "object",
-            "minProperties": 1,
-            "additionalProperties": false,
-            "examples": [
-                {}
-            ],
-            "properties": {
-                "file": {
-                    "markdownDescription": "- Executable file for the installer\n- Defaults to the last downloaded URL if not specified\n- Required if specified in uninstaller",
-                    "$ref": "#/definitions/str"
-                },
-                "script": {
-                    "markdownDescription": "- Execute as an installer instead of a file\n- Available variables in the script:\n    - $fname: downloaded file(s) (may be an array; treat as array unless you are sure url is not an array)\n    - $manifest: validated manifest reference\n    - $architecture: 64bit/32bit/arm64\n    - $dir: installation directory",
-                    "$ref": "#/definitions/string_or_string_array"
-                },
-                "args": {
-                    "type": "array",
-                    "markdownDescription": "- Array of arguments to pass to the installer\n- Optional property",
-                    "items": {
-                        "$ref": "#/definitions/str"
-                    },
-                    "minItems": 1
-                },
-                "keep": {
-                    "markdownDescription": "- Set to true if the installer should be kept after running (e.g., for future uninstallation)\n- If omitted or set to any other value, the installer will be deleted after running",
-                    "$ref": "#/definitions/bool"
-                }
-            }
-        },
-        "post_install": {
-            "title": "Post-install script",
-            "markdownDescription": "- Commands executed after the application is installed\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Note: At this point, Scoop has already completed persist, so if you need to create files for persist, do it before this (in pre_install)\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, e.g. 64bit/32bit/arm64\n    - $cmd: Current running subcommand, e.g. uninstall/update/install\n    - $fname: Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)\n    - $cfg: Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: If value is $true, then it's a global installation\n    - $manifest: Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, e.g. 1.2.3\n    - $dir: Application installation directory (current directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, e.g. D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop installation directory",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "pre_uninstall": {
-            "title": "Pre-uninstall script",
-            "markdownDescription": "- Execute commands before uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: Currently running subcommand, such as uninstall/update/install\n    - $global: If the value is $true, it is globally installed\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Directory where Scoop is located",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "uninstaller": {
-            "title": "Uninstaller configuration",
-            "markdownDescription": "- Configuration for running non-MSI uninstallers\n- Called during scoop uninstall and scoop update\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`",
-            "type": "object",
-            "minProperties": 1,
-            "additionalProperties": false,
-            "examples": [
-                {}
-            ],
-            "properties": {
-                "file": {
-                    "markdownDescription": "- Uninstall the program executable file",
-                    "$ref": "#/definitions/str"
-                },
-                "script": {
-                    "markdownDescription": "- Execute as an uninstaller rather than a file\n- Variables available in the script: \n    - $fname: downloaded file (there may be multiple files, which need to be handled as an array unless you are sure the url is not an array)\n    - $manifest: verified manifest reference\n    - $architecture: 64bit/32bit/arm64\n    - $dir: installation directory",
-                    "$ref": "#/definitions/string_or_string_array"
-                },
-                "args": {
-                    "type": "array",
-                    "markdownDescription": "- Array of arguments to pass to the uninstaller\n- Optional property",
-                    "items": {
-                        "$ref": "#/definitions/str"
-                    },
-                    "minItems": 1
-                }
-            }
-        },
-        "post_uninstall": {
-            "title": "Post-uninstall script",
-            "markdownDescription": "- Used to execute commands after uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \\\"$(appdir otherapp)\\\\current\\\\otherapp.exe\\\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: The currently running subcommand, such as uninstall/update/install\n    - $cfg: Scoop configuration (PowerShell object), such as {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: If the value is $true, it is installed globally\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: The version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: The name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop directory",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "checkver": {
-            "title": "Version check configuration",
-            "markdownDescription": "- Application maintainers and developers can use the bin/checkver tool to check for updates to the application\n- String: RegEx to find the version on the homepage\n- Object: More rich configuration",
-            "type": [
-                "string",
-                "object"
-            ],
-            "examples": [
-                "",
-                "github",
-                {}
-            ],
-            "minLength": 1,
-            "oneOf": [
-                {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "url": {
-                            "markdownDescription": "- URL of the page where the version is located",
-                            "$ref": "#/definitions/str"
-                        },
-                        "github": {
-                            "markdownDescription": "- GitHub repository address of the application",
-                            "$ref": "#/definitions/str",
-                            "if": {
-                                "type": "string"
-                            },
-                            "then": {
-                                "minLength": 1,
-                                "pattern": "^https?://github\\.com/[^/]+/[^/]+/?$",
-                                "not": {
-                                    "pattern": "\\.git(\\/|$)"
-                                },
-                                "errorMessage": "GitHub repository address format error, please use the correct format, such as: https://github.com/abgox/abyss"
-                            }
-                        },
-                        "re": {
-                            "markdownDescription": "- re is an alias for regex\n- RegEx to find the version on the homepage",
-                            "$ref": "#/definitions/str"
-                        },
-                        "regex": {
-                            "markdownDescription": "- RegEx to find the version on the homepage",
-                            "$ref": "#/definitions/str"
-                        },
-                        "jsonpath": {
-                            "markdownDescription": "- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.",
-                            "$ref": "#/definitions/str"
-                        },
-                        "jp": {
-                            "markdownDescription": "- jp is an alias for jsonpath\n- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.",
-                            "$ref": "#/definitions/str"
-                        },
-                        "xpath": {
-                            "markdownDescription": "- XPath expression to find the version on the homepage",
-                            "$ref": "#/definitions/str"
-                        },
-                        "reverse": {
-                            "markdownDescription": "- If set to true, it matches the last occurrence (default is the first occurrence)",
-                            "$ref": "#/definitions/bool"
-                        },
-                        "replace": {
-                            "markdownDescription": "- Replace the matched value with the computed value",
-                            "$ref": "#/definitions/str",
-                            "anyOf": [
-                                {},
-                                {
-                                    "const": "${1}.${2}.${3}.${4}${5}${6}",
-                                    "markdownDescription": "- Replace the matched value with `${1}.${2}.${3}.${4}${5}${6}`, where `${1}` represents the first match group, `${2}` represents the second match group, and so on."
-                                }
-                            ]
-                        },
-                        "useragent": {
-                            "markdownDescription": "- User-Agent used to fetch the webpage content",
-                            "$ref": "#/definitions/str"
-                        },
-                        "script": {
-                            "markdownDescription": "- PowerShell script to track multiple links",
-                            "$ref": "#/definitions/string_or_string_array"
-                        },
-                        "sourceforge": {
-                            "markdownDescription": "- SourceForge project version check configuration",
-                            "$ref": "#/definitions/str"
-                        }
-                    },
-                    "minProperties": 1
-                },
-                {
-                    "$ref": "#/definitions/str",
-                    "anyOf": [
-                        {},
-                        {
-                            "const": "github",
-                            "markdownDescription": "- If the homepage is a GitHub repository homepage, you can use the \"github\" string as the checkver configuration"
-                        }
-                    ]
-                }
-            ]
-        },
-        "autoupdate_url": {
-            "title": "Software download URL",
-            "markdownDescription": "- It is usually dynamic and includes version variables such as: `$version`\n- For example: `https://github.com/owner/repo/releases/download/v$version/xxx.exe`",
-            "type": [
-                "string",
-                "array"
-            ],
-            "examples": [
-                "",
-                []
-            ],
-            "minLength": 1,
-            "minItems": 1,
-            "items": {
-                "$ref": "#/definitions/str"
-            }
-        },
-        "autoupdate_hash": {
-            "markdownDescription": "- Define how to get the hash for the software download",
-            "type": "object",
-            "additionalProperties": false,
-            "minProperties": 1,
-            "properties": {
-                "url": {
-                    "markdownDescription": "- URL template to download the RDF/JSON file or extract the hash",
-                    "$ref": "#/definitions/str"
-                },
-                "regex": {
-                    "markdownDescription": "- Alias: find\nRegEx expression to extract the hash",
-                    "$ref": "#/definitions/str"
-                },
-                "find": {
-                    "markdownDescription": "- Alias: regex\nRegEx expression to extract the hash",
-                    "$ref": "#/definitions/str"
-                },
-                "mode": {
-                    "title": "Hash retrieval mode",
-                    "oneOf": [
-                        {
-                            "const": "github",
-                            "markdownDescription": "- Get the hash generated by GitHub automatically, for more details, please refer to [GitHub blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
-                        },
-                        {
-                            "const": "extract",
-                            "markdownDescription": "- Extract the hash from a plain text file or web page using RegEx (default, can be omitted)"
-                        },
-                        {
-                            "const": "json",
-                            "markdownDescription": "- Extract the hash from a JSON file using JSONPath"
-                        },
-                        {
-                            "const": "xpath",
-                            "markdownDescription": "- Extract the hash from an XML file using XPath"
-                        },
-                        {
-                            "const": "rdf",
-                            "markdownDescription": "- Extract the hash from an RDF file"
-                        },
-                        {
-                            "const": "metalink",
-                            "markdownDescription": "- Extract the hash from a Metalink header file or .meta4 file"
-                        },
-                        {
-                            "const": "fosshub",
-                            "markdownDescription": "- Predefined for FossHub"
-                        },
-                        {
-                            "const": "sourceforge",
-                            "markdownDescription": "- Predefined for SourceForge"
-                        },
-                        {
-                            "const": "download",
-                            "markdownDescription": "- Download the application file and hash it locally (fallback)"
-                        }
-                    ]
-                },
-                "jp": {
-                    "markdownDescription": "- Alias: jsonpath\nJSONPath expression to extract the hash",
-                    "$ref": "#/definitions/str"
-                },
-                "jsonpath": {
-                    "markdownDescription": "- Alias: jp\nJSONPath expression to extract the hash",
-                    "$ref": "#/definitions/str"
-                },
-                "xpath": {
-                    "markdownDescription": "- XPath expression to extract the hash value",
-                    "$ref": "#/definitions/str"
-                }
-            }
-        },
-        "autoupdate_architecture": {
-            "required": [
-                "url"
-            ],
-            "properties": {
-                "url": {
-                    "$ref": "#/definitions/autoupdate_url"
-                },
-                "hash": {
-                    "$ref": "#/definitions/autoupdate_hash"
-                },
-                "bin": {
-                    "$ref": "#/definitions/bin"
-                },
-                "checkver": {
-                    "$ref": "#/definitions/checkver"
-                },
-                "env_add_path": {
-                    "$comment": "This property is not specified in the official schema, but it is actually available",
-                    "$ref": "#/definitions/env_add_path"
-                },
-                "extract_dir": {
-                    "$ref": "#/definitions/extract_dir"
-                },
-                "installer": {
-                    "$ref": "#/definitions/installer"
-                },
-                "pre_install": {
-                    "$ref": "#/definitions/pre_install"
-                },
-                "post_install": {
-                    "$ref": "#/definitions/post_install"
-                },
-                "shortcuts": {
-                    "$ref": "#/definitions/shortcuts"
-                },
-                "uninstaller": {
-                    "$ref": "#/definitions/uninstaller"
-                }
-            },
-            "minProperties": 1,
-            "additionalProperties": false
-        }
-    },
-    "properties": {
-        "##": {
-            "title": "Comment",
-            "markdownDescription": "- Comment for the reader or maintainer of this manifest.",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "version": {
-            "title": "Software Version",
-            "markdownDescription": "- The version number of the software",
-            "$ref": "#/definitions/str",
-            "examples": [
-                "0.0.0"
-            ],
-            "anyOf": [
-                {},
-                {
-                    "const": "0.0.0",
-                    "markdownDescription": "- The version number is 0.0.0"
-                },
-                {
-                    "const": "nightly",
-                    "markdownDescription": "- The version number is nightly"
-                }
-            ]
-        },
-        "description": {
-            "title": "Software Description",
-            "markdownDescription": "- A short description of the software",
-            "type": "string",
-            "minLength": 1
-        },
-        "homepage": {
-            "title": "Software Homepage",
-            "markdownDescription": "- The homepage or repository URL of the software",
-            "examples": [
-                ""
-            ],
-            "allOf": [
-                {
-                    "$ref": "#/definitions/str"
-                },
-                {
-                    "$ref": "#/definitions/url_validation"
-                }
-            ],
-            "$comment": "In Scoop's manifest version check, the homepage root domain should end with '/' to avoid access errors",
-            "if": {
-                "pattern": "^https?://[^/]+$"
-            },
-            "then": {
-                "not": true,
-                "errorMessage": "If it is the homepage root domain, please end with '/'."
-            }
-        },
-        "license": {
-            "$ref": "#/definitions/license"
-        },
-        "depends": {
-            "title": "Dependencies",
-            "markdownDescription": "- The necessary dependencies of the application\n- If any of the dependencies are not installed, they will be automatically installed before the application is installed\n- If a dependency is optional, please use the `suggest` property",
-            "$ref": "#/definitions/string_or_string_array"
-        },
-        "suggest": {
-            "title": "Suggested Dependencies",
-            "markdownDescription": "- Suggested optional applications for additional features\n- If any of the suggested applications for a feature are already installed, the feature will be considered as **implemented** and the user will not see any suggestions for that feature",
-            "type": "object",
-            "if": {
-                "type": "object"
-            },
-            "then": {
-                "patternProperties": {
-                    "^.+$": {
-                        "markdownDescription": "- If any of the suggested applications for a feature are already installed, the feature will be considered as **implemented** and the user will not see any suggestions for that feature\n- If a feature is an array, it means that if any of the applications in the array are installed, the feature will be considered as **implemented** and the user will not see any suggestions for that feature",
-                        "$ref": "#/definitions/string_or_string_array"
-                    }
-                },
-                "minProperties": 1,
-                "additionalProperties": false,
-                "errorMessage": "Property name cannot be an empty string"
-            }
-        },
-        "notes": {
-            "$ref": "#/definitions/notes"
-        },
-        "url": {
-            "$ref": "#/definitions/url"
-        },
-        "hash": {
-            "$ref": "#/definitions/hash"
-        },
-        "architecture": {
-            "$ref": "#/definitions/architecture"
-        },
-        "extract_dir": {
-            "$ref": "#/definitions/extract_dir"
-        },
-        "extract_to": {
-            "$ref": "#/definitions/extract_to"
-        },
-        "env_add_path": {
-            "$ref": "#/definitions/env_add_path"
-        },
-        "env_set": {
-            "$ref": "#/definitions/env_set"
-        },
-        "innosetup": {
-            "markdownDescription": "- Set to true if the installer is based on InnoSetup",
-            "$ref": "#/definitions/bool"
-        },
-        "psmodule": {
-            "$ref": "#/definitions/psmodule"
-        },
-        "bin": {
-            "$ref": "#/definitions/bin"
-        },
-        "shortcuts": {
-            "$ref": "#/definitions/shortcuts"
-        },
-        "persist": {
-            "$ref": "#/definitions/persist"
-        },
-        "pre_install": {
-            "$ref": "#/definitions/pre_install"
-        },
-        "installer": {
-            "$ref": "#/definitions/installer"
-        },
-        "post_install": {
-            "$ref": "#/definitions/post_install"
-        },
-        "pre_uninstall": {
-            "$ref": "#/definitions/pre_uninstall"
-        },
-        "uninstaller": {
-            "$ref": "#/definitions/uninstaller"
-        },
-        "post_uninstall": {
-            "$ref": "#/definitions/post_uninstall"
-        },
-        "checkver": {
-            "$ref": "#/definitions/checkver"
-        },
-        "autoupdate": {
-            "title": "Auto Update",
-            "markdownDescription": "- It will automatically update the manifest via [Github Actions](https://github.com/abgox/abyss/blob/main/.github/workflows/excavator.yml)\n - Scoop allows installing a specific version using `scoop install AppName@1.2.3`\n - However, the prerequisite is that all `url`s in the `autoupdate` section of the manifest can only contain the following [version variables](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifest-Autoupdate#version-variables)\n    - `$version`\n    - `$majorVersion`, `$minorVersion`, `$patchVersion`, `$buildVersion`, `$preReleaseVersion`\n    - `$dotVersion`, `$dashVersion`, `$underscoreVersion`, `$cleanVersion`\n    - `$matchHead`, `$matchTail`",
-            "type": "object",
-            "additionalProperties": false,
-            "minProperties": 1,
-            "examples": [
-                {
-                    "url": ""
-                },
-                {
-                    "architecture": {
+                      "properties": {
                         "64bit": {
-                            "url": ""
+                          "not": true,
+                          "errorMessage": "When 'autoupdate.architecture' does not set '64bit', 'architecture' must not set '64bit'."
                         }
+                      }
                     }
+                  }
                 }
-            ],
-            "properties": {
-                "architecture": {
-                    "type": "object",
-                    "title": "Auto Update Architecture",
-                    "markdownDescription": "- Define the architectures for auto update\n- Architectures can be used to wrap differences",
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "autoupdate": {
                     "properties": {
-                        "64bit": {
-                            "markdownDescription": "- 64bit architecture",
-                            "$ref": "#/definitions/autoupdate_architecture"
-                        },
+                      "architecture": {
+                        "required": ["32bit"]
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "required": ["32bit"]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "if": {
+                      "required": ["32bit"]
+                    },
+                    "then": {
+                      "properties": {
                         "32bit": {
-                            "markdownDescription": "- 32bit architecture",
-                            "$ref": "#/definitions/autoupdate_architecture"
-                        },
+                          "not": true,
+                          "errorMessage": "When 'autoupdate.architecture' does not set '32bit', 'architecture' must not set '32bit'."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "autoupdate": {
+                    "properties": {
+                      "architecture": {
+                        "required": ["arm64"]
+                      }
+                    }
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "architecture": {
+                    "required": ["arm64"]
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "architecture": {
+                    "if": {
+                      "required": ["arm64"]
+                    },
+                    "then": {
+                      "properties": {
                         "arm64": {
-                            "markdownDescription": "- arm64 architecture",
-                            "$ref": "#/definitions/autoupdate_architecture"
+                          "not": true,
+                          "errorMessage": "When 'autoupdate.architecture' does not set 'arm64', 'architecture' must not set 'arm64'."
                         }
-                    },
-                    "additionalProperties": false,
-                    "minProperties": 1
-                },
-                "notes": {
-                    "$ref": "#/definitions/notes"
-                },
-                "url": {
-                    "$ref": "#/definitions/autoupdate_url"
-                },
-                "hash": {
-                    "$ref": "#/definitions/autoupdate_hash"
-                },
-                "bin": {
-                    "$ref": "#/definitions/bin"
-                },
-                "extract_dir": {
-                    "$ref": "#/definitions/extract_dir"
-                },
-                "extract_to": {
-                    "$ref": "#/definitions/extract_to"
-                },
-                "env_add_path": {
-                    "$ref": "#/definitions/env_add_path"
-                },
-                "env_set": {
-                    "$ref": "#/definitions/env_set"
-                },
-                "installer": {
-                    "$ref": "#/definitions/installer"
-                },
-                "license": {
-                    "$ref": "#/definitions/license"
-                },
-                "persist": {
-                    "$ref": "#/definitions/persist"
-                },
-                "post_install": {
-                    "$ref": "#/definitions/post_install"
-                },
-                "psmodule": {
-                    "$ref": "#/definitions/psmodule"
-                },
-                "shortcuts": {
-                    "$ref": "#/definitions/shortcuts"
+                      }
+                    }
+                  }
                 }
+              }
             }
+          ]
         }
-    },
-    "if": {
-        "required": [
-            "version",
-            "description",
-            "homepage",
-            "license"
-        ]
-    },
-    "then": {
-        "allOf": [
-            {
-                "$comment": "If checkver is defined, then autoupdate must be defined",
-                "allOf": [
-                    {
-                        "if": {
-                            "required": [
-                                "checkver"
-                            ]
-                        },
-                        "then": {
-                            "if": {
-                                "required": [
-                                    "autoupdate"
-                                ]
-                            },
-                            "else": {
-                                "properties": {
-                                    "checkver": {
-                                        "not": true,
-                                        "errorMessage": "If checkver is defined, then autoupdate must be defined"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    {
-                        "if": {
-                            "required": [
-                                "autoupdate"
-                            ]
-                        },
-                        "then": {
-                            "if": {
-                                "required": [
-                                    "checkver"
-                                ]
-                            },
-                            "else": {
-                                "properties": {
-                                    "autoupdate": {
-                                        "not": true,
-                                        "errorMessage": "If autoupdate is defined, then checkver must be defined"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                "$comment": "If license is defined, then url or architecture must be defined",
-                "if": {
-                    "not": {
-                        "anyOf": [
-                            {
-                                "required": [
-                                    "url"
-                                ]
-                            },
-                            {
-                                "required": [
-                                    "architecture"
-                                ]
-                            }
-                        ]
-                    }
-                },
-                "then": {
-                    "not": {
-                        "anyOf": [
-                            {
-                                "not": {
-                                    "required": [
-                                        "url"
-                                    ]
-                                }
-                            },
-                            {
-                                "not": {
-                                    "required": [
-                                        "architecture"
-                                    ]
-                                }
-                            }
-                        ]
-                    },
-                    "errorMessage": "Missing url or architecture attribute"
-                }
-            },
-            {
-                "$comment": "If url is defined, then hash must be defined",
-                "if": {
-                    "required": [
-                        "url"
-                    ]
-                },
-                "then": {
-                    "allOf": [
-                        {
-                            "required": [
-                                "hash"
-                            ],
-                            "properties": {
-                                "hash": {
-                                    "examples": [
-                                        "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
-                                    ]
-                                }
-                            }
-                        },
-                        {
-                            "properties": {
-                                "architecture": {
-                                    "patternProperties": {
-                                        "^(64bit|32bit|arm64)$": {
-                                            "allOf": [
-                                                {
-                                                    "not": {
-                                                        "required": [
-                                                            "url"
-                                                        ]
-                                                    },
-                                                    "errorMessage": "The URL in the architecture conflicts with the top-level URL; you can only choose one of the methods."
-                                                },
-                                                {
-                                                    "not": {
-                                                        "required": [
-                                                            "hash"
-                                                        ]
-                                                    },
-                                                    "errorMessage": "When the top-level url is defined, then hash must be defined in the architecture."
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                "else": {
-                    "properties": {
-                        "architecture": {
-                            "$ref": "#/definitions/architecture_example",
-                            "patternProperties": {
-                                "^(64bit|32bit|arm64)$": {
-                                    "required": [
-                                        "url"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "$comment": "If a URL exists, when the URL is a string, the hash must be a string; when the URL is an array, the hash must be an array.",
-                "allOf": [
-                    {
-                        "if": {
-                            "required": [
-                                "url"
-                            ]
-                        },
-                        "then": {
-                            "if": {
-                                "properties": {
-                                    "url": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "then": {
-                                "properties": {
-                                    "hash": {
-                                        "$ref": "#/definitions/str",
-                                        "errorMessage": "When the url is a string, the hash must also be a string."
-                                    }
-                                }
-                            },
-                            "else": {
-                                "properties": {
-                                    "hash": {
-                                        "type": "array",
-                                        "items": {
-                                            "$ref": "#/definitions/hash"
-                                        },
-                                        "examples": [
-                                            []
-                                        ],
-                                        "minItems": 1,
-                                        "errorMessage": "When the url is an array, the hash must also be an array."
-                                    }
-                                }
-                            }
-                        },
-                        "else": {
-                            "allOf": [
-                                {
-                                    "properties": {
-                                        "hash": {
-                                            "not": true,
-                                            "errorMessage": "When there is no url, defining a hash is prohibited."
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "if": {
-                            "required": [
-                                "architecture"
-                            ]
-                        },
-                        "then": {
-                            "if": {
-                                "properties": {
-                                    "architecture": {
-                                        "patternProperties": {
-                                            "^(64bit|32bit|arm64)$": {
-                                                "properties": {
-                                                    "url": {
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "then": {
-                                "properties": {
-                                    "architecture": {
-                                        "patternProperties": {
-                                            "^(64bit|32bit|arm64)$": {
-                                                "required": [
-                                                    "hash"
-                                                ],
-                                                "properties": {
-                                                    "hash": {
-                                                        "$ref": "#/definitions/str",
-                                                        "errorMessage": "When the url in the architecture is a string, the hash in the architecture must also be a string."
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "else": {
-                                "properties": {
-                                    "architecture": {
-                                        "patternProperties": {
-                                            "^(64bit|32bit|arm64)$": {
-                                                "required": [
-                                                    "hash"
-                                                ],
-                                                "properties": {
-                                                    "hash": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "$ref": "#/definitions/str"
-                                                        },
-                                                        "minItems": 1,
-                                                        "errorMessage": "When the url in the architecture is an array, the hash in the architecture must also be an array."
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                "$comment": "Ensure that the architecture and autoupdate.architecture are consistent.",
-                "if": {
-                    "required": [
-                        "autoupdate"
-                    ],
-                    "properties": {
-                        "autoupdate": {
-                            "required": [
-                                "architecture"
-                            ]
-                        }
-                    }
-                },
-                "then": {
-                    "allOf": [
-                        {
-                            "if": {
-                                "properties": {
-                                    "autoupdate": {
-                                        "properties": {
-                                            "architecture": {
-                                                "required": [
-                                                    "64bit"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "then": {
-                                "properties": {
-                                    "architecture": {
-                                        "required": [
-                                            "64bit"
-                                        ]
-                                    }
-                                }
-                            },
-                            "else": {
-                                "properties": {
-                                    "architecture": {
-                                        "if": {
-                                            "required": [
-                                                "64bit"
-                                            ]
-                                        },
-                                        "then": {
-                                            "properties": {
-                                                "64bit": {
-                                                    "not": true,
-                                                    "errorMessage": "The architecture in autoupdate does not have a corresponding architecture defined."
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "if": {
-                                "properties": {
-                                    "autoupdate": {
-                                        "properties": {
-                                            "architecture": {
-                                                "required": [
-                                                    "32bit"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "then": {
-                                "properties": {
-                                    "architecture": {
-                                        "required": [
-                                            "32bit"
-                                        ]
-                                    }
-                                }
-                            },
-                            "else": {
-                                "properties": {
-                                    "architecture": {
-                                        "if": {
-                                            "required": [
-                                                "32bit"
-                                            ]
-                                        },
-                                        "then": {
-                                            "properties": {
-                                                "32bit": {
-                                                    "not": true,
-                                                    "errorMessage": "The architecture in autoupdate does not have a corresponding architecture defined."
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "if": {
-                                "properties": {
-                                    "autoupdate": {
-                                        "properties": {
-                                            "architecture": {
-                                                "required": [
-                                                    "arm64"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "then": {
-                                "properties": {
-                                    "architecture": {
-                                        "required": [
-                                            "arm64"
-                                        ]
-                                    }
-                                }
-                            },
-                            "else": {
-                                "properties": {
-                                    "architecture": {
-                                        "if": {
-                                            "required": [
-                                                "arm64"
-                                            ]
-                                        },
-                                        "then": {
-                                            "properties": {
-                                                "arm64": {
-                                                    "not": true,
-                                                    "errorMessage": "The architecture in autoupdate does not have a corresponding architecture defined."
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        ]
-    }
+      }
+    ]
+  }
 }

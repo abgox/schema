@@ -2,7 +2,7 @@
   "$comment": "请使用 vscode，否则 markdownDescription 可能无效",
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-  "title": "Schema for Scoop manifest",
+  "title": "Scoop 软件包清单(manifest) 的 JSON Schema",
   "type": "object",
   "required": ["version", "description", "homepage", "license"],
   "definitions": {
@@ -189,7 +189,7 @@
     },
     "license": {
       "title": "软件许可证",
-      "markdownDescription": "- 指定软件的许可证或类型字段\n- 如果没有许可证的相关说明和 url 地址，且符合 `Freeware`、`Proprietary`、`Public Domain`、`Shareware`、`Unknown` 之一，必须使用字符串\n- 如果是其他情况，必须使用对象，然后指定 `identifier` 和 `url`，`url` 不是必须的\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
+      "markdownDescription": "- 指定软件的许可证或类型字段\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://opensource.org/license\n- https://spdx.org/licenses",
       "type": ["string", "object"],
       "examples": [{}],
       "minLength": 1,
@@ -208,7 +208,7 @@
         "properties": {
           "identifier": {
             "title": "许可证标识符",
-            "markdownDescription": "- 软件的许可证标识符\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://spdx.org/licenses\n- https://opensource.org/license",
+            "markdownDescription": "- 指定软件的许可证\n- 如果不同的文件具有不同的许可证，请使用逗号 `,` 分隔许可证。如果整个应用程序是双重许可的 ，则使用 `|`\n- https://opensource.org/license\n- https://spdx.org/licenses",
             "$ref": "#/definitions/str",
             "anyOf": [
               {
@@ -249,7 +249,7 @@
     },
     "url": {
       "title": "软件下载地址",
-      "markdownDescription": "- 要下载的文件的 URL\n- 如果有多个 URL，可以使用数组\n```json\n  \"url\": [\n      \"http://example.com/file1.zip\",\n      \"http://example.com/file2.zip\"\n  ]\n  ```\n- 如果需要更改下载 URL 的文件名，可以在 URL 结尾加上 `#/dl.7z`，例如:\n```json\n  \"url\": \"http://example.org/program.exe#/dl.7z\"\n  ```\n- Scoop 将下载 program.exe ，但将其保存为 dl.7z ，然后将使用 7-Zip 自动提取\n    - 它通常用于 Scoop 清单中，以绕过可能具有不良副作用的可执行安装程序，如注册表更改，放置在安装目录外的文件或管理员提升提示",
+      "markdownDescription": "- 要下载的文件的 URL\n- 如果有多个 URL，可以使用数组\n```json\n  \"url\": [\n      \"http://example.com/file1.zip\",\n      \"http://example.com/file2.zip\"\n  ]\n  ```\n- 如果需要更改下载 URL 的文件名，可以在 URL 结尾加上 `#/dl.7z`，例如:\n```json\n  \"url\": \"http://example.org/program.exe#/dl.7z\"\n  ```\n- Scoop 将下载 program.exe ，但将其保存为 dl.7z ，然后将使用 7-Zip 自动提取",
       "examples": [
         "https://github.com/abgox/abyss/releases/download/empty/empty"
       ],
@@ -453,7 +453,7 @@
     },
     "psmodule": {
       "title": "PowerShell 模块",
-      "markdownDescription": "- 作为 PowerShell 模块安装在 ~/scoop/modules 中",
+      "markdownDescription": "- 作为 PowerShell 模块安装在 `$scoopdir/modules` 中",
       "type": "object",
       "required": ["name"],
       "examples": [
@@ -488,7 +488,7 @@
                     "markdownDescription": "- 程序名"
                   },
                   {
-                    "markdownDescription": "- shim 别名"
+                    "markdownDescription": "- 别名 (shim)"
                   },
                   {
                     "markdownDescription": "- 参数，它是可选的"
@@ -502,7 +502,7 @@
                 },
                 "then": {
                   "not": true,
-                  "errorMessage": "缺少第二个必需值: 别名"
+                  "errorMessage": "缺少第二个必需值: 别名 (shim)"
                 }
               },
               {
@@ -511,7 +511,7 @@
                 },
                 "then": {
                   "not": true,
-                  "errorMessage": "缺少两个必需值: 程序名、别名"
+                  "errorMessage": "缺少两个必需值: 程序名、别名 (shim)"
                 }
               }
             ],
@@ -642,7 +642,7 @@
     },
     "pre_install": {
       "title": "预安装脚本",
-      "markdownDescription": "- 用于在安装应用程序之前执行命令\n- 执行顺序: `pre_install` -> `installer` -> `post_install`\n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $fname: 下载的文件名(可能是多个文件，需要当做数组处理，除非你确定 url 不是数组)\n    - $global: 如果值为$true，则全局安装\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(实际版本号目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
+      "markdownDescription": "- 用于在安装应用程序之前执行命令\n- 执行顺序: `pre_install` -> `installer` -> `post_install`\n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $fname: 下载的文件名(可能是多个文件，需要当做数组处理，除非你确定 url 不是数组)\n    - $global: 如果安装时使用了 `-g` 或 `--global`，则为 `$true`\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(实际版本号目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
       "$ref": "#/definitions/string_or_string_array"
     },
     "installer": {
@@ -677,12 +677,12 @@
     },
     "post_install": {
       "title": "后安装脚本",
-      "markdownDescription": "- 用于在安装应用程序之后执行命令\n- 执行顺序: `pre_install` -> `installer` -> `post_install`\n- 需要注意，此时 Scoop 已经完成 persist，因此如果需要创建文件用于 persist，需要在这之前(pre_install 中) \n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $fname: 下载的文件名(可能是多个文件，需要当做数组处理，除非你确定 url 不是数组)\n    - $cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: 如果值为$true，则全局安装\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(current 目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
+      "markdownDescription": "- 用于在安装应用程序之后执行命令\n- 执行顺序: `pre_install` -> `installer` -> `post_install`\n- 需要注意，此时 Scoop 已经完成 persist，因此如果需要创建文件用于 persist，需要在这之前(pre_install 中) \n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $fname: 下载的文件名(可能是多个文件，需要当做数组处理，除非你确定 url 不是数组)\n    - $cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: 如果安装时使用了 `-g` 或 `--global`，则为 `$true`\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(current 目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
       "$ref": "#/definitions/string_or_string_array"
     },
     "pre_uninstall": {
       "title": "预卸载脚本",
-      "markdownDescription": "- 用于在卸载应用程序之前执行命令\n- 执行顺序: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $global: 如果值为$true，则全局安装\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(实际版本号目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
+      "markdownDescription": "- 用于在卸载应用程序之前执行命令\n- 执行顺序: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $global: 如果安装时使用了 `-g` 或 `--global`，则为 `$true`\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(实际版本号目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
       "$ref": "#/definitions/string_or_string_array"
     },
     "uninstaller": {
@@ -713,7 +713,7 @@
     },
     "post_uninstall": {
       "title": "后卸载脚本",
-      "markdownDescription": "- 用于在卸载应用程序之后执行命令\n- 执行顺序: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: 如果值为$true，则全局安装\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(实际版本号目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
+      "markdownDescription": "- 用于在卸载应用程序之后执行命令\n- 执行顺序: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- 可以使用的函数:\n    - appdir: 参考另一个独家应用程序。\n例如，要检查是否安装了另一个应用程序，可以使用 \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- 可以使用的变量：\n    - $app: 应用程序名称(应用清单名称)\n    - $architecture: 所安装应用程序的 CPU 架构，如 64bit/32bit/arm64\n    - $cmd: 当前正在运行的子命令，如 uninstall/update/install\n    - $cfg: Scoop 配置(PowerShell 对象)，如 {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: 如果安装时使用了 `-g` 或 `--global`，则为 `$true`\n    - $manifest: 反序列化清单(PowerShell 对象)，如 @{version=1.2.3; description=xxx;...}\n    - $version: 正在安装的版本，如 1.2.3\n    - $dir: 应用程序安装目录(实际版本号目录)\n    - $persist_dir: 数据持久化目录\n    - $bucketsdir: Scoop buckets 目录，如 D:\\scoop\\buckets\n    - $bucket: 当前安装应用所属于的 bucket 名称\n    - $cachedir: Scoop cache 目录\n    - $configFile: Scoop 配置的路径\n    - $globaldir: 全局安装目录\n    - $modulesdir: Scoop modules 目录\n    - $original_dir: 应用程序安装目录(实际版本号目录)\n    - $scoopdir: Scoop 所在目录",
       "$ref": "#/definitions/string_or_string_array"
     },
     "checkver": {
@@ -975,7 +975,6 @@
           "$ref": "#/definitions/url_validation"
         }
       ],
-      "$comment": "在 Scoop 的应用清单版本检查中，官网根域名以 '/' 结尾，可以避免一些访问错误",
       "if": {
         "pattern": "^https?://[^/]+$"
       },
@@ -1036,7 +1035,7 @@
       "$ref": "#/definitions/env_set"
     },
     "innosetup": {
-      "markdownDescription": "- 如果安装程序基于 InnoSetup，则设置为 true",
+      "markdownDescription": "- 如果安装程序基于 `InnoSetup`，则设置为 `true`",
       "$ref": "#/definitions/bool"
     },
     "psmodule": {
