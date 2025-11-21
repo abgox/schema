@@ -51,39 +51,39 @@
   - 安装 [json-schema-plus](https://json-schema-plus.abgox.com) 扩展，它为 JSON Schema 提供了多语言的动态架构匹配
   - 配置 `json-schema-plus.schemas`
 
-  ```json
-    "json-schema-plus.schemas": [
-      {
-        "fileMatch": ["bucket/**/*.json"],
-        "urls": [
-          {
-            "language": "zh",
-            "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
-          },
-        ],
-        "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
-      }
-    ]
-  ```
+    ```json
+      "json-schema-plus.schemas": [
+        {
+          "fileMatch": ["bucket/**/*.json"],
+          "urls": [
+            {
+              "language": "zh",
+              "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+            },
+          ],
+          "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
+        }
+      ]
+    ```
 
-  <details>
+    <details>
 
-  <summary>使用内置的 json.schemas 配置</summary>
+    <summary>使用内置的 json.schemas 配置</summary>
 
-  > [settings.json](https://code.visualstudio.com/docs/configure/settings) 中定义的 `json.schemas` 优先级低于扩展提供的 schema，参考 [issue](https://github.com/microsoft/vscode/issues/219855)
+    > [settings.json](https://code.visualstudio.com/docs/configure/settings) 中定义的 `json.schemas` 优先级低于扩展提供的 schema，参考 [issue](https://github.com/microsoft/vscode/issues/219855)
 
-  ```json
-    "json.schemas": [
-      {
-        "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-        "fileMatch": [
-            "bucket/**/*.json"
-        ]
-      }
-    ]
-  ```
+    ```json
+      "json.schemas": [
+        {
+          "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+          "fileMatch": [
+              "bucket/**/*.json"
+          ]
+        }
+      ]
+    ```
 
-  </details>
+    </details>
 
 - JetBrains IDE: `设置` => `语言与框架` => `架构和 DTD` => `JSON 架构映射`
 

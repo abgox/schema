@@ -49,41 +49,41 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
 - Define in the [settings.json](https://code.visualstudio.com/docs/configure/settings) of vscode.
 
   - Install the [json-schema-plus](https://json-schema-plus.abgox.com) extension, it provides multilingual dynamic schema matching for JSON Schema.
-  - Configure `json-schema-plus.schemas`
+  - Configure `json-schema-plus.schemas`.
 
-  ```json
-    "json-schema-plus.schemas": [
-      {
-        "fileMatch": ["bucket/**/*.json"],
-        "urls": [
-          {
-            "language": "zh",
-            "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
-          },
-        ],
-        "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
-      }
-    ]
-  ```
+    ```json
+      "json-schema-plus.schemas": [
+        {
+          "fileMatch": ["bucket/**/*.json"],
+          "urls": [
+            {
+              "language": "zh",
+              "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+            },
+          ],
+          "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
+        }
+      ]
+    ```
 
-  <details>
+    <details>
 
-  <summary>Use the built-in 'json.schemas' configuration</summary>
+    <summary>Use the built-in 'json.schemas' configuration</summary>
 
-  > The `json.schemas` defined in [settings.json](https://code.visualstudio.com/docs/configure/settings) has lower priority than the schema provided by the extension, please refer to [the issue](https://github.com/microsoft/vscode/issues/219855).
+    > The `json.schemas` defined in [settings.json](https://code.visualstudio.com/docs/configure/settings) has lower priority than the schema provided by the extension, please refer to [the issue](https://github.com/microsoft/vscode/issues/219855).
 
-  ```json
-    "json.schemas": [
-      {
-        "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-        "fileMatch": [
-            "bucket/**/*.json"
-        ]
-      }
-    ]
-  ```
+    ```json
+      "json.schemas": [
+        {
+          "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
+          "fileMatch": [
+              "bucket/**/*.json"
+          ]
+        }
+      ]
+    ```
 
-  </details>
+    </details>
 
 - JetBrains IDE: `Settings` => `Languages & Frameworks` => `Schemas and DTDS`=>`JSON Schema Mappings`
 
