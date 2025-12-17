@@ -82,7 +82,7 @@
           "markdownDescription": "- GNU General Public License v2.0 only\n- https://spdx.org/licenses/GPL-2.0-only.html"
         },
         {
-          "const": "GPL-2.0-or-l-or-later",
+          "const": "GPL-2.0-or-later",
           "markdownDescription": "- GNU General Public License v2.0 or later\n- https://spdx.org/licenses/GPL-2.0-or-later.html"
         },
         {
@@ -184,6 +184,10 @@
         {
           "const": "WTFPL",
           "markdownDescription": "- Do What The F*ck You Want To Public License\n- https://spdx.org/licenses/WTFPL.html"
+        },
+        {
+          "const": "OSL-3.0",
+          "markdownDescription": "- Open Software License 3.0\n- https://spdx.org/licenses/OSL-3.0.html"
         }
       ]
     },
@@ -384,41 +388,16 @@
     },
     "env_add_path": {
       "title": "Add the specified directory to the PATH environment variable",
-      "markdownDescription": "- Add the specified directory to the PATH environment variable (current user)\n- If the `--global` or `-g` parameter is used during installation, the directory will be added to the PATH environment variable (system level)",
+      "markdownDescription": "- Add the specified directory to the PATH environment variable (current user)\n- If you want to specify the `$dir` directory, please use `.` instead.\n- If the `--global` or `-g` parameter is used during installation, the directory will be added to the PATH environment variable (system level)",
       "type": ["string", "array"],
       "examples": ["", []],
       "minLength": 1,
       "minItems": 1,
-      "uniqueItems": true,
-      "oneOf": [
-        {
-          "$ref": "#/definitions/str",
-          "if": {
-            "pattern": "\\$dir"
-          },
-          "then": {
-            "not": true,
-            "errorMessage": "Cannot use $dir, please use . instead"
-          }
-        },
-        {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/str",
-            "if": {
-              "pattern": "\\$dir"
-            },
-            "then": {
-              "not": true,
-              "errorMessage": "Cannot use $dir, please use . instead"
-            }
-          }
-        }
-      ]
+      "uniqueItems": true
     },
     "env_set": {
       "title": "Set environment variables",
-      "markdownDescription": "- Set one or more environment variables (current user)\n- If the `--global` or `-g` parameter is used during installation, the variables will be set in the system environment variables (system level)",
+      "markdownDescription": "- Set one or more environment variables (current user)\n- If the `--global` or `-g` parameter is used during installation, the variables will be set in the system environment variables (system level)\n- Available variables:\n  - `$dir`\n  - `$persist_dir`\n  - `$env:UserProfile`\n  - `$env:AppData`\n  - ...",
       "type": "object",
       "examples": [{}],
       "if": {
@@ -427,8 +406,8 @@
       "then": {
         "patternProperties": {
           "^.+$": {
-            "$ref": "#/definitions/string_or_string_array",
-            "examples": ["", []]
+            "$ref": "#/definitions/str",
+            "examples": ["$dir\\xxx", "$persist_dir\\xxx"]
           }
         },
         "minProperties": 1,
@@ -739,11 +718,11 @@
               "examples": ["(.+)"]
             },
             "jsonpath": {
-              "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.",
+              "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
               "$ref": "#/definitions/str"
             },
             "jp": {
-              "markdownDescription": "jp is an alias for jsonpath\n- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.",
+              "markdownDescription": "jp is an alias for jsonpath\n- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
               "$ref": "#/definitions/str"
             },
             "xpath": {
@@ -814,11 +793,11 @@
           "$ref": "#/definitions/str"
         },
         "regex": {
-          "markdownDescription": "Alias: find\nRegEx expression to extract the hash",
+          "markdownDescription": "RegEx expression to extract the hash (Alias: find)",
           "$ref": "#/definitions/str"
         },
         "find": {
-          "markdownDescription": "Alias: regex\nRegEx expression to extract the hash",
+          "markdownDescription": "RegEx expression to extract the hash (Alias: regex)",
           "$ref": "#/definitions/str"
         },
         "mode": {
@@ -863,11 +842,11 @@
           ]
         },
         "jp": {
-          "markdownDescription": "Alias: jsonpath\nJSONPath expression to extract the hash",
+          "markdownDescription": "JSONPath expression to extract the hash (Alias: jsonpath)\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
           "$ref": "#/definitions/str"
         },
         "jsonpath": {
-          "markdownDescription": "Alias: jp\nJSONPath expression to extract the hash",
+          "markdownDescription": "JSONPath expression to extract the hash (Alias: jp)\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
           "$ref": "#/definitions/str"
         },
         "xpath": {
@@ -922,10 +901,11 @@
       "properties": {
         "url": {
           "type": ["array", "string"],
-          "pattern": "^https://github\\.com/.+?/releases/download/",
+          "examples": ["", []],
+          "pattern": "^https://github\\.com/[^/]+/[^/]+/releases/download/",
           "items": {
             "type": "string",
-            "pattern": "^https://github\\.com/.+?/releases/download/"
+            "pattern": "^https://github\\.com/[^/]+/[^/]+/releases/download/"
           }
         }
       }
@@ -1339,20 +1319,16 @@
                 "architecture": {
                   "patternProperties": {
                     "^(64bit|arm64|32bit)$": {
-                      "allOf": [
-                        {
-                          "not": {
-                            "required": ["url"]
-                          },
+                      "properties": {
+                        "url": {
+                          "not": true,
                           "errorMessage": "Property 'url' in 'architecture' conflicts with the top-level 'url'. You can only choose one way."
                         },
-                        {
-                          "not": {
-                            "required": ["hash"]
-                          },
+                        "hash": {
+                          "not": true,
                           "errorMessage": "If the top-level 'url' is set, 'hash' in 'architecture' cannot be set."
                         }
-                      ]
+                      }
                     }
                   }
                 }
@@ -1410,10 +1386,12 @@
                   "else": {
                     "properties": {
                       "architecture": {
-                        "not": {
-                          "required": ["64bit"]
-                        },
-                        "errorMessage": "The 'architecture' in 'autoupdate' does not set '64bit'."
+                        "properties": {
+                          "64bit": {
+                            "not": true,
+                            "errorMessage": "The 'architecture' in 'autoupdate' does not set '64bit'."
+                          }
+                        }
                       }
                     }
                   }
@@ -1440,10 +1418,12 @@
                   "else": {
                     "properties": {
                       "architecture": {
-                        "not": {
-                          "required": ["32bit"]
-                        },
-                        "errorMessage": "The 'architecture' in 'autoupdate' does not set '32bit'."
+                        "properties": {
+                          "32bit": {
+                            "not": true,
+                            "errorMessage": "The 'architecture' in 'autoupdate' does not set '32bit'."
+                          }
+                        }
                       }
                     }
                   }
@@ -1470,10 +1450,12 @@
                   "else": {
                     "properties": {
                       "architecture": {
-                        "not": {
-                          "required": ["arm64"]
-                        },
-                        "errorMessage": "The 'architecture' in 'autoupdate' does not set 'arm64'."
+                        "properties": {
+                          "arm64": {
+                            "not": true,
+                            "errorMessage": "The 'architecture' in 'autoupdate' does not set 'arm64'."
+                          }
+                        }
                       }
                     }
                   }

@@ -82,7 +82,7 @@
           "markdownDescription": "- GNU General Public License v2.0 only\n- https://spdx.org/licenses/GPL-2.0-only.html"
         },
         {
-          "const": "GPL-2.0-or-l-or-later",
+          "const": "GPL-2.0-or-later",
           "markdownDescription": "- GNU General Public License v2.0 or later\n- https://spdx.org/licenses/GPL-2.0-or-later.html"
         },
         {
@@ -184,6 +184,10 @@
         {
           "const": "WTFPL",
           "markdownDescription": "- Do What The F*ck You Want To Public License\n- https://spdx.org/licenses/WTFPL.html"
+        },
+        {
+          "const": "OSL-3.0",
+          "markdownDescription": "- Open Software License 3.0\n- https://spdx.org/licenses/OSL-3.0.html"
         }
       ]
     },
@@ -384,41 +388,16 @@
     },
     "env_add_path": {
       "title": "添加到环境变量 PATH 中的路径",
-      "markdownDescription": "- 将指定目录添加到环境变量(当前用户) PATH 中\n- 如果安装时使用了 `--global` 或 `-g` 参数，则会添加到环境变量(系统级) PATH 中",
+      "markdownDescription": "- 将指定目录添加到环境变量(当前用户) PATH 中\n- 如果要指定 `$dir` 目录，请用 `.` 代替\n- 如果安装时使用了 `--global` 或 `-g` 参数，则会添加到环境变量(系统级) PATH 中",
       "type": ["string", "array"],
       "examples": ["", []],
       "minLength": 1,
       "minItems": 1,
-      "uniqueItems": true,
-      "oneOf": [
-        {
-          "$ref": "#/definitions/str",
-          "if": {
-            "pattern": "\\$dir"
-          },
-          "then": {
-            "not": true,
-            "errorMessage": "不能使用 $dir，请用 . 代替"
-          }
-        },
-        {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/str",
-            "if": {
-              "pattern": "\\$dir"
-            },
-            "then": {
-              "not": true,
-              "errorMessage": "不能使用 $dir，请用 . 代替"
-            }
-          }
-        }
-      ]
+      "uniqueItems": true
     },
     "env_set": {
       "title": "设置环境变量",
-      "markdownDescription": "- 为用户设置一个或多个环境变量(当前用户)\n- 如果安装时使用了 `--global` 或 `-g` 参数，则会设置到环境变量(系统级) 中",
+      "markdownDescription": "- 为用户设置一个或多个环境变量(当前用户)\n- 如果安装时使用了 `--global` 或 `-g` 参数，则会设置到环境变量(系统级) 中\n- 一些可用的变量:\n  - `$dir`\n  - `$persist_dir`\n  - `$env:UserProfile`\n  - `$env:AppData`\n  - ...",
       "type": "object",
       "examples": [{}],
       "if": {
@@ -427,8 +406,8 @@
       "then": {
         "patternProperties": {
           "^.+$": {
-            "$ref": "#/definitions/string_or_string_array",
-            "examples": ["", []]
+            "$ref": "#/definitions/str",
+            "examples": ["$dir\\xxx", "$persist_dir\\xxx"]
           }
         },
         "minProperties": 1,
@@ -739,11 +718,11 @@
               "examples": ["(.+)"]
             },
             "jsonpath": {
-              "markdownDescription": "使用带有 JSONPath 表达式的 JSON 端点检索版本，可以使用点标注或括号标注。",
+              "markdownDescription": "使用带有 JSONPath 表达式的 JSON 端点检索版本，可以使用点标注或括号标注。\n- 使用示例:\n    - `\"$.version\"`: 提取 `version` 字段的值\n    - `\"$..[?(@.productVersion || @.version)]\"`: 提取 `productVersion` 或 `version` 字段的值\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: 提取 `assets` 中 `name` 为 `xxx` 的字段中的 `updated_at`\n    - `\"$..['productVersion','version']\"`:\n      - 提取这两个字段的值，并形成一个数组\n      - 如 `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
               "$ref": "#/definitions/str"
             },
             "jp": {
-              "markdownDescription": "jp 是 jsonpath 的别名\n使用带有 JSONPath 表达式的 JSON 端点检索版本，可以使用点标注或括号标注。",
+              "markdownDescription": "jp 是 jsonpath 的别名\n使用带有 JSONPath 表达式的 JSON 端点检索版本，可以使用点标注或括号标注。\n- 使用示例:\n    - `\"$.version\"`: 提取 `version` 字段的值\n    - `\"$..[?(@.productVersion || @.version)]\"`: 提取 `productVersion` 或 `version` 字段的值\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: 提取 `assets` 中 `name` 为 `xxx` 的字段中的 `updated_at`\n    - `\"$..['productVersion','version']\"`:\n      - 提取这两个字段的值，并形成一个数组\n      - 如 `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
               "$ref": "#/definitions/str"
             },
             "xpath": {
@@ -814,11 +793,11 @@
           "$ref": "#/definitions/str"
         },
         "regex": {
-          "markdownDescription": "别名：find\nRegEx 表达式来提取 hash",
+          "markdownDescription": "RegEx 表达式来提取 hash (别名：find)",
           "$ref": "#/definitions/str"
         },
         "find": {
-          "markdownDescription": "别名：regex\nRegEx 表达式来提取 hash",
+          "markdownDescription": "RegEx 表达式来提取 hash (别名：regex)",
           "$ref": "#/definitions/str"
         },
         "mode": {
@@ -863,11 +842,11 @@
           ]
         },
         "jp": {
-          "markdownDescription": "别名：jsonpath\nJSONPath 表达式提取 hash",
+          "markdownDescription": "JSONPath 表达式提取 hash (别名：jsonpath)\n- 使用示例:\n    - `\"$.version\"`: 提取 `version` 字段的值\n    - `\"$..[?(@.productVersion || @.version)]\"`: 提取 `productVersion` 或 `version` 字段的值\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: 提取 `assets` 中 `name` 为 `xxx` 的字段中的 `updated_at`\n    - `\"$..['productVersion','version']\"`:\n      - 提取这两个字段的值，并形成一个数组\n      - 如 `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
           "$ref": "#/definitions/str"
         },
         "jsonpath": {
-          "markdownDescription": "别名：jp\nJSONPath 表达式提取 hash",
+          "markdownDescription": "JSONPath 表达式提取 hash (别名：jp)\n- 使用示例:\n    - `\"$.version\"`: 提取 `version` 字段的值\n    - `\"$..[?(@.productVersion || @.version)]\"`: 提取 `productVersion` 或 `version` 字段的值\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: 提取 `assets` 中 `name` 为 `xxx` 的字段中的 `updated_at`\n    - `\"$..['productVersion','version']\"`:\n      - 提取这两个字段的值，并形成一个数组\n      - 如 `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
           "$ref": "#/definitions/str"
         },
         "xpath": {
@@ -922,10 +901,11 @@
       "properties": {
         "url": {
           "type": ["array", "string"],
-          "pattern": "^https://github\\.com/.+?/releases/download/",
+          "examples": ["", []],
+          "pattern": "^https://github\\.com/[^/]+/[^/]+/releases/download/",
           "items": {
             "type": "string",
-            "pattern": "^https://github\\.com/.+?/releases/download/"
+            "pattern": "^https://github\\.com/[^/]+/[^/]+/releases/download/"
           }
         }
       }
@@ -1339,20 +1319,16 @@
                 "architecture": {
                   "patternProperties": {
                     "^(64bit|arm64|32bit)$": {
-                      "allOf": [
-                        {
-                          "not": {
-                            "required": ["url"]
-                          },
+                      "properties": {
+                        "url": {
+                          "not": true,
                           "errorMessage": "url 和顶层的 url 冲突，你只能选择其中一种方式"
                         },
-                        {
-                          "not": {
-                            "required": ["hash"]
-                          },
+                        "hash": {
+                          "not": true,
                           "errorMessage": "如果有顶层的 url，禁止定义 architecture 中的 hash"
                         }
-                      ]
+                      }
                     }
                   }
                 }
@@ -1410,10 +1386,12 @@
                   "else": {
                     "properties": {
                       "architecture": {
-                        "not": {
-                          "required": ["64bit"]
-                        },
-                        "errorMessage": "autoupdate 中的 architecture 没有定义 64bit"
+                        "properties": {
+                          "64bit": {
+                            "not": true,
+                            "errorMessage": "autoupdate 中的 architecture 没有定义 64bit"
+                          }
+                        }
                       }
                     }
                   }
@@ -1440,10 +1418,12 @@
                   "else": {
                     "properties": {
                       "architecture": {
-                        "not": {
-                          "required": ["32bit"]
-                        },
-                        "errorMessage": "autoupdate 中的 architecture 没有定义 32bit"
+                        "properties": {
+                          "32bit": {
+                            "not": true,
+                            "errorMessage": "autoupdate 中的 architecture 没有定义 32bit"
+                          }
+                        }
                       }
                     }
                   }
@@ -1470,10 +1450,12 @@
                   "else": {
                     "properties": {
                       "architecture": {
-                        "not": {
-                          "required": ["arm64"]
-                        },
-                        "errorMessage": "autoupdate 中的 architecture 没有定义 arm64"
+                        "properties": {
+                          "arm64": {
+                            "not": true,
+                            "errorMessage": "autoupdate 中的 architecture 没有定义 arm64"
+                          }
+                        }
                       }
                     }
                   }
