@@ -253,7 +253,7 @@
     },
     "url_validation": {
       "pattern": "^https?://",
-      "errorMessage": "必须是一个有效的 http/https URL"
+      "errorMessage": "需要一个有效的 http/https URL"
     },
     "url": {
       "title": "软件下载地址",
@@ -923,7 +923,7 @@
         "properties": {
           "hash": {
             "$ref": "#/definitions/str",
-            "errorMessage": "url 和 hash 的类型必须匹配"
+            "errorMessage": "url 和 hash 的类型不相同"
           }
         }
       },
@@ -935,7 +935,7 @@
               "$ref": "#/definitions/hash"
             },
             "minItems": 1,
-            "errorMessage": "url 和 hash 的类型必须匹配"
+            "errorMessage": "url 和 hash 的类型不相同"
           }
         }
       }
@@ -1353,7 +1353,7 @@
             }
           },
           {
-            "$comment": "确保 architecture 和 autoupdate 中的 architecture 相对应",
+            "$comment": "确保 architecture 和 autoupdate 中的属性相对应",
             "if": {
               "required": ["autoupdate"],
               "properties": {
@@ -1459,6 +1459,170 @@
                       }
                     }
                   }
+                },
+                {
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "required": ["extract_dir"]
+                          }
+                        }
+                      },
+                      "then": {
+                        "required": ["extract_dir"]
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "required": ["env_add_path"]
+                          }
+                        }
+                      },
+                      "then": {
+                        "required": ["env_add_path"]
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "required": ["bin"]
+                          }
+                        }
+                      },
+                      "then": {
+                        "required": ["bin"]
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "required": ["shortcuts"]
+                          }
+                        }
+                      },
+                      "then": {
+                        "required": ["shortcuts"]
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "properties": {
+                              "architecture": {
+                                "patternProperties": {
+                                  "^(64bit|arm64|32bit)$": {
+                                    "required": ["extract_dir"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "architecture": {
+                            "patternProperties": {
+                              "^(64bit|arm64|32bit)$": {
+                                "required": ["extract_dir"]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "properties": {
+                              "architecture": {
+                                "patternProperties": {
+                                  "^(64bit|arm64|32bit)$": {
+                                    "required": ["env_add_path"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "architecture": {
+                            "patternProperties": {
+                              "^(64bit|arm64|32bit)$": {
+                                "required": ["env_add_path"]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "properties": {
+                              "architecture": {
+                                "patternProperties": {
+                                  "^(64bit|arm64|32bit)$": {
+                                    "required": ["bin"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "architecture": {
+                            "patternProperties": {
+                              "^(64bit|arm64|32bit)$": {
+                                "required": ["bin"]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "autoupdate": {
+                            "properties": {
+                              "architecture": {
+                                "patternProperties": {
+                                  "^(64bit|arm64|32bit)$": {
+                                    "required": ["shortcuts"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "architecture": {
+                            "patternProperties": {
+                              "^(64bit|arm64|32bit)$": {
+                                "required": ["shortcuts"]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               ]
             }
