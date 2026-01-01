@@ -98,12 +98,24 @@
           "markdownDescription": "- GNU Affero General Public License v3.0 only\n- https://spdx.org/licenses/AGPL-3.0-only.html"
         },
         {
+          "const": "AGPL-3.0-or-later",
+          "markdownDescription": "- GNU Affero General Public License v3.0 or later\n- https://spdx.org/licenses/AGPL-3.0-or-later.html"
+        },
+        {
           "const": "LGPL-2.1-only",
           "markdownDescription": "- GNU Library General Public License v2.1 only\n- https://spdx.org/licenses/LGPL-2.1-only.html"
         },
         {
+          "const": "LGPL-2.1-or-later",
+          "markdownDescription": "- GNU Library General Public License v2.1 or later\n- https://spdx.org/licenses/LGPL-2.1-or-later.html"
+        },
+        {
           "const": "LGPL-3.0-only",
           "markdownDescription": "- GNU Lesser General Public License v3.0 only\n- https://spdx.org/licenses/LGPL-3.0-only.html"
+        },
+        {
+          "const": "LGPL-3.0-or-later",
+          "markdownDescription": "- GNU Lesser General Public License v3.0 or later\n- https://spdx.org/licenses/LGPL-3.0-or-later.html"
         },
         {
           "const": "MPL-2.0",
