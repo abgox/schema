@@ -409,7 +409,7 @@
     },
     "env_set": {
       "title": "Set environment variables",
-      "markdownDescription": "- Set one or more environment variables (current user)\n- If the `--global` or `-g` parameter is used during installation, the variables will be set in the system environment variables (system level)\n- Available variables:\n  - `$dir`\n  - `$persist_dir`\n  - `$env:UserProfile`\n  - `$env:AppData`\n  - ...",
+      "markdownDescription": "- Set one or more environment variables (current user)\n- If the `--global` or `-g` parameter is used during installation, the variables will be set in the system environment variables (system level)\n- Available variables:\n  - `$dir`\n  - `$persist_dir`\n  - `$home`\n  - `$env:AppData`\n  - ...",
       "type": "object",
       "examples": [{}],
       "if": {
@@ -616,7 +616,7 @@
     },
     "pre_install": {
       "title": "Pre-install script",
-      "markdownDescription": "- Commands to be executed before installing the application\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: Currently running subcommand, such as uninstall/update/install\n    - $fname: Downloaded file name (may be multiple files, needs to be treated as an array unless you are sure url is not an array)\n    - $global: If the value is $true, it is installed globally\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop directory",
+      "markdownDescription": "- Commands to be executed before installing the application\n- Execution order: `pre_install` -> `installer` -> `post_install`\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (actual version number directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$modulesdir`|Scoop modules directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
       "$ref": "#/definitions/string_or_string_array"
     },
     "installer": {
@@ -651,12 +651,12 @@
     },
     "post_install": {
       "title": "Post-install script",
-      "markdownDescription": "- Commands executed after the application is installed\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Note: At this point, Scoop has already completed persist, so if you need to create files for persist, do it before this (in pre_install)\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, e.g. 64bit/32bit/arm64\n    - $cmd: Current running subcommand, e.g. uninstall/update/install\n    - $fname: Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)\n    - $cfg: Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: If value is $true, then it's a global installation\n    - $manifest: Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, e.g. 1.2.3\n    - $dir: Application installation directory (current directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, e.g. D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop installation directory",
+      "markdownDescription": "- Commands executed after the application is installed\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Note: At this point, Scoop has already completed persist, so if you need to create files for persist, do it before this (in `pre_install`)\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (current directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$modulesdir`|Scoop modules directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
       "$ref": "#/definitions/string_or_string_array"
     },
     "pre_uninstall": {
       "title": "Pre-uninstall script",
-      "markdownDescription": "- Execute commands before uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \"$(appdir otherapp)\\current\\otherapp.exe\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: Currently running subcommand, such as uninstall/update/install\n    - $global: If the value is $true, it is globally installed\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: Version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: Name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop installation directory",
+      "markdownDescription": "- Execute commands before uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (actual version number directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$modulesdir`|Scoop modules directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
       "$ref": "#/definitions/string_or_string_array"
     },
     "uninstaller": {
@@ -687,7 +687,7 @@
     },
     "post_uninstall": {
       "title": "Post-uninstall script",
-      "markdownDescription": "- Used to execute commands after uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n- Available functions:\n    - appdir: Reference another exclusive application.\nFor example, to check if another application is installed, you can use \"if (Test-Path \\\"$(appdir otherapp)\\\\current\\\\otherapp.exe\\\") { ... }\"\n- Available variables:\n    - $app: Application name (manifest name)\n    - $architecture: CPU architecture of the installed application, such as 64bit/32bit/arm64\n    - $cmd: The currently running subcommand, such as uninstall/update/install\n    - $cfg: Scoop configuration (PowerShell object), such as {SCOOP_BRANCH, SCOOP_REPO}\n    - $global: If the value is $true, it is installed globally\n    - $manifest: Deserialized manifest (PowerShell object), such as @{version=1.2.3; description=xxx;...}\n    - $version: The version being installed, such as 1.2.3\n    - $dir: Application installation directory (actual version number directory)\n    - $persist_dir: Data persistence directory\n    - $bucketsdir: Scoop buckets directory, such as D:\\scoop\\buckets\n    - $bucket: The name of the bucket to which the currently installed application belongs\n    - $cachedir: Scoop cache directory\n    - $configFile: Path to Scoop configuration\n    - $globaldir: Global installation directory\n    - $modulesdir: Scoop modules directory\n    - $original_dir: Application installation directory (actual version number directory)\n    - $scoopdir: Scoop directory",
+      "markdownDescription": "- Used to execute commands after uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (current directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$modulesdir`|Scoop modules directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
       "$ref": "#/definitions/string_or_string_array"
     },
     "checkver": {
@@ -1174,473 +1174,471 @@
       }
     }
   },
-  "if": {
-    "required": ["version", "description", "homepage", "license"]
-  },
-  "then": {
-    "allOf": [
-      {
-        "$comment": "Standard Specifications of Scoop",
-        "allOf": [
-          {
-            "$comment": "If 'checkver' is set, 'autoupdate' must be set.",
-            "allOf": [
-              {
+  "allOf": [
+    {
+      "required": ["version", "description", "homepage", "license"]
+    },
+    {
+      "$comment": "Standard Specifications of Scoop",
+      "allOf": [
+        {
+          "$comment": "If 'checkver' is set, 'autoupdate' must be set.",
+          "allOf": [
+            {
+              "if": {
+                "required": ["checkver"]
+              },
+              "then": {
+                "if": {
+                  "required": ["autoupdate"]
+                },
+                "else": {
+                  "properties": {
+                    "checkver": {
+                      "not": true,
+                      "errorMessage": "If 'checkver' is set, 'autoupdate' must be set."
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "required": ["autoupdate"]
+              },
+              "then": {
                 "if": {
                   "required": ["checkver"]
                 },
-                "then": {
-                  "if": {
-                    "required": ["autoupdate"]
+                "else": {
+                  "properties": {
+                    "autoupdate": {
+                      "not": true,
+                      "errorMessage": "If 'autoupdate' is set, 'checkver' must be set."
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "$comment": "If 'url' is a GitHub releases link, 'mode.hash' must be set to 'github'.",
+          "properties": {
+            "autoupdate": {
+              "type": "object",
+              "if": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/github_release_url"
                   },
-                  "else": {
+                  {
+                    "required": ["architecture"],
                     "properties": {
-                      "checkver": {
-                        "not": true,
-                        "errorMessage": "If 'checkver' is set, 'autoupdate' must be set."
+                      "architecture": {
+                        "type": "object",
+                        "anyOf": [
+                          {
+                            "required": ["64bit"]
+                          },
+                          {
+                            "required": ["arm64"]
+                          },
+                          {
+                            "required": ["32bit"]
+                          }
+                        ],
+                        "patternProperties": {
+                          "^(64bit|arm64|32bit)$": {
+                            "$ref": "#/definitions/github_release_url"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "then": {
+                "required": ["hash"],
+                "properties": {
+                  "hash": {
+                    "required": ["mode"],
+                    "properties": {
+                      "mode": {
+                        "const": "github"
                       }
                     }
                   }
                 }
               },
-              {
-                "if": {
-                  "required": ["autoupdate"]
-                },
-                "then": {
-                  "if": {
-                    "required": ["checkver"]
-                  },
-                  "else": {
+              "else": {
+                "properties": {
+                  "hash": {
                     "properties": {
-                      "autoupdate": {
-                        "not": true,
-                        "errorMessage": "If 'autoupdate' is set, 'checkver' must be set."
+                      "mode": {
+                        "not": {
+                          "const": "github"
+                        },
+                        "errorMessage": "'url' is not a standard Github Releases, so cannot use 'github'."
                       }
                     }
                   }
                 }
               }
-            ]
+            }
+          }
+        },
+        {
+          "$comment": "If 'license' is set but 'url' or 'architecture' is not set, a warning is triggered.",
+          "if": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": ["url"]
+                },
+                {
+                  "required": ["architecture"]
+                }
+              ]
+            }
           },
-          {
-            "$comment": "If 'url' is a GitHub releases link, 'mode.hash' must be set to 'github'.",
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "not": {
+                    "required": ["url"]
+                  }
+                },
+                {
+                  "not": {
+                    "required": ["architecture"]
+                  }
+                }
+              ]
+            },
+            "errorMessage": "Missing property 'url' or 'architecture'"
+          }
+        },
+        {
+          "$comment": "Only one of 'url' and 'architecture' can be chosen. The type of 'url' and 'hash' must match.",
+          "if": {
+            "required": ["url"]
+          },
+          "then": {
+            "properties": {
+              "architecture": {
+                "patternProperties": {
+                  "^(64bit|arm64|32bit)$": {
+                    "properties": {
+                      "url": {
+                        "not": true,
+                        "errorMessage": "Property 'url' in 'architecture' conflicts with the top-level 'url'. You can only choose one way."
+                      },
+                      "hash": {
+                        "not": true,
+                        "errorMessage": "If the top-level 'url' is set, 'hash' in 'architecture' cannot be set."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "$ref": "#/definitions/url_hash_type_match"
+          },
+          "else": {
+            "properties": {
+              "architecture": {
+                "$ref": "#/definitions/architecture_example",
+                "patternProperties": {
+                  "^(64bit|arm64|32bit)$": {
+                    "$ref": "#/definitions/url_hash_type_match"
+                  }
+                }
+              },
+              "hash": {
+                "not": true,
+                "errorMessage": "If 'url' is not set, 'hash' cannot be set."
+              }
+            }
+          }
+        },
+        {
+          "$comment": "Ensure that the 'architecture' and 'autoupdate.architecture' are consistent.",
+          "if": {
+            "required": ["autoupdate"],
             "properties": {
               "autoupdate": {
-                "type": "object",
+                "required": ["architecture"]
+              }
+            }
+          },
+          "then": {
+            "allOf": [
+              {
                 "if": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/definitions/github_release_url"
-                    },
-                    {
-                      "required": ["architecture"],
+                  "properties": {
+                    "autoupdate": {
                       "properties": {
                         "architecture": {
-                          "type": "object",
-                          "anyOf": [
-                            {
-                              "required": ["64bit"]
-                            },
-                            {
-                              "required": ["arm64"]
-                            },
-                            {
-                              "required": ["32bit"]
-                            }
-                          ],
-                          "patternProperties": {
-                            "^(64bit|arm64|32bit)$": {
-                              "$ref": "#/definitions/github_release_url"
-                            }
-                          }
+                          "required": ["64bit"]
                         }
                       }
                     }
-                  ]
+                  }
                 },
                 "then": {
-                  "required": ["hash"],
                   "properties": {
-                    "hash": {
-                      "required": ["mode"],
-                      "properties": {
-                        "mode": {
-                          "const": "github"
-                        }
-                      }
+                    "architecture": {
+                      "required": ["64bit"]
                     }
                   }
                 },
                 "else": {
                   "properties": {
-                    "hash": {
+                    "architecture": {
                       "properties": {
-                        "mode": {
-                          "not": {
-                            "const": "github"
-                          },
-                          "errorMessage": "'url' is not a standard Github Releases, so cannot use 'github'."
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          {
-            "$comment": "If 'license' is set but 'url' or 'architecture' is not set, a warning is triggered.",
-            "if": {
-              "not": {
-                "anyOf": [
-                  {
-                    "required": ["url"]
-                  },
-                  {
-                    "required": ["architecture"]
-                  }
-                ]
-              }
-            },
-            "then": {
-              "not": {
-                "anyOf": [
-                  {
-                    "not": {
-                      "required": ["url"]
-                    }
-                  },
-                  {
-                    "not": {
-                      "required": ["architecture"]
-                    }
-                  }
-                ]
-              },
-              "errorMessage": "Missing property 'url' or 'architecture'"
-            }
-          },
-          {
-            "$comment": "Only one of 'url' and 'architecture' can be chosen. The type of 'url' and 'hash' must match.",
-            "if": {
-              "required": ["url"]
-            },
-            "then": {
-              "properties": {
-                "architecture": {
-                  "patternProperties": {
-                    "^(64bit|arm64|32bit)$": {
-                      "properties": {
-                        "url": {
+                        "64bit": {
                           "not": true,
-                          "errorMessage": "Property 'url' in 'architecture' conflicts with the top-level 'url'. You can only choose one way."
-                        },
-                        "hash": {
-                          "not": true,
-                          "errorMessage": "If the top-level 'url' is set, 'hash' in 'architecture' cannot be set."
+                          "errorMessage": "The 'architecture' in 'autoupdate' does not set '64bit'."
                         }
                       }
                     }
                   }
                 }
               },
-              "$ref": "#/definitions/url_hash_type_match"
-            },
-            "else": {
-              "properties": {
-                "architecture": {
-                  "$ref": "#/definitions/architecture_example",
-                  "patternProperties": {
-                    "^(64bit|arm64|32bit)$": {
-                      "$ref": "#/definitions/url_hash_type_match"
+              {
+                "if": {
+                  "properties": {
+                    "autoupdate": {
+                      "properties": {
+                        "architecture": {
+                          "required": ["32bit"]
+                        }
+                      }
                     }
                   }
                 },
-                "hash": {
-                  "not": true,
-                  "errorMessage": "If 'url' is not set, 'hash' cannot be set."
+                "then": {
+                  "properties": {
+                    "architecture": {
+                      "required": ["32bit"]
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "architecture": {
+                      "properties": {
+                        "32bit": {
+                          "not": true,
+                          "errorMessage": "The 'architecture' in 'autoupdate' does not set '32bit'."
+                        }
+                      }
+                    }
+                  }
                 }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "autoupdate": {
+                      "properties": {
+                        "architecture": {
+                          "required": ["arm64"]
+                        }
+                      }
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "architecture": {
+                      "required": ["arm64"]
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "architecture": {
+                      "properties": {
+                        "arm64": {
+                          "not": true,
+                          "errorMessage": "The 'architecture' in 'autoupdate' does not set 'arm64'."
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "required": ["extract_dir"]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": ["extract_dir"]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "required": ["env_add_path"]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": ["env_add_path"]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "required": ["bin"]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": ["bin"]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "required": ["shortcuts"]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": ["shortcuts"]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "properties": {
+                            "architecture": {
+                              "patternProperties": {
+                                "^(64bit|arm64|32bit)$": {
+                                  "required": ["extract_dir"]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "architecture": {
+                          "patternProperties": {
+                            "^(64bit|arm64|32bit)$": {
+                              "required": ["extract_dir"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "properties": {
+                            "architecture": {
+                              "patternProperties": {
+                                "^(64bit|arm64|32bit)$": {
+                                  "required": ["env_add_path"]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "architecture": {
+                          "patternProperties": {
+                            "^(64bit|arm64|32bit)$": {
+                              "required": ["env_add_path"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "properties": {
+                            "architecture": {
+                              "patternProperties": {
+                                "^(64bit|arm64|32bit)$": {
+                                  "required": ["bin"]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "architecture": {
+                          "patternProperties": {
+                            "^(64bit|arm64|32bit)$": {
+                              "required": ["bin"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "autoupdate": {
+                          "properties": {
+                            "architecture": {
+                              "patternProperties": {
+                                "^(64bit|arm64|32bit)$": {
+                                  "required": ["shortcuts"]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "architecture": {
+                          "patternProperties": {
+                            "^(64bit|arm64|32bit)$": {
+                              "required": ["shortcuts"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
               }
-            }
-          },
-          {
-            "$comment": "Ensure that the 'architecture' and 'autoupdate.architecture' are consistent.",
-            "if": {
-              "required": ["autoupdate"],
-              "properties": {
-                "autoupdate": {
-                  "required": ["architecture"]
-                }
-              }
-            },
-            "then": {
-              "allOf": [
-                {
-                  "if": {
-                    "properties": {
-                      "autoupdate": {
-                        "properties": {
-                          "architecture": {
-                            "required": ["64bit"]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "then": {
-                    "properties": {
-                      "architecture": {
-                        "required": ["64bit"]
-                      }
-                    }
-                  },
-                  "else": {
-                    "properties": {
-                      "architecture": {
-                        "properties": {
-                          "64bit": {
-                            "not": true,
-                            "errorMessage": "The 'architecture' in 'autoupdate' does not set '64bit'."
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "if": {
-                    "properties": {
-                      "autoupdate": {
-                        "properties": {
-                          "architecture": {
-                            "required": ["32bit"]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "then": {
-                    "properties": {
-                      "architecture": {
-                        "required": ["32bit"]
-                      }
-                    }
-                  },
-                  "else": {
-                    "properties": {
-                      "architecture": {
-                        "properties": {
-                          "32bit": {
-                            "not": true,
-                            "errorMessage": "The 'architecture' in 'autoupdate' does not set '32bit'."
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "if": {
-                    "properties": {
-                      "autoupdate": {
-                        "properties": {
-                          "architecture": {
-                            "required": ["arm64"]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "then": {
-                    "properties": {
-                      "architecture": {
-                        "required": ["arm64"]
-                      }
-                    }
-                  },
-                  "else": {
-                    "properties": {
-                      "architecture": {
-                        "properties": {
-                          "arm64": {
-                            "not": true,
-                            "errorMessage": "The 'architecture' in 'autoupdate' does not set 'arm64'."
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "allOf": [
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "required": ["extract_dir"]
-                          }
-                        }
-                      },
-                      "then": {
-                        "required": ["extract_dir"]
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "required": ["env_add_path"]
-                          }
-                        }
-                      },
-                      "then": {
-                        "required": ["env_add_path"]
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "required": ["bin"]
-                          }
-                        }
-                      },
-                      "then": {
-                        "required": ["bin"]
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "required": ["shortcuts"]
-                          }
-                        }
-                      },
-                      "then": {
-                        "required": ["shortcuts"]
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "properties": {
-                              "architecture": {
-                                "patternProperties": {
-                                  "^(64bit|arm64|32bit)$": {
-                                    "required": ["extract_dir"]
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "then": {
-                        "properties": {
-                          "architecture": {
-                            "patternProperties": {
-                              "^(64bit|arm64|32bit)$": {
-                                "required": ["extract_dir"]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "properties": {
-                              "architecture": {
-                                "patternProperties": {
-                                  "^(64bit|arm64|32bit)$": {
-                                    "required": ["env_add_path"]
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "then": {
-                        "properties": {
-                          "architecture": {
-                            "patternProperties": {
-                              "^(64bit|arm64|32bit)$": {
-                                "required": ["env_add_path"]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "properties": {
-                              "architecture": {
-                                "patternProperties": {
-                                  "^(64bit|arm64|32bit)$": {
-                                    "required": ["bin"]
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "then": {
-                        "properties": {
-                          "architecture": {
-                            "patternProperties": {
-                              "^(64bit|arm64|32bit)$": {
-                                "required": ["bin"]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "if": {
-                        "properties": {
-                          "autoupdate": {
-                            "properties": {
-                              "architecture": {
-                                "patternProperties": {
-                                  "^(64bit|arm64|32bit)$": {
-                                    "required": ["shortcuts"]
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "then": {
-                        "properties": {
-                          "architecture": {
-                            "patternProperties": {
-                              "^(64bit|arm64|32bit)$": {
-                                "required": ["shortcuts"]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
+            ]
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    }
+  ]
 }
