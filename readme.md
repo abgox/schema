@@ -52,18 +52,20 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
   - Configure `json-schema-plus.schemas`.
 
     ```json
-      "json-schema-plus.schemas": [
-        {
-          "fileMatch": ["bucket/**/*.json"],
-          "urls": [
-            {
-              "language": "zh",
-              "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
-            },
-          ],
-          "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
-        }
-      ]
+    "json-schema-plus.schemas": [
+      {
+        "fileMatch": [
+          "bucket/**/*.json"
+        ],
+        "url": "https://schema.abgox.com/scoop-manifest.en-US.json",
+        "urls": [
+          {
+            "language": "zh",
+            "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+          },
+        ]
+      }
+    ]
     ```
 
     <details>
@@ -73,14 +75,14 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
     > The `json.schemas` defined in [settings.json](https://code.visualstudio.com/docs/configure/settings) has lower priority than the schema provided by the extension, please refer to [the issue](https://github.com/microsoft/vscode/issues/219855).
 
     ```json
-      "json.schemas": [
-        {
-          "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-          "fileMatch": [
-              "bucket/**/*.json"
-          ]
-        }
-      ]
+    "json.schemas": [
+      {
+        "fileMatch": [
+          "bucket/**/*.json"
+        ],
+        "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
+      }
+    ]
     ```
 
     </details>

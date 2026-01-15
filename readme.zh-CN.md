@@ -52,18 +52,20 @@
   - 配置 `json-schema-plus.schemas`
 
     ```json
-      "json-schema-plus.schemas": [
-        {
-          "fileMatch": ["bucket/**/*.json"],
-          "urls": [
-            {
-              "language": "zh",
-              "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
-            },
-          ],
-          "url": "https://schema.abgox.com/scoop-manifest.en-US.json"
-        }
-      ]
+    "json-schema-plus.schemas": [
+      {
+        "fileMatch": [
+          "bucket/**/*.json"
+        ],
+        "url": "https://schema.abgox.com/scoop-manifest.en-US.json",
+        "urls": [
+          {
+            "language": "zh",
+            "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+          },
+        ]
+      }
+    ]
     ```
 
     <details>
@@ -73,14 +75,14 @@
     > [settings.json](https://code.visualstudio.com/docs/configure/settings) 中定义的 `json.schemas` 优先级低于扩展提供的 schema，参考 [issue](https://github.com/microsoft/vscode/issues/219855)
 
     ```json
-      "json.schemas": [
-        {
-          "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json",
-          "fileMatch": [
-              "bucket/**/*.json"
-          ]
-        }
-      ]
+    "json.schemas": [
+      {
+        "fileMatch": [
+          "bucket/**/*.json"
+        ],
+        "url": "https://schema.abgox.com/scoop-manifest.zh-CN.json"
+      }
+    ]
     ```
 
     </details>
