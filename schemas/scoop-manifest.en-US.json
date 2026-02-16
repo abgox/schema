@@ -12,194 +12,295 @@
     },
     "str": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "allOf": [
+        {
+          "not": {
+            "pattern": "^\\s[^\\s]"
+          },
+          "errorMessage": "Please remove the leading space"
+        },
+        {
+          "not": {
+            "pattern": "[^\\s]\\s$"
+          },
+          "errorMessage": "Please remove the trailing space"
+        }
+      ]
     },
-    "string_or_string_array": {
+    "str_or_arr": {
       "type": ["string", "array"],
       "items": {
-        "$ref": "#/definitions/str"
+        "type": "string",
+        "minLength": 1
       },
       "minLength": 1,
       "minItems": 1
-    },
-    "license_field": {
-      "anyOf": [
-        {
-          "const": "Unknown",
-          "markdownDescription": "- Use `Unknown`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the license cannot be determined."
-        },
-        {
-          "const": "Freeware",
-          "markdownDescription": "- Use `Freeware`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to use forever."
-        },
-        {
-          "const": "Proprietary",
-          "markdownDescription": "- Use `Proprietary`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is a paid software(must pay to use)"
-        },
-        {
-          "const": "Public Domain",
-          "markdownDescription": "- Use `Public Domain`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software belongs to the public domain."
-        },
-        {
-          "const": "Shareware",
-          "markdownDescription": "- Use `Shareware`, which is the [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to try, but must pay eventually."
-        }
-      ]
     },
     "license_identifier": {
       "$comment": "Add known licenses here to provide better error messages for the validator",
       "anyOf": [
         {
-          "const": "MIT",
-          "markdownDescription": "- MIT License\n- https://spdx.org/licenses/MIT.html"
+          "enum": ["MIT"],
+          "markdownEnumDescriptions": [
+            "[MIT License](https://spdx.org/licenses/MIT.html)"
+          ]
         },
         {
-          "const": "Apache-2.0",
-          "markdownDescription": "- Apache License 2.0\n- https://spdx.org/licenses/Apache-2.0.html"
+          "enum": ["Apache-2.0"],
+          "markdownEnumDescriptions": [
+            "[Apache License 2.0](https://spdx.org/licenses/Apache-2.0.html)"
+          ]
         },
         {
-          "const": "BSD-3-Clause",
-          "markdownDescription": "- BSD 3-Clause \"New\" or \"Revised\" License\n- https://spdx.org/licenses/BSD-3-Clause.html"
+          "enum": ["BSD-3-Clause"],
+          "markdownEnumDescriptions": [
+            "[BSD 3-Clause \"New\" or \"Revised\" License](https://spdx.org/licenses/BSD-3-Clause.html)"
+          ]
         },
         {
-          "const": "BSD-2-Clause",
-          "markdownDescription": "- BSD 2-Clause \"Simplified\" License\n- https://spdx.org/licenses/BSD-2-Clause.html"
+          "enum": ["BSD-2-Clause"],
+          "markdownEnumDescriptions": [
+            "[BSD 2-Clause \"Simplified\" License](https://spdx.org/licenses/BSD-2-Clause.html)"
+          ]
         },
         {
-          "const": "ISC",
-          "markdownDescription": "- ISC License\n- https://spdx.org/licenses/ISC.html"
+          "enum": ["ISC"],
+          "markdownEnumDescriptions": [
+            "[ISC License](https://spdx.org/licenses/ISC.html)"
+          ]
         },
         {
-          "const": "Unlicense",
-          "markdownDescription": "- The Unlicense\n- https://spdx.org/licenses/Unlicense.html"
+          "enum": ["Unlicense"],
+          "markdownEnumDescriptions": [
+            "[The Unlicense](https://spdx.org/licenses/Unlicense.html)"
+          ]
         },
         {
-          "const": "CC0-1.0",
-          "markdownDescription": "- Creative Commons Zero v1.0 Universal\n- https://spdx.org/licenses/CC0-1.0.html"
+          "enum": ["CC0-1.0"],
+          "markdownEnumDescriptions": [
+            "[Creative Commons Zero v1.0 Universal](https://spdx.org/licenses/CC0-1.0.html)"
+          ]
         },
         {
-          "const": "GPL-2.0-only",
-          "markdownDescription": "- GNU General Public License v2.0 only\n- https://spdx.org/licenses/GPL-2.0-only.html"
+          "enum": ["GPL-2.0-only"],
+          "markdownEnumDescriptions": [
+            "[GNU General Public License v2.0 only](https://spdx.org/licenses/GPL-2.0-only.html)"
+          ]
         },
         {
-          "const": "GPL-2.0-or-later",
-          "markdownDescription": "- GNU General Public License v2.0 or later\n- https://spdx.org/licenses/GPL-2.0-or-later.html"
+          "enum": ["GPL-2.0-or-later"],
+          "markdownEnumDescriptions": [
+            "[GNU General Public License v2.0 or later](https://spdx.org/licenses/GPL-2.0-or-later.html)"
+          ]
         },
         {
-          "const": "GPL-3.0-only",
-          "markdownDescription": "- GNU General Public License v3.0 only\n- https://spdx.org/licenses/GPL-3.0-only.html"
+          "enum": ["GPL-3.0-only"],
+          "markdownEnumDescriptions": [
+            "[GNU General Public License v3.0 only](https://spdx.org/licenses/GPL-3.0-only.html)"
+          ]
         },
         {
-          "const": "GPL-3.0-or-later",
-          "markdownDescription": "- GNU General Public License v3.0 or later\n- https://spdx.org/licenses/GPL-3.0-or-later.html"
+          "enum": ["GPL-3.0-or-later"],
+          "markdownEnumDescriptions": [
+            "[GNU General Public License v3.0 or later](https://spdx.org/licenses/GPL-3.0-or-later.html)"
+          ]
         },
         {
-          "const": "AGPL-3.0-only",
-          "markdownDescription": "- GNU Affero General Public License v3.0 only\n- https://spdx.org/licenses/AGPL-3.0-only.html"
+          "enum": ["AGPL-3.0-only"],
+          "markdownEnumDescriptions": [
+            "[GNU Affero General Public License v3.0 only](https://spdx.org/licenses/AGPL-3.0-only.html)"
+          ]
         },
         {
-          "const": "AGPL-3.0-or-later",
-          "markdownDescription": "- GNU Affero General Public License v3.0 or later\n- https://spdx.org/licenses/AGPL-3.0-or-later.html"
+          "enum": ["AGPL-3.0-or-later"],
+          "markdownEnumDescriptions": [
+            "[GNU Affero General Public License v3.0 or later](https://spdx.org/licenses/AGPL-3.0-or-later.html)"
+          ]
         },
         {
-          "const": "LGPL-2.1-only",
-          "markdownDescription": "- GNU Library General Public License v2.1 only\n- https://spdx.org/licenses/LGPL-2.1-only.html"
+          "enum": ["LGPL-2.1-only"],
+          "markdownEnumDescriptions": [
+            "[GNU Library General Public License v2.1 only](https://spdx.org/licenses/LGPL-2.1-only.html)"
+          ]
         },
         {
-          "const": "LGPL-2.1-or-later",
-          "markdownDescription": "- GNU Library General Public License v2.1 or later\n- https://spdx.org/licenses/LGPL-2.1-or-later.html"
+          "enum": ["LGPL-2.1-or-later"],
+          "markdownEnumDescriptions": [
+            "[GNU Library General Public License v2.1 or later](https://spdx.org/licenses/LGPL-2.1-or-later.html)"
+          ]
         },
         {
-          "const": "LGPL-3.0-only",
-          "markdownDescription": "- GNU Lesser General Public License v3.0 only\n- https://spdx.org/licenses/LGPL-3.0-only.html"
+          "enum": ["LGPL-3.0-only"],
+          "markdownEnumDescriptions": [
+            "[GNU Lesser General Public License v3.0 only](https://spdx.org/licenses/LGPL-3.0-only.html)"
+          ]
         },
         {
-          "const": "LGPL-3.0-or-later",
-          "markdownDescription": "- GNU Lesser General Public License v3.0 or later\n- https://spdx.org/licenses/LGPL-3.0-or-later.html"
+          "enum": ["LGPL-3.0-or-later"],
+          "markdownEnumDescriptions": [
+            "[GNU Lesser General Public License v3.0 or later](https://spdx.org/licenses/LGPL-3.0-or-later.html)"
+          ]
         },
         {
-          "const": "MPL-2.0",
-          "markdownDescription": "- Mozilla Public License 2.0\n- https://spdx.org/licenses/MPL-2.0.html"
+          "enum": ["MPL-2.0"],
+          "markdownEnumDescriptions": [
+            "[Mozilla Public License 2.0](https://spdx.org/licenses/MPL-2.0.html)"
+          ]
         },
         {
-          "const": "EPL-1.0",
-          "markdownDescription": "- Eclipse Public License 1.0\n- https://spdx.org/licenses/EPL-1.0.html"
+          "enum": ["EPL-1.0"],
+          "markdownEnumDescriptions": [
+            "[Eclipse Public License 1.0](https://spdx.org/licenses/EPL-1.0.html)"
+          ]
         },
         {
-          "const": "EPL-2.0",
-          "markdownDescription": "- Eclipse Public License 2.0\n- https://spdx.org/licenses/EPL-2.0.html"
+          "enum": ["EPL-2.0"],
+          "markdownEnumDescriptions": [
+            "[Eclipse Public License 2.0](https://spdx.org/licenses/EPL-2.0.html)"
+          ]
         },
         {
-          "const": "CDDL-1.0",
-          "markdownDescription": "- Common Development and Distribution License 1.0\n- https://spdx.org/licenses/CDDL-1.0.html"
+          "enum": ["CDDL-1.0"],
+          "markdownEnumDescriptions": [
+            "[Common Development and Distribution License 1.0](https://spdx.org/licenses/CDDL-1.0.html)"
+          ]
         },
         {
-          "const": "BSL-1.0",
-          "markdownDescription": "- Boost Software License 1.0\n- https://spdx.org/licenses/BSL-1.0.html"
+          "enum": ["BSL-1.0"],
+          "markdownEnumDescriptions": [
+            "[Boost Software License 1.0](https://spdx.org/licenses/BSL-1.0.html)"
+          ]
         },
         {
-          "const": "MS-PL",
-          "markdownDescription": "- Microsoft Public License\n- https://spdx.org/licenses/MS-PL.html"
+          "enum": ["MS-PL"],
+          "markdownEnumDescriptions": [
+            "[Microsoft Public License](https://spdx.org/licenses/MS-PL.html)"
+          ]
         },
         {
-          "const": "MS-RL",
-          "markdownDescription": "- Microsoft Reciprocal License\n- https://spdx.org/licenses/MS-RL.html"
+          "enum": ["MS-RL"],
+          "markdownEnumDescriptions": [
+            "[Microsoft Reciprocal License](https://spdx.org/licenses/MS-RL.html)"
+          ]
         },
         {
-          "const": "EUPL-1.2",
-          "markdownDescription": "- European Union Public License 1.2\n- https://spdx.org/licenses/EUPL-1.2.html"
+          "enum": ["EUPL-1.2"],
+          "markdownEnumDescriptions": [
+            "[European Union Public License 1.2](https://spdx.org/licenses/EUPL-1.2.html)"
+          ]
         },
         {
-          "const": "CC-BY-4.0",
-          "markdownDescription": "- Creative Commons Attribution 4.0 International\n- https://spdx.org/licenses/CC-BY-4.0.html"
+          "enum": ["CC-BY-4.0"],
+          "markdownEnumDescriptions": [
+            "[Creative Commons Attribution 4.0 International](https://spdx.org/licenses/CC-BY-4.0.html)"
+          ]
         },
         {
-          "const": "CC-BY-SA-4.0",
-          "markdownDescription": "- Creative Commons Attribution Share Alike 4.0 International\n- https://spdx.org/licenses/CC-BY-SA-4.0.html"
+          "enum": ["CC-BY-SA-4.0"],
+          "markdownEnumDescriptions": [
+            "[Creative Commons Attribution Share Alike 4.0 International](https://spdx.org/licenses/CC-BY-SA-4.0.html)"
+          ]
         },
         {
-          "const": "CC-BY-NC-4.0",
-          "markdownDescription": "- Creative Commons Attribution Non Commercial 4.0 International\n- https://spdx.org/licenses/CC-BY-NC-4.0.html"
+          "enum": ["CC-BY-NC-4.0"],
+          "markdownEnumDescriptions": [
+            "[Creative Commons Attribution Non Commercial 4.0 International](https://spdx.org/licenses/CC-BY-NC-4.0.html)"
+          ]
         },
         {
-          "const": "OFL-1.1",
-          "markdownDescription": "- SIL Open Font License 1.1\n- https://spdx.org/licenses/OFL-1.1.html"
+          "enum": ["OFL-1.1"],
+          "markdownEnumDescriptions": [
+            "[SIL Open Font License 1.1](https://spdx.org/licenses/OFL-1.1.html)"
+          ]
         },
         {
-          "const": "OFL-1.1-no-RFN",
-          "markdownDescription": "- SIL Open Font License 1.1 with no Reserved Font Name\n- https://spdx.org/licenses/OFL-1.1-no-RFN.html"
+          "enum": ["OFL-1.1-no-RFN"],
+          "markdownEnumDescriptions": [
+            "[SIL Open Font License 1.1 with no Reserved Font Name](https://spdx.org/licenses/OFL-1.1-no-RFN.html)"
+          ]
         },
         {
-          "const": "Artistic-2.0",
-          "markdownDescription": "- Artistic License 2.0\n- https://spdx.org/licenses/Artistic-2.0.html"
+          "enum": ["Artistic-2.0"],
+          "markdownEnumDescriptions": [
+            "[Artistic License 2.0](https://spdx.org/licenses/Artistic-2.0.html)"
+          ]
         },
         {
-          "const": "Zlib",
-          "markdownDescription": "- zlib License\n- https://spdx.org/licenses/Zlib.html"
+          "enum": ["Zlib"],
+          "markdownEnumDescriptions": [
+            "[zlib License](https://spdx.org/licenses/Zlib.html)"
+          ]
         },
         {
-          "const": "Python-2.0",
-          "markdownDescription": "- Python License 2.0\n- https://spdx.org/licenses/Python-2.0.html"
+          "enum": ["Python-2.0"],
+          "markdownEnumDescriptions": [
+            "[Python License 2.0](https://spdx.org/licenses/Python-2.0.html)"
+          ]
         },
         {
-          "const": "NCSA",
-          "markdownDescription": "- University of Illinois/NCSA Open Source License\n- https://spdx.org/licenses/NCSA.html"
+          "enum": ["NCSA"],
+          "markdownEnumDescriptions": [
+            "[University of Illinois/NCSA Open Source License](https://spdx.org/licenses/NCSA.html)"
+          ]
         },
         {
-          "const": "ICU",
-          "markdownDescription": "- ICU License\n- https://spdx.org/licenses/ICU.html"
+          "enum": ["ICU"],
+          "markdownEnumDescriptions": [
+            "[ICU License](https://spdx.org/licenses/ICU.html)"
+          ]
         },
         {
-          "const": "IPA",
-          "markdownDescription": "- IPA Font License\n- https://spdx.org/licenses/IPA.html"
+          "enum": ["IPA"],
+          "markdownEnumDescriptions": [
+            "[IPA Font License](https://spdx.org/licenses/IPA.html)"
+          ]
         },
         {
-          "const": "WTFPL",
-          "markdownDescription": "- Do What The F*ck You Want To Public License\n- https://spdx.org/licenses/WTFPL.html"
+          "enum": ["WTFPL"],
+          "markdownEnumDescriptions": [
+            "[Do What The F*ck You Want To Public License](https://spdx.org/licenses/WTFPL.html)"
+          ]
         },
         {
-          "const": "OSL-3.0",
-          "markdownDescription": "- Open Software License 3.0\n- https://spdx.org/licenses/OSL-3.0.html"
+          "enum": ["OSL-3.0"],
+          "markdownEnumDescriptions": [
+            "[Open Software License 3.0](https://spdx.org/licenses/OSL-3.0.html)"
+          ]
+        }
+      ]
+    },
+    "license_field": {
+      "anyOf": [
+        {
+          "enum": ["Unknown"],
+          "markdownDescription": [
+            "The [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the license cannot be determined."
+          ]
+        },
+        {
+          "enum": ["Freeware"],
+          "markdownDescription": [
+            "The [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to use forever."
+          ]
+        },
+        {
+          "enum": ["Proprietary"],
+          "markdownDescription": [
+            "The [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is a paid software(must pay to use)"
+          ]
+        },
+        {
+          "enum": ["Public Domain"],
+          "markdownDescription": [
+            "The [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software belongs to the public domain."
+          ]
+        },
+        {
+          "enum": ["Shareware"],
+          "markdownDescription": [
+            "The [official field defined by Scoop](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests#required-properties), to indicate that the software is free to try, but must pay eventually."
+          ]
         }
       ]
     },
@@ -261,7 +362,7 @@
     "notes": {
       "title": "Notes",
       "markdownDescription": "- The notes after installing the software.",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "url_validation": {
       "pattern": "^https?://",
@@ -391,12 +492,12 @@
     "extract_dir": {
       "title": "Extract specified directory only",
       "markdownDescription": "- If the value of the url property points to a compressed package, Scoop will extract all content by default.\n  - Compressed package types: `.zip`/`.7z`/`.tar`/`.gz`/`.lzma`/`.lzh`\n- If the `extract_dir` property is defined, Scoop will only extract the specified directory defined in `extract_dir`.",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "extract_to": {
       "title": "Extract content to specified directory",
       "markdownDescription": "- If the value of the url property points to a compressed package, Scoop will extract all content to the directory defined by `extract_to`\n  - Compressed package types: `.zip`/`.7z`/`.tar`/`.gz`/`.lzma`/`.lzh`\n- If url is an array with multiple compressed packages, `extract_to` should also be an array with the same order as url",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "env_add_path": {
       "title": "Add the specified directory to the PATH environment variable",
@@ -617,7 +718,7 @@
     "pre_install": {
       "title": "Pre-install script",
       "markdownDescription": "- Commands to be executed before installing the application\n- Execution order: `pre_install` -> `installer` -> `post_install`\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (actual version number directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "installer": {
       "title": "Installer configuration",
@@ -633,7 +734,7 @@
         },
         "script": {
           "markdownDescription": "Execute as an installer instead of a file\n- Available variables in the script:\n    - $fname: downloaded file(s) (may be an array; treat as array unless you are sure url is not an array)\n    - $manifest: validated manifest reference\n    - $architecture: 64bit/32bit/arm64\n    - $dir: installation directory",
-          "$ref": "#/definitions/string_or_string_array"
+          "$ref": "#/definitions/str_or_arr"
         },
         "args": {
           "type": "array",
@@ -652,12 +753,12 @@
     "post_install": {
       "title": "Post-install script",
       "markdownDescription": "- Commands executed after the application is installed\n- Execution order: `pre_install` -> `installer` -> `post_install`\n- Note: At this point, Scoop has already completed persist, so if you need to create files for persist, do it before this (in `pre_install`)\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (current directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "pre_uninstall": {
       "title": "Pre-uninstall script",
       "markdownDescription": "- Execute commands before uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (actual version number directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "uninstaller": {
       "title": "Uninstaller configuration",
@@ -673,7 +774,7 @@
         },
         "script": {
           "markdownDescription": "Execute as an uninstaller rather than a file\n- Variables available in the script: \n    - $fname: downloaded file (there may be multiple files, which need to be handled as an array unless you are sure the url is not an array)\n    - $manifest: verified manifest reference\n    - $architecture: 64bit/32bit/arm64\n    - $dir: installation directory",
-          "$ref": "#/definitions/string_or_string_array"
+          "$ref": "#/definitions/str_or_arr"
         },
         "args": {
           "type": "array",
@@ -688,7 +789,7 @@
     "post_uninstall": {
       "title": "Post-uninstall script",
       "markdownDescription": "- Used to execute commands after uninstalling the application\n- Execution order: `pre_uninstall` -> `uninstaller` -> `post_uninstall`\n\n|Variables|Description|\n|:-:|-|\n|`$app`|Application name (manifest name)|\n|`$architecture`|CPU architecture of the installed application, e.g. 64bit/32bit/arm64|\n|`$cmd`|Current running subcommand, e.g. uninstall/update/install|\n|`$fname`|Downloaded file name (may be multiple files, treat as array unless you are sure url is not an array)|\n|`$scoopConfig`|Scoop configuration (PowerShell object), e.g. {SCOOP_BRANCH, SCOOP_REPO}|\n|`$global`|If value is $true, then it's a global installation|\n|`$manifest`|Deserialized manifest (PowerShell object), e.g. @{version=1.2.3; description=xxx;...}|\n|`$version`|Version being installed, e.g. 1.2.3|\n|`$dir`|Application installation directory (current directory)|\n|`$persist_dir`|Data persistence directory|\n|`$bucketsdir`|Scoop buckets directory, e.g. D:\\scoop\\buckets|\n|`$bucket`|Name of the bucket to which the currently installed application belongs|\n|`$cachedir`|Scoop cache directory|\n|`$configFile`|Path to Scoop configuration|\n|`$globaldir`|Global installation directory|\n|`$original_dir`|Application installation directory (actual version number directory)|\n|`$scoopdir`|Scoop installation directory",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "checkver": {
       "title": "Version check configuration",
@@ -751,8 +852,10 @@
               "anyOf": [
                 {},
                 {
-                  "const": "${1}.${2}.${3}.${4}${5}${6}",
-                  "markdownDescription": "Replace the matched value with `${1}.${2}.${3}.${4}${5}${6}`, where `${1}` represents the first match group, `${2}` represents the second match group, and so on."
+                  "enum": ["${1}.${2}.${3}.${4}${5}${6}"],
+                  "markdownEnumDescriptions": [
+                    "Replace the matched value, where `${1}` represents the first match group, `${2}` represents the second match group, and so on."
+                  ]
                 }
               ]
             },
@@ -762,7 +865,7 @@
             },
             "script": {
               "markdownDescription": "PowerShell script to track multiple links",
-              "$ref": "#/definitions/string_or_string_array"
+              "$ref": "#/definitions/str_or_arr"
             },
             "sourceforge": {
               "markdownDescription": "SourceForge project version check configuration",
@@ -776,8 +879,10 @@
           "anyOf": [
             {},
             {
-              "const": "github",
-              "markdownDescription": "If the homepage is a GitHub repository homepage, you can use the \"github\" string as the checkver configuration"
+              "enum": ["github"],
+              "markdownEnumDescriptions": [
+                "If the homepage is a GitHub repository homepage, you can use the \"github\" string as the checkver configuration"
+              ]
             }
           ]
         }
@@ -816,40 +921,52 @@
           "title": "Hash retrieval mode",
           "oneOf": [
             {
-              "const": "github",
-              "markdownDescription": "- Get the hash generated by GitHub automatically, for more details, please refer to [GitHub blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
+              "enum": ["github"],
+              "markdownEnumDescriptions": [
+                "Get the hash generated by GitHub automatically, for more details, please refer to [GitHub blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
+              ]
             },
             {
-              "const": "extract",
-              "markdownDescription": "- Extract the hash from a plain text file or web page using RegEx (default, can be omitted)"
+              "enum": ["extract"],
+              "markdownEnumDescriptions": [
+                "Extract the hash from a plain text file or web page using RegEx (default, can be omitted)"
+              ]
             },
             {
-              "const": "json",
-              "markdownDescription": "- Extract the hash from a JSON file using JSONPath"
+              "enum": ["json"],
+              "markdownEnumDescriptions": [
+                "Extract the hash from a JSON file using JSONPath"
+              ]
             },
             {
-              "const": "xpath",
-              "markdownDescription": "- Extract the hash from an XML file using XPath"
+              "enum": ["xpath"],
+              "markdownEnumDescriptions": [
+                "Extract the hash from an XML file using XPath"
+              ]
             },
             {
-              "const": "rdf",
-              "markdownDescription": "- Extract the hash from an RDF file"
+              "enum": ["rdf"],
+              "markdownEnumDescriptions": ["Extract the hash from an RDF file"]
             },
             {
-              "const": "metalink",
-              "markdownDescription": "- Extract the hash from a Metalink header file or .meta4 file"
+              "enum": ["metalink"],
+              "markdownEnumDescriptions": [
+                "Extract the hash from a Metalink header file or .meta4 file"
+              ]
             },
             {
-              "const": "fosshub",
-              "markdownDescription": "- Predefined for FossHub"
+              "enum": ["fosshub"],
+              "markdownEnumDescriptions": ["Predefined for FossHub"]
             },
             {
-              "const": "sourceforge",
-              "markdownDescription": "- Predefined for SourceForge"
+              "enum": ["sourceforge"],
+              "markdownEnumDescriptions": ["Predefined for SourceForge"]
             },
             {
-              "const": "download",
-              "markdownDescription": "- Download the application file and hash it locally (fallback)"
+              "enum": ["download"],
+              "markdownEnumDescriptions": [
+                "Download the application file and hash it locally (fallback)"
+              ]
             }
           ]
         },
@@ -957,7 +1074,7 @@
     "##": {
       "title": "Comment",
       "markdownDescription": "- Comment for readers or maintainers of this manifest.",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "version": {
       "title": "Version",
@@ -967,20 +1084,19 @@
       "anyOf": [
         {},
         {
-          "const": "0.0.0",
-          "markdownDescription": "- Current version is 0.0.0"
+          "enum": ["0.0.0"],
+          "markdownEnumDescriptions": ["Use 0.0.0 version"]
         },
         {
-          "const": "nightly",
-          "markdownDescription": "- Current version is nightly"
+          "enum": ["nightly"],
+          "markdownEnumDescriptions": ["Use nightly version"]
         }
       ]
     },
     "description": {
       "title": "App Description",
       "markdownDescription": "- A brief description of the software.",
-      "type": "string",
-      "minLength": 1
+      "$ref": "#/definitions/str"
     },
     "homepage": {
       "title": "Homepage",
@@ -1008,7 +1124,7 @@
     "depends": {
       "title": "Dependencies",
       "markdownDescription": "- Dependencies of the app\n- Missing dependencies will be automatically installed before the app is installed\n- If a dependency is optional, please use the `suggest` property",
-      "$ref": "#/definitions/string_or_string_array"
+      "$ref": "#/definitions/str_or_arr"
     },
     "suggest": {
       "title": "Suggested Dependencies",
@@ -1021,7 +1137,7 @@
         "patternProperties": {
           "^.+$": {
             "markdownDescription": "- If any of the suggested dependencies are already installed, the feature will be considered as **implemented**, and the user will not see any suggestions\n- If it is an array, it means that if any of the dependencies in the array are installed, the feature will be considered as **implemented**",
-            "$ref": "#/definitions/string_or_string_array"
+            "$ref": "#/definitions/str_or_arr"
           }
         },
         "minProperties": 1,
