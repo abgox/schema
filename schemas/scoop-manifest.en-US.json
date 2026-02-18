@@ -35,7 +35,17 @@
         "minLength": 1
       },
       "minLength": 1,
-      "minItems": 1
+      "minItems": 1,
+      "if": {
+        "type": "array",
+        "minItems": 1
+      },
+      "then": {
+        "not": {
+          "maxItems": 1
+        },
+        "errorMessage": "When the array has only one item, it should be a string"
+      }
     },
     "license_identifier": {
       "$comment": "Add known licenses here to provide better error messages for the validator",

@@ -35,7 +35,17 @@
         "minLength": 1
       },
       "minLength": 1,
-      "minItems": 1
+      "minItems": 1,
+      "if": {
+        "type": "array",
+        "minItems": 1
+      },
+      "then": {
+        "not": {
+          "maxItems": 1
+        },
+        "errorMessage": "当数组只有一项时，应该使用字符串"
+      }
     },
     "license_identifier": {
       "$comment": "在此处添加已知的许可证，以便验证器可以提供更好的错误信息",
