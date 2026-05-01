@@ -1794,8 +1794,7 @@
             "additionalProperties": false
         },
         "bin": {
-            "title": "Program (executable or script) string or string array",
-            "markdownDescription": "- A string or array of strings representing programs (executables or scripts) to be made available on the user's PATH\n- If the program file is a GUI application and it doesn't accept any commandline arguments, no need to add it in `bin`\n- Example 1: Scoop will create a shim named `a`, so you can run a.exe by typing `a`\n```json\n  \"bin\": \"a.exe\"\n  ```\n- Example 2: Same as Example 1, but Scoop creates two shims: `a` and `b`\n```json\n  \"bin\": [\"a.exe\", \"b.exe\"]\n  ```\n- Example 3: Same as Example 2, but the shims are named `ax` and `bx`\n```json\n  \"bin\": [\n    [\"a.exe\", \"ax\"], \n    [\"b.exe\", \"bx\"]\n  ]\n  ```\n- Example 4: Same as Example 3, but running the shims will automatically pass `--config $dir/config.json`\n```json\n  \"bin\": [\n    [\"a.exe\", \"ax\", \"--config $dir/config.json\"], \n    [\"b.exe\", \"bx\", \"--config $dir/config.json\"]\n  ]\n  ```",
+            "markdownDescription": "Program (executable or script) string or string array\n\n- A string or array of strings representing programs (executables or scripts) to be made available on the user's PATH\n- If the program file is a GUI application and it doesn't accept any commandline arguments, no need to add it in `bin`\n\n### Example\n\n1. Scoop will create a shim named `a`, so you can run a.exe by typing `a`\n\n   ```json\n   \"bin\": \"a.exe\"\n   ```\n\n2. Same as 1, but Scoop creates two shims: `a` and `b`\n\n   ```json\n   \"bin\": [\n       \"a.exe\",\n       \"b.exe\"\n   ]\n   ```\n\n3. Same as 2, but the shims are named `ax` and `bx`\n\n   ```json\n   \"bin\": [\n       [\n           \"a.exe\",\n           \"ax\"\n       ],\n       [\n           \"b.exe\",\n           \"bx\"\n       ]\n   ]\n   ```\n\n4. Same as 3, but running the shims will automatically pass `--config $dir/config.json`\n\n```json\n    \"bin\": [\n        [\n            \"a.exe\",\n            \"ax\",\n            \"--config $dir/config.json\"\n        ],\n        [\n            \"b.exe\",\n            \"bx\",\n            \"--config $dir/config.json\"\n        ]\n    ]\n```",
             "type": [
                 "string",
                 "array"
@@ -1912,8 +1911,7 @@
             "uniqueItems": true
         },
         "persist": {
-            "title": "Persisted data",
-            "markdownDescription": "- Scoop will persist the specified directories and files.\n- Note: Scoop creates directory junctions by default; if you need file-level linking, create the file first in your install script.\n- Example 1: Directory junction: `$dir\\data` => `$persist_dir\\data`\n```json\n  \"persist\": \"data\"\n  ```\n- Example 2: Same as Ex.1 but multiple items\n```json\n  \"persist\": [\"data\", \"config.json\"]\n  ```\n- Example 3: Same as Ex.2 but with custom target names\n```json\n  \"persist\": [\n    [\"app\\\\data\", \"userData\"], \n    [\"app\\\\config.json\", \"config.json\"]\n  ]\n  ```",
+            "markdownDescription": "[Persisted data](https://github.com/ScoopInstaller/Scoop/wiki/Persistent-data)\n\n- Scoop will persist the specified directories and files.\n\n### Note\n\n- Scoop creates directory junctions by default.\n- If you need file-level linking, create the file first in your install script.\n\n### Example\n\n1. Directory junction: `$dir\\data` => `$persist_dir\\data`\n\n   ```json\n   \"persist\": \"data\"\n   ```\n\n2.Same as 1 but multiple items\n\n    ```json\n    \"persist\": [\n        \"data\",\n        \"config.json\"\n    ]\n    ```\n\n3. Same as 2 but with custom target names\n\n   ```json\n   \"persist\": [\n       [\n           \"app\\\\data\",\n           \"userData\"\n       ],\n       [\n           \"app\\\\config.json\",\n           \"config.json\"\n       ]\n   ]\n   ```",
             "type": [
                 "string",
                 "array"
@@ -2098,11 +2096,11 @@
                             }
                         },
                         "re": {
-                            "markdownDescription": "re is an alias for regex\n- RegEx to find the version on the homepage",
+                            "markdownDescription": "RegEx to find the version on the homepage\n\n### Example\n\n- By default, the content of the first capturing group is stored in `$version`.\n\n  ```json\n  \"regex\": \"(.+)\"\n  ```\n\n- Limit the version number format to numbers and periods.\n\n  ```json\n  \"regex\": \"([\\\\d.]+)\"\n  ```\n\n- Use named capturing groups to store the version number in `$version`.\n\n  ```json\n  \"regex\": \"(?<version>[\\\\d.]+)\"\n  ```\n\n- Strictly match the beginning and end of the version number.\n\n  ```json\n  \"regex\": \"^(?<version>[\\\\d.]+)$\"\n  ```",
                             "$ref": "#/definitions/str"
                         },
                         "regex": {
-                            "markdownDescription": "RegEx to find the version on the homepage",
+                            "markdownDescription": "RegEx to find the version on the homepage\n\n### Example\n\n- By default, the content of the first capturing group is stored in `$version`.\n\n  ```json\n  \"regex\": \"(.+)\"\n  ```\n\n- Limit the version number format to numbers and periods.\n\n  ```json\n  \"regex\": \"([\\\\d.]+)\"\n  ```\n\n- Use named capturing groups to store the version number in `$version`.\n\n  ```json\n  \"regex\": \"(?<version>[\\\\d.]+)\"\n  ```\n\n- Strictly match the beginning and end of the version number.\n\n  ```json\n  \"regex\": \"^(?<version>[\\\\d.]+)$\"\n  ```",
                             "$ref": "#/definitions/str",
                             "examples": [
                                 "(.+)",
@@ -2111,11 +2109,11 @@
                             ]
                         },
                         "jsonpath": {
-                            "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
+                            "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n\n### Example\n\n- Extract the value of `version`\n\n  ```json\n  \"jsonpath\": \"$.version\"\n  ```\n\n- Extract the value of `productVersion` or `version`\n\n  ```json\n  \"jsonpath\": \"$...[?(@.productVersion || @.version)]\"\n  ```\n\n- Extract `updated_at` from the field in `assets` where `name` is `xxx`\n\n  ```json\n  \"jsonpath\": \"$.assets[?(@.name == 'xxx')].updated_at\"\n  ```\n\n- Extract the values of these two fields and form an array. Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`\n\n  ```json\n  \"jsonpath\": \"$..['productVersion','version']\"\n  ```",
                             "$ref": "#/definitions/str"
                         },
                         "jp": {
-                            "markdownDescription": "jp is an alias for jsonpath\n- Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
+                            "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n\n### Example\n\n- Extract the value of `version`\n\n  ```json\n  \"jsonpath\": \"$.version\"\n  ```\n\n- Extract the value of `productVersion` or `version`\n\n  ```json\n  \"jsonpath\": \"$...[?(@.productVersion || @.version)]\"\n  ```\n\n- Extract `updated_at` from the field in `assets` where `name` is `xxx`\n\n  ```json\n  \"jsonpath\": \"$.assets[?(@.name == 'xxx')].updated_at\"\n  ```\n\n- Extract the values of these two fields and form an array. Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`\n\n  ```json\n  \"jsonpath\": \"$..['productVersion','version']\"\n  ```",
                             "$ref": "#/definitions/str"
                         },
                         "xpath": {
@@ -2285,11 +2283,11 @@
                     ]
                 },
                 "jp": {
-                    "markdownDescription": "JSONPath expression to extract the hash (Alias: jsonpath)\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
+                    "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n\n### Example\n\n- Extract the value of `version`\n\n  ```json\n  \"jsonpath\": \"$.version\"\n  ```\n\n- Extract the value of `productVersion` or `version`\n\n  ```json\n  \"jsonpath\": \"$...[?(@.productVersion || @.version)]\"\n  ```\n\n- Extract `updated_at` from the field in `assets` where `name` is `xxx`\n\n  ```json\n  \"jsonpath\": \"$.assets[?(@.name == 'xxx')].updated_at\"\n  ```\n\n- Extract the values of these two fields and form an array. Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`\n\n  ```json\n  \"jsonpath\": \"$..['productVersion','version']\"\n  ```",
                     "$ref": "#/definitions/str"
                 },
                 "jsonpath": {
-                    "markdownDescription": "JSONPath expression to extract the hash (Alias: jp)\n- Usage:\n    - `\"$.version\"`: Extract the value of `version`\n    - `\"$..[?(@.productVersion || @.version)]\"`: Extract the value of `productVersion` or `version`\n    - `\"$.assets[?(@.name == 'xxx')].updated_at\"`: Extract `updated_at` from the field in `assets` where `name` is `xxx`\n    - `\"$..['productVersion','version']\"`:\n      - Extract the values of these two fields and form an array.\n      - Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`",
+                    "markdownDescription": "Use a JSON endpoint with a JSONPath expression to retrieve the version, you can use dot notation or bracket notation.\n\n### Example\n\n- Extract the value of `version`\n\n  ```json\n  \"jsonpath\": \"$.version\"\n  ```\n\n- Extract the value of `productVersion` or `version`\n\n  ```json\n  \"jsonpath\": \"$...[?(@.productVersion || @.version)]\"\n  ```\n\n- Extract `updated_at` from the field in `assets` where `name` is `xxx`\n\n  ```json\n  \"jsonpath\": \"$.assets[?(@.name == 'xxx')].updated_at\"\n  ```\n\n- Extract the values of these two fields and form an array. Like: `\"[\"1.2.3\",\"1.2.3-rc\"]\"`\n\n  ```json\n  \"jsonpath\": \"$..['productVersion','version']\"\n  ```",
                     "$ref": "#/definitions/str"
                 },
                 "xpath": {
