@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-docs:
+    runs-on: windows-latest
+    steps:
+      - name: Update Docs
+        shell: pwsh
+        run: |
+          git clone --depth 1 https://${{ secrets.PAT_TOKEN }}@github.com/abgox/schema-docs.git schema-docs
+          cd schema-docs
+          .\scripts\update.ps1
