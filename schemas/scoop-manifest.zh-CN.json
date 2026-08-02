@@ -2213,7 +2213,7 @@
                 "github"
               ],
               "markdownEnumDescriptions": [
-                "获取 Github 自动生成的 hash，详情查看 [Github blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
+                "获取 GitHub 自动生成的 hash，详情查看 [GitHub blog](https://github.blog/changelog/2025-06-03-releases-now-expose-digests-for-release-assets/)"
               ]
             },
             {
@@ -2546,7 +2546,7 @@
     },
     "autoupdate": {
       "title": "自动更新",
-      "markdownDescription": "- 它将通过 [Github Actions](https://github.com/ScoopInstaller/GithubActions) 去自动更新清单\n - Scoop 允许使用 `scoop install AppName@1.2.3` 安装特定版本\n - 但前提是，清单文件中 `autoupdate` 的所有 `url` 只能包含以下 [版本变量](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifest-Autoupdate#version-variables)\n  - `$version`: `3.7.1.2-rc.1`\n    - `$majorVersion`: `3`\n    - `$minorVersion`: `7`\n    - `$patchVersion`: `1`\n    - `$buildVersion`: `2`\n    - `$preReleaseVersion`: `rc.1`\n  - `$dotVersion`: `3.7.1.2.rc.1`\n  - `$dashVersion`: `3-7-1-2-rc-1`\n  - `$underscoreVersion`: `3_7_1_2_rc_1`\n  - `$cleanVersion`: `3712rc1`\n  - `$matchHead`: `3.7.1`\n  - `$matchTail`: `.2-rc.1`",
+      "markdownDescription": "- 它将通过 [GitHub Actions](https://github.com/ScoopInstaller/GithubActions) 去自动更新清单\n - Scoop 允许使用 `scoop install AppName@1.2.3` 安装特定版本\n - 但前提是，清单文件中 `autoupdate` 的所有 `url` 只能包含以下 [版本变量](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifest-Autoupdate#version-variables)\n  - `$version`: `3.7.1.2-rc.1`\n    - `$majorVersion`: `3`\n    - `$minorVersion`: `7`\n    - `$patchVersion`: `1`\n    - `$buildVersion`: `2`\n    - `$preReleaseVersion`: `rc.1`\n  - `$dotVersion`: `3.7.1.2.rc.1`\n  - `$dashVersion`: `3-7-1-2-rc-1`\n  - `$underscoreVersion`: `3_7_1_2_rc_1`\n  - `$cleanVersion`: `3712rc1`\n  - `$matchHead`: `3.7.1`\n  - `$matchTail`: `.2-rc.1`",
       "type": "object",
       "minProperties": 1,
       "examples": [
@@ -2758,7 +2758,7 @@
                         "not": {
                           "const": "github"
                         },
-                        "errorMessage": "url 不是标准的 Github Releases"
+                        "errorMessage": "url 不是标准的 GitHub Releases"
                       }
                     }
                   }

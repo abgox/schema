@@ -13,11 +13,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSave": true,
-  "editor.insertSpaces": true,
-  "filename-lint.enabled": true,
-  "filename-lint.excludePatterns": [
-    "**/schemas/*.json",
-    "readme.*.md",
-    "schema-list.*.md"
-  ]
+  "editor.insertSpaces": true
 }

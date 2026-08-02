@@ -1,3 +1,5 @@
 {
-  "recommendations": ["abgox.filename-lint", "esbenp.prettier-vscode"]
+  "recommendations": [
+    "esbenp.prettier-vscode"
+  ]
 }

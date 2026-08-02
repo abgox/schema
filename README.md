@@ -1,23 +1,19 @@
 <p align="center">
-    <h1 align="center">✨<a href="https://schema.abgox.com">schema</a> ✨</h1>
+    <h1 align="center">✨<a href="https://schema.abgox.com">schema</a>✨</h1>
 </p>
 
 <p align="center">
-    <a href="readme.zh-CN.md">简体中文</a> |
-    <a href="readme.md">English</a> |
-    <a href="https://github.com/abgox/schema">Github</a> |
+    <a href="README.zh-CN.md">简体中文</a> |
+    <a href="https://github.com/abgox/schema">GitHub</a> |
     <a href="https://gitee.com/abgox/schema">Gitee</a>
 </p>
 
 <p align="center">
-    <a href="https://github.com/abgox/schema/blob/main/license">
+    <a href="https://github.com/abgox/schema/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/abgox/schema" alt="license" />
     </a>
-    <a href="https://github.com/abgox/schema">
-        <img src="https://img.shields.io/github/languages/code-size/abgox/schema" alt="code size" />
-    </a>
-    <a href="https://github.com/abgox/schema">
-        <img src="https://img.shields.io/github/repo-size/abgox/schema" alt="repo size" />
+    <a href="https://schema.abgox.com/schemas">
+        <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fschema.abgox.com%2Fschemas.json&query=%24.count&label=schemas" alt="schemas" />
     </a>
     <a href="https://github.com/abgox/schema">
         <img src="https://img.shields.io/github/created-at/abgox/schema" alt="created" />
@@ -27,7 +23,7 @@
 ---
 
 <p align="center">
-  <strong>Star ⭐️ or <a href="https://abgox.com/donate">Donate 💰</a> if you like it!</strong>
+  <strong>Star ⭐️ or <a href="https://me.abgox.com/donate">Donate 💰</a> if you like it!</strong>
 </p>
 
 ## Introduce
@@ -36,7 +32,7 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
 
 ## How to use
 
-> [!Tip]
+> [!TIP]
 >
 > Take [scoop-manifest.en-US.json](./schemas/scoop-manifest.en-US.json) as an example.
 
@@ -47,7 +43,6 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
   ```
 
 - Define in the [settings.json](https://code.visualstudio.com/docs/configure/settings) of vscode.
-
   - Install the [json-schema-plus](https://json-schema-plus.abgox.com) extension, it provides multilingual dynamic schema matching for JSON Schema.
   - Configure `json-schema-plus.schemas`.
 
@@ -89,11 +84,6 @@ Some JSON Schema with better json prompts, validation, and multilingual support.
 
 - JetBrains IDE: `Settings` => `Languages & Frameworks` => `Schemas and DTDS`=>`JSON Schema Mappings`
 
-## Schema List
+## License
 
-> [!Tip]
->
-> Check on the official website: https://schema.abgox.com/schema-list
-
-- [English](./schema-list.md)
-- [简体中文](./schema-list.zh-CN.md)
+[MIT](./LICENSE) © [abgox](https://me.abgox.com)
